@@ -11,6 +11,5 @@ namespace Unit
         {
             return new SimpleStateBehaviour(this);
         }
-
     }
 }

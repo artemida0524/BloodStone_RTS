@@ -2,27 +2,33 @@ using UnityEngine;
 using Entity;
 using UnityEngine.AI;
 using State;
-using System;
-using UnityEditor.Search;
+using Data;
+using Faction;
 
 namespace Unit
 {
+
     [SelectionBase, RequireComponent(typeof(NavMeshAgent))]
-    public abstract class UnitBase : EntityBase, IUnit, IMovable
+    public abstract class UnitBase : EntityBase, IUnit, IMovable, ISelectable
     {
-        [SerializeField] protected StateInteractable stateInteractable;
-        [SerializeField] private GameObject target;
-        [SerializeField] private LayerMask layerMask;
+
+        [field: SerializeField] public override Renderer Renderer { get; protected set; }
+
+        [SerializeField] protected InteractableUnits stateInteractable;
+
+        [Space]
+
+        [SerializeField] protected GameObject objectSelect;
 
         public NavMeshAgent Agent { get; private set; }
         public Animator Animator { get; private set; }
         public bool CanMove { get; protected set; } = true;
+        public bool IsSelection { get; protected set; } = false;
+        public bool CanSelected { get; protected set; } = true;
 
         protected void Awake()
         {
             Initialization();
-
-            //InitializeState(stateInteractable.Behaviour);
 
             stateInteractable.Behaviour = InitializeState();
         }
@@ -32,21 +38,24 @@ namespace Unit
 
             stateInteractable.UpdateState();
 
-            if (Input.GetMouseButton(0))
-            {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            //if (Input.GetMouseButton(0))
+            //{
+            //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-                if (Physics.Raycast(ray, out RaycastHit hitInfo, 1000f, layerMask))
-                {
-                    MoveTo(hitInfo.point);
-
-                    target.transform.position = hitInfo.point;
-                }
-            }
+            //    if (Physics.Raycast(ray, out RaycastHit hitInfo, 1000f, layerMask))
+            //    {
+            //        MoveTo(hitInfo.point);
+            //    }
+            //}
         }
 
-
         protected abstract StateBehaviourBase InitializeState();
+
+        public override void Initialization(FactionType type, EntityCollectionData collectionData)
+        {
+            FactionType = type;
+            collectionData.SetUnit(this);
+        }
 
         protected virtual void Initialization()
         {
@@ -56,7 +65,32 @@ namespace Unit
 
         public virtual void MoveTo(Vector3 point)
         {
-            stateInteractable.SetState(new WalkingState(this, point));
+            if (CanMove)
+            {
+                stateInteractable.SetState(new WalkingState(this, point));
+            }
+        }
+
+        public virtual bool Select()
+        {
+            if (CanSelected)
+            {
+                IsSelection = true;
+                objectSelect.SetActive(true);
+                return true;
+            }
+            return false;
+        }
+
+        public virtual void Unselect()
+        {
+            IsSelection = false;
+            objectSelect.SetActive(false);
+        }
+
+        public Vector2 GetScreenPosition()
+        {
+            return Camera.main.WorldToScreenPoint(transform.position);
         }
     }
 }

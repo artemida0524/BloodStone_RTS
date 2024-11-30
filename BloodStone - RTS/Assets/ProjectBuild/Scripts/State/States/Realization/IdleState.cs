@@ -14,14 +14,14 @@ namespace State
         public override void Enter()
         {
             unit.Animator.Play(AnimationStateNames.IDLE);
-            Debug.Log("Enter idle state");
+
         }
 
 
-        public override void Exit()
-        {
-            Debug.Log("Exit idle state");
-        }
+        //public override void Exit()
+        //{
+        //    Debug.Log("Exit idle state");
+        //}
 
     }
 

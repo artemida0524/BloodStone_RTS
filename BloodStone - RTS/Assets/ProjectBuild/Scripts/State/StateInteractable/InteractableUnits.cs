@@ -3,7 +3,7 @@ using UnityEngine;
 namespace State
 {
     [RequireComponent(typeof(CapsuleCollider))]
-	public class StateInteractable : MonoBehaviour
+	public class InteractableUnits : MonoBehaviour
 	{
         public StateBehaviourBase Behaviour { get; set; }
 
@@ -25,9 +25,6 @@ namespace State
             Behaviour.SetState(state);
 
         }
-
-
-
 
         public void UpdateState()
         {

@@ -21,16 +21,16 @@ namespace State
         {
             unit.Animator.Play(AnimationStateNames.WALKING);
 
-            Debug.Log("Enter Walking state");
+            
         }
 
         public override void Update()
         {
-            Debug.Log("Update Walking state");
 
             unit.Agent.SetDestination(point);
             if ((point - unit.gameObject.transform.position).sqrMagnitude < 0.05f)
             {
+                unit.Agent.ResetPath();
                 IsFinished = true;
             }
         }
