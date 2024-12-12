@@ -6,8 +6,6 @@ using Unit;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-
-
 namespace Select
 {
     public class SelectableHandler : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
@@ -30,7 +28,10 @@ namespace Select
             // must be changed
             foreach (var item in faction.Units)
             {
-                item.Initialization(faction.FactionType, faction.CollectionData);
+                if (item.gameObject.activeSelf)
+                {
+                    item.Initialization(faction.FactionType, faction.CollectionData);
+                }
             }
         }
 
@@ -46,7 +47,13 @@ namespace Select
                 {
                     if (hitInfo.collider.TryGetComponent(out UnitBase unit))
                     {
-                        ToggleUnitSelection(unit);
+
+                        if (unit.FactionType == faction.FactionType)
+                        {
+                            ToggleUnitSelection(unit);
+                        }
+
+
                     }
                     else
                     {
@@ -99,15 +106,17 @@ namespace Select
                 {
                     if (rect.Contains(GetScreenPoint(item)))
                     {
-                        if (item.Select())
+                        if (item.FactionType == faction.FactionType)
                         {
-                            selectedUnits.Add(item);
+                            if (item.Select())
+                            {
+                                selectedUnits.Add(item);
+                            }
                         }
                     }
                 }
             }
         }
-
 
         public void OnEndDrag(PointerEventData eventData)
         {
@@ -132,7 +141,6 @@ namespace Select
                 item.Unselect();
             }
         }
-
 
         private void Unselect()
         {

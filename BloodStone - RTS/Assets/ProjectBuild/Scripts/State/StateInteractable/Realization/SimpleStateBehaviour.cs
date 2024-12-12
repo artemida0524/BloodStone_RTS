@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace State
 {
+
     public class SimpleStateBehaviour : StateBehaviourBase
     {
         private readonly SimpleUnitBase unit;
@@ -10,13 +11,11 @@ namespace State
         public SimpleStateBehaviour(SimpleUnitBase unit)
         {
             this.unit = unit;
-
             base.StateMachine = new StateMachine(new IdleState(unit));
         }
 
         public override void Interaction(Collider collision)
         {
-            Debug.LogWarning("Detect");
         }
 
         public override void SetState(StateBase state)

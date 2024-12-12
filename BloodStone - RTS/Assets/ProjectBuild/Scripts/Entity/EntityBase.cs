@@ -1,6 +1,7 @@
 using Data;
 using Faction;
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
 
 
@@ -8,7 +9,7 @@ namespace Entity
 {
     public abstract class EntityBase : MonoBehaviour
     {
-        public abstract Renderer Renderer { get; protected set; } 
+        public abstract Renderer BodyRenderer { get; protected set; } 
         [field: SerializeField] public FactionType FactionType { get; protected set; } = FactionType.Team0;
         protected int HP { get; set; }
         
@@ -22,5 +23,4 @@ namespace Entity
 
         public abstract void Initialization(FactionType type, EntityCollectionData collectionData);
     }
-
 }

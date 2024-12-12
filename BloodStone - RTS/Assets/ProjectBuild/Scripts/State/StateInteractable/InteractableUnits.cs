@@ -6,10 +6,16 @@ namespace State
 	public class InteractableUnits : MonoBehaviour
 	{
         public StateBehaviourBase Behaviour { get; set; }
+        [field: SerializeField] public float radius { get; private set; } = 5f;
 
         private void OnTriggerEnter(Collider other)
         {
             Behaviour.Interaction(other);
+        }
+
+        private void OnValidate()
+        {
+            GetComponent<CapsuleCollider>().radius = radius;
         }
 
         private void Update()
@@ -23,7 +29,6 @@ namespace State
         public void SetState(StateBase state)
         {
             Behaviour.SetState(state);
-
         }
 
         public void UpdateState()

@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace State
 {
+
     public class IdleState : StateBase
     {
         private readonly UnitBase unit;
@@ -13,7 +14,7 @@ namespace State
 
         public override void Enter()
         {
-            unit.Animator.Play(AnimationStateNames.IDLE);
+            unit.Animator.Play(unit.IdleAnimation);
 
         }
 
