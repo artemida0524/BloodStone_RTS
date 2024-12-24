@@ -645,6 +645,7 @@ GameObject:
   - component: {fileID: 4744782282445872225}
   - component: {fileID: 1462214228354834202}
   - component: {fileID: 8435683056205260828}
+  - component: {fileID: 487589541590830845}
   m_Layer: 0
   m_Name: SimpleAttackingUnit
   m_TagString: Untagged
@@ -783,8 +784,21 @@ MonoBehaviour:
   objectSelect: {fileID: 8600123103346867634}
   <LeftTargetWeapon>k__BackingField: {fileID: 4471172190705330145}
   <RightTargetWeapon>k__BackingField: {fileID: 6082267600518675560}
-  <Weapon>k__BackingField: {fileID: 6467472800866572565, guid: dc4210a3491ba9d4a8ce513136df78e2, type: 3}
+  <Weapon>k__BackingField: {fileID: 7099050418635697112, guid: 0808fc3af1c81b14cab77f038c6f83d4, type: 3}
   <Melle>k__BackingField: {fileID: 7180483273294464134, guid: e14c9976bd76c6543ae6798321a8620f, type: 3}
+  <AnimationEventHandler>k__BackingField: {fileID: 487589541590830845}
+--- !u!114 &487589541590830845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2942237860360911256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fcd7c7a9df141943bab507d21034fff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3130875864714978122
 GameObject:
   m_ObjectHideFlags: 0

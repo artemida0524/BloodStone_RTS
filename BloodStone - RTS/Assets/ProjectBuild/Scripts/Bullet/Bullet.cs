@@ -1,15 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unit;
+using Entity;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out UnitBase unit))
+        if (other.TryGetComponent(out EntityBase entity))
         {
-            Debug.Log(other.name);
+            Debug.Log(entity.name);
         }
     }
 }

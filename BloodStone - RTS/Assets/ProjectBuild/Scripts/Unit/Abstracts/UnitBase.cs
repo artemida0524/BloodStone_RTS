@@ -2,8 +2,6 @@ using UnityEngine;
 using Entity;
 using UnityEngine.AI;
 using State;
-using Data;
-using Faction;
 
 namespace Unit
 {
@@ -13,6 +11,8 @@ namespace Unit
     {
 
         [field: SerializeField] public override Renderer BodyRenderer { get; protected set; }
+        public override Vector3 Position => transform.position;
+        public override float Radius => 0;
 
         [field: SerializeField] public InteractableUnits StateInteractable { get; protected set; }
 
@@ -23,7 +23,7 @@ namespace Unit
         public virtual string IdleAnimation { get; protected set; } = AnimationStateNames.IDLE;
         public virtual string WalkingAnimation { get; protected set; } = AnimationStateNames.WALKING;
         public virtual string RunningAnimation { get; protected set; } = AnimationStateNames.RUNNING;
-        
+
 
         public NavMeshAgent Agent { get; private set; }
         public Animator Animator { get; private set; }
@@ -34,7 +34,6 @@ namespace Unit
         protected virtual void Awake()
         {
             Initialization();
-
             StateInteractable.Behaviour = InitializeState();
         }
 
@@ -44,12 +43,6 @@ namespace Unit
         }
 
         protected abstract StateBehaviourBase InitializeState();
-
-        public override void Initialization(FactionType type, EntityCollectionData collectionData)
-        {
-            FactionType = type;
-            collectionData.SetUnit(this);
-        }
 
         protected virtual void Initialization()
         {

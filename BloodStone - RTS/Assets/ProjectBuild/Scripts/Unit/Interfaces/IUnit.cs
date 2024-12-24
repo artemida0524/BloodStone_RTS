@@ -1,4 +1,3 @@
-using Data;
 using Faction;
 using System.Collections;
 using System.Collections.Generic;

@@ -28,7 +28,6 @@ namespace State
 
         public override void Update()
         {
-            //unit.Agent.SetDestination(point);
             Debug.Log(unit.Agent.pathStatus);
 
             if ((point - unit.gameObject.transform.position).sqrMagnitude < unit.Agent.stoppingDistance)

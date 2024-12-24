@@ -1,17 +1,18 @@
 using Entity;
 using State;
-using System;
 using UnityEngine;
 using Weapon;
 
 namespace Unit
 {
+    [RequireComponent(typeof(AnimationEventHandler))]
     public abstract class AttackingUnitBase : UnitBase
     {
         [field: SerializeField] public Transform LeftTargetWeapon { get; protected set; }
         [field: SerializeField] public Transform RightTargetWeapon { get; protected set; }
         [field: SerializeField] public WeaponBase Weapon { get; protected set; }
         [field: SerializeField] public WeaponBase Melle { get; protected set; }
+        [field: SerializeField] public AnimationEventHandler AnimationEventHandler { get; protected set; }
 
         protected bool alreadyInitialized = false;
 
@@ -59,19 +60,6 @@ namespace Unit
             protected set { }
         }
 
-        public event Action OnShootDetect;
-        public event Action OnCreateBullet;
-
-        public void ShootAnimationEventCallBack()
-        {
-            OnShootDetect?.Invoke();
-        }
-
-        public void CreateBulletAnimationEventCallBack()
-        {
-            OnCreateBullet?.Invoke();
-        }
-
         protected override StateBehaviourBase InitializeState()
         {
             return new AttackingBehaviour(this);
@@ -85,8 +73,6 @@ namespace Unit
 
         protected void SetWeapon(WeaponBase weapon)
         {
-
-
             switch (weapon.weaponLocation)
             {
                 case WeaponLocation.LeftHand:
@@ -96,8 +82,6 @@ namespace Unit
                     Weapon = Instantiate(weapon, RightTargetWeapon);
                     break;
             }
-
-            //Weapon = Instantiate(weapon, RightTargetWeapon);
             Weapon.transform.localPosition = Vector3.zero;
         }
 

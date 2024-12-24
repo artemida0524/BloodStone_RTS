@@ -15,36 +15,39 @@ namespace State
 
         public override void Interaction(Collider collision)
         {
-            if (collision.gameObject.TryGetComponent(out UnitBase unit))
-            {
-                ////if (unit)
-                ////{
-                //    SetState(new AttackAndFollowState(this.unit, unit));
-                ////}
-            }
+
         }
 
         public override void SetState(StateBase state)
         {
-            //must be changed
-            //if(state is WalkingState)
+            //Debug.Log(state + " " + StateMachine.State);
+
+            //if (state is AttackAndFollowState attackAndFollowState && StateMachine.State is AttackAndFollowState attackAndFollowState2)
             //{
-            //    StateMachine.ChangeState(state);
-            //}
-            //else if (state is AttackAndFollowState)
-            //{
-            //    Debug.Log("idle");
-            //    if(StateMachine.State is IdleState)
+            //    if (attackAndFollowState.targetEntity.Equals(attackAndFollowState2.targetEntity))
             //    {
-            //        StateMachine.ChangeState(state);
-            //    }                
+            //        return;
+            //    }
             //}
 
-
-            //if(state is AttackAndFollowState)
+            //if (state is FollowState followState && StateMachine.State is FollowState followState2)
             //{
-                StateMachine.ChangeState(state);
+            //    if (followState.targetEntity.Equals(followState2.targetEntity))
+            //    {
+            //        return;
+            //    }
             //}
+
+
+            //if (state is AttackAndFollowState qwer && StateMachine.State is FollowState qwerty)
+            //{
+            //    if (qwer.targetEntity.Equals(qwerty.targetEntity))
+            //    {
+            //        return;
+            //    }
+            //}
+
+            StateMachine.ChangeState(state);
 
         }
 

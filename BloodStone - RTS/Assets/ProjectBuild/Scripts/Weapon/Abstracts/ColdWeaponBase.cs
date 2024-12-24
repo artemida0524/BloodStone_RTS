@@ -1,14 +1,10 @@
-﻿
-using System;
-using Unit;
+﻿using Unit;
 using UnityEngine;
 
 namespace Weapon
 {
-
     public abstract class FirearmBase : WeaponBase
     {
-
         public override AttackingUnitBase Unit
         {
             get
@@ -19,22 +15,18 @@ namespace Weapon
             {
                 if (currentUnit != null)
                 {
-                    currentUnit.OnShootDetect -= OnShootDetect;
-                    currentUnit.OnCreateBullet -= OnCreateBullet;
+                    currentUnit.AnimationEventHandler.OnShootDetect -= OnShootDetect;
+                    currentUnit.AnimationEventHandler.OnCreateBullet -= OnCreateBullet;
                 }
-
                 currentUnit = value;
 
-                currentUnit.OnShootDetect += OnShootDetect;
-                currentUnit.OnCreateBullet += OnCreateBullet;
+                currentUnit.AnimationEventHandler.OnShootDetect += OnShootDetect;
+                currentUnit.AnimationEventHandler.OnCreateBullet += OnCreateBullet;
             }
         }
 
-
-        protected virtual void OnShootDetect() { }
-        protected virtual void OnCreateBullet() { }
-
-
+        protected virtual void OnShootDetect() { Debug.LogWarning("NotImplemented"); }
+        protected virtual void OnCreateBullet() { Debug.LogWarning("NotImplemented"); }
     }
 
     public abstract class ColdWeaponBase : WeaponBase
@@ -49,12 +41,12 @@ namespace Weapon
             {
                 if (currentUnit != null)
                 {
-                    currentUnit.OnShootDetect -= OnShootDetect; 
+                    currentUnit.AnimationEventHandler.OnShootDetect -= OnShootDetect;
                 }
 
                 currentUnit = value;
 
-                currentUnit.OnShootDetect += OnShootDetect;
+                currentUnit.AnimationEventHandler.OnShootDetect += OnShootDetect;
             }
         }
 

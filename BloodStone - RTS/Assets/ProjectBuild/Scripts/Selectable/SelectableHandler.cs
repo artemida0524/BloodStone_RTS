@@ -5,13 +5,15 @@ using System.Collections.Generic;
 using Unit;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Build;
+
 
 namespace Select
 {
     public class SelectableHandler : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
         [SerializeField] private RectTransform selectRect;
-        [SerializeField] private FactionData faction;
+        [SerializeField] private Build.Faction factionData;
 
         private Vector3 startPosition;
         private Vector3 endPosition;
@@ -24,21 +26,10 @@ namespace Select
         private void Awake()
         {
             camera = Camera.main;
-
-            // must be changed
-            foreach (var item in faction.Units)
-            {
-                if (item.gameObject.activeSelf)
-                {
-                    item.Initialization(faction.FactionType, faction.CollectionData);
-                }
-            }
         }
 
         private void Update()
         {
-            Debug.Log(faction.InteractionMode);
-
             if (Input.GetMouseButtonDown(0))
             {
                 Ray ray = camera.ScreenPointToRay(Input.mousePosition);
@@ -48,7 +39,7 @@ namespace Select
                     if (hitInfo.collider.TryGetComponent(out UnitBase unit))
                     {
 
-                        if (unit.FactionType == faction.FactionType)
+                        if (unit.FactionType == factionData.FactionType)
                         {
                             ToggleUnitSelection(unit);
                         }
@@ -67,7 +58,7 @@ namespace Select
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            if (eventData.button == PointerEventData.InputButton.Left)
+            if (eventData.button == PointerEventData.InputButton.Left && factionData.Data.InteractionMode == InteractionMode.None)
             {
                 #region View
                 startPosition = Input.mousePosition;
@@ -75,13 +66,13 @@ namespace Select
                 selectRect.gameObject.SetActive(true);
                 #endregion
 
-                faction.ChangeInteractionMode(InteractionMode.Selectable);
+                factionData.Data.ChangeInteractionMode(InteractionMode.Selectable);
             }
         }
 
         public void OnDrag(PointerEventData eventData)
         {
-            if (eventData.button == PointerEventData.InputButton.Left)
+            if (eventData.button == PointerEventData.InputButton.Left && factionData.Data.InteractionMode == InteractionMode.Selectable)
             {
                 #region View
                 endPosition = Input.mousePosition;
@@ -98,15 +89,13 @@ namespace Select
                 Unselect();
 
                 Rect rect = new Rect(pivotPosition, size);
-                List<UnitBase> allUnits = faction.CollectionData.GetUnits<UnitBase>();
-
-                //List<UnitBase> visibleUnits = allUnits.Where(unit => unit.Renderer.isVisible == true).ToList();
+                List<UnitBase> allUnits = factionData.Data.GetUnits<UnitBase>();
 
                 foreach (var item in allUnits)
                 {
                     if (rect.Contains(GetScreenPoint(item)))
                     {
-                        if (item.FactionType == faction.FactionType)
+                        if (item.FactionType == factionData.FactionType)
                         {
                             if (item.Select())
                             {
@@ -121,7 +110,7 @@ namespace Select
         public void OnEndDrag(PointerEventData eventData)
         {
 
-            if (eventData.button == PointerEventData.InputButton.Left)
+            if (eventData.button == PointerEventData.InputButton.Left && factionData.Data.InteractionMode == InteractionMode.Selectable)
             {
                 #region View
                 selectRect.gameObject.SetActive(false);
@@ -145,8 +134,16 @@ namespace Select
         private void Unselect()
         {
             UnselectUnits();
-
             selectedUnits.Clear();
+        }
+
+
+        public void UnselectAll()
+        {
+            UnselectUnits();
+            selectedUnits.Clear();
+            OnSelectedUnits?.Invoke(selectedUnits);
+            UpdateInteractionMode();
         }
 
         private Vector2 GetScreenPoint(EntityBase entity)
@@ -172,7 +169,7 @@ namespace Select
         void UpdateInteractionMode()
         {
             var mode = selectedUnits.Count > 0 ? InteractionMode.Setable : InteractionMode.None;
-            faction.ChangeInteractionMode(mode);
+            factionData.Data.ChangeInteractionMode(mode);
         }
     }
 }

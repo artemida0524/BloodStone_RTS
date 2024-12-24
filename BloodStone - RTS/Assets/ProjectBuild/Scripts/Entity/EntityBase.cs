@@ -1,4 +1,3 @@
-using Data;
 using Faction;
 using System;
 using System.Threading.Tasks;
@@ -10,7 +9,9 @@ namespace Entity
     public abstract class EntityBase : MonoBehaviour
     {
         public abstract Renderer BodyRenderer { get; protected set; } 
-        [field: SerializeField] public FactionType FactionType { get; protected set; } = FactionType.Team0;
+        public abstract Vector3 Position { get; }
+        public abstract float Radius { get; }
+        [field: SerializeField] public FactionType FactionType { get; protected set; }
         protected int HP { get; set; }
         
         public event Action OnFactionChanged;
@@ -21,6 +22,9 @@ namespace Entity
             OnFactionChanged?.Invoke();
         }
 
-        public abstract void Initialization(FactionType type, EntityCollectionData collectionData);
+        public virtual void InitializationEntity(FactionType type)
+        {
+            this.FactionType = type;
+        }
     }
 }

@@ -3,7 +3,8 @@
     public enum InteractionMode
 	{
 		None,
-		Selectable,
-		Setable
+		Selectable, //select right now
+		Setable, // already select 
+		Build
 	}
 }

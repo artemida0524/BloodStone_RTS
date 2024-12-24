@@ -1,4 +1,5 @@
-﻿using Unit;
+﻿using Entity;
+using Unit;
 using UnityEngine;
 
 namespace State
@@ -12,12 +13,10 @@ namespace State
             this.unit = unit;
         }
 
-
         public override void Enter()
         {
             unit.Animator.Play(unit.IdleAnimation);
         }
-
 
         public override void Update()
         {
@@ -28,21 +27,16 @@ namespace State
                 
                 foreach (var item in colliders)
                 {
-                    if(item.TryGetComponent(out UnitBase unit))
+                    if(item.TryGetComponent(out EntityBase entity))
                     {
-                        if(unit.FactionType != this.unit.FactionType)
+                        if(entity.FactionType != this.unit.FactionType)
                         {
-                            this.unit.StateInteractable.SetState(new AttackAndFollowState(this.unit, unit));
+                            this.unit.StateInteractable.SetState(new AttackAndFollowState(this.unit, entity));
                             return;
                         }
                     }
                 }
-
             }
-
         }
-
-
     }
-
 }
