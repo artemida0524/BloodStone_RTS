@@ -33,6 +33,9 @@ namespace State
 
         public override void Update()
         {
+
+
+
             Debug.DrawRay(unit.transform.position, targetEntity.Position - unit.Position);
 
             if (ShouldFollowTarget())
@@ -45,6 +48,7 @@ namespace State
 
             if (unit.CanShoot())
             {
+                Debug.Log("Attack");
                 unit.Shoot(targetEntity);
             }
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Entity;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Weapon
@@ -29,5 +30,15 @@ namespace Weapon
         public override string IdleAnimation { get; protected set; } = AnimationStateNames.IDLE;
         public override string WalkingAnimation { get; protected set;} = AnimationStateNames.WALKING;
         public override string RunningAnimation { get; protected set; } = AnimationStateNames.RUNNING;
+
+        public override void Shoot(EntityBase enemyEntity)
+        {
+            base.Shoot(enemyEntity);
+
+
+            Unit.Animator.Play(AttackAnimation, 0, 0);
+
+        }
+
     }
 }
