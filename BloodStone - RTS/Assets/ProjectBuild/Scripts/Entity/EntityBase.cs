@@ -12,7 +12,6 @@ namespace Entity
         public abstract Vector3 Position { get; }
         public abstract float Radius { get; }
         [field: SerializeField] public FactionType FactionType { get; protected set; }
-        protected int HP { get; set; }
         
         public event Action OnFactionChanged;
 

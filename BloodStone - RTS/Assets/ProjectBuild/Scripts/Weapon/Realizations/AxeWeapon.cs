@@ -20,6 +20,7 @@ namespace Weapon
 
         protected override void OnShootDetect()
         {
+            Debug.Log("efwefwe");
         }
     }
 

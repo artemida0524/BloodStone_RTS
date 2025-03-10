@@ -15,7 +15,6 @@ namespace State
         public override void Enter()
         {
             unit.Animator.Play(unit.IdleAnimation);
-
         }
 
 

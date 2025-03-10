@@ -4,6 +4,8 @@ using UnityEngine;
 
 namespace State
 {
+    
+    //CHANGE STATE
     public class AttackAndFollowState : StateBase
     {
         public readonly AttackingUnitBase unit;
@@ -79,6 +81,11 @@ namespace State
         private void ChangeStateToFollow()
         {
             var followState = new FollowState(unit, targetEntity, new AttackAndFollowState(unit, targetEntity));
+            //unit.StateInteractable.SetState(followState);
+
+
+
+
             unit.StateInteractable.SetState(followState);
         }
     }

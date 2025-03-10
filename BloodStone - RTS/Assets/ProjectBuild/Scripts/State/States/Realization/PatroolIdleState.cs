@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace State
 {
+    //CHANGE STATE 2
     public class PatroolIdleState : StateBase
     {
         private readonly AttackingUnitBase unit;
@@ -20,7 +21,7 @@ namespace State
 
         public override void Update()
         {
-            Collider[] colliders = Physics.OverlapSphere(unit.transform.position, unit.StateInteractable.radius);
+            Collider[] colliders = Physics.OverlapSphere(unit.transform.position, /*unit.StateInteractable.radius*/  unit.StateInteractable.radius);
 
             if (colliders.Length > 0)
             {
@@ -31,6 +32,9 @@ namespace State
                     {
                         if(entity.FactionType != this.unit.FactionType)
                         {
+                            //this.unit.StateInteractable.SetState(new AttackAndFollowState(this.unit, entity));
+
+
                             this.unit.StateInteractable.SetState(new AttackAndFollowState(this.unit, entity));
                             return;
                         }

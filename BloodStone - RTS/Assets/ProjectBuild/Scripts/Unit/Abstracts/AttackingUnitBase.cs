@@ -5,6 +5,7 @@ using Weapon;
 
 namespace Unit
 {
+    // CHANGE STATE
     [RequireComponent(typeof(AnimationEventHandler))]
     public abstract class AttackingUnitBase : UnitBase
     {
@@ -68,6 +69,9 @@ namespace Unit
 
         public override void MoveTo(Vector3 point)
         {
+            //StateInteractable.SetState(new RunningState(this, point));
+
+            
             StateInteractable.SetState(new RunningState(this, point));
         }
 

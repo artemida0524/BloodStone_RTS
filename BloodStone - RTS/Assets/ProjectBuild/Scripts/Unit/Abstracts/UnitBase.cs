@@ -2,28 +2,32 @@ using UnityEngine;
 using Entity;
 using UnityEngine.AI;
 using State;
+using System;
+using Bar;
+using GlobalData;
+using Select;
 
 namespace Unit
 {
-
     [SelectionBase, RequireComponent(typeof(NavMeshAgent))]
-    public abstract class UnitBase : EntityBase, IUnit, IMovable, ISelectable
+    public abstract class UnitBase : EntityBase, IUnit, IMovable, ISelectable, IHealth, IDamageable, IHoverable
     {
-
         [field: SerializeField] public override Renderer BodyRenderer { get; protected set; }
+        [field: SerializeField] public UIBarContainer UIBarContainer { get; private set; }
+
         public override Vector3 Position => transform.position;
         public override float Radius => 0;
 
-        [field: SerializeField] public InteractableUnits StateInteractable { get; protected set; }
+        [field: SerializeField] public InteractableUnits StateInteractable { get; protected set; } = new InteractableUnits();
 
-        [Space]
+        [SerializeField] protected GameObject selectObject;
 
-        [SerializeField] protected GameObject objectSelect;
+        [field: SerializeField] public int MaxCountHealth { get; protected set; } = 100;
+        [field: SerializeField] public int CountHealth { get; protected set; } = 100;
 
         public virtual string IdleAnimation { get; protected set; } = AnimationStateNames.IDLE;
         public virtual string WalkingAnimation { get; protected set; } = AnimationStateNames.WALKING;
         public virtual string RunningAnimation { get; protected set; } = AnimationStateNames.RUNNING;
-
 
         public NavMeshAgent Agent { get; private set; }
         public Animator Animator { get; private set; }
@@ -31,15 +35,41 @@ namespace Unit
         public bool IsSelection { get; protected set; } = false;
         public bool CanSelected { get; protected set; } = true;
 
+        public event Action<int> OnHealthChange;
+
         protected virtual void Awake()
         {
             Initialization();
             StateInteractable.Behaviour = InitializeState();
+
+            UIBarContainer?.AddBar(new HealthBar(this));
+
         }
 
-        private void Update()
+
+        public virtual void Start()
         {
-            StateInteractable.UpdateState();
+
+        }
+
+        public virtual void Update()
+        {
+            StateInteractable.Update();
+        }
+
+        public virtual void OnEnable()
+        {
+            GlobalUnitsDataHandler.AddUnit(this);
+        }
+
+        public virtual void OnDisable()
+        {
+            GlobalUnitsDataHandler.RemoveUnit(this);
+        }
+
+        public virtual void OnDestroy()
+        {
+            GlobalUnitsDataHandler.RemoveUnit(this);
         }
 
         protected abstract StateBehaviourBase InitializeState();
@@ -63,7 +93,7 @@ namespace Unit
             if (CanSelected)
             {
                 IsSelection = true;
-                objectSelect.SetActive(true);
+                selectObject.SetActive(true);
                 return true;
             }
             return false;
@@ -72,12 +102,23 @@ namespace Unit
         public virtual void Unselect()
         {
             IsSelection = false;
-            objectSelect.SetActive(false);
+            selectObject.SetActive(false);
         }
 
-        public Vector2 GetScreenPosition()
+        public virtual void TakeDamage(int amount)
         {
-            return Camera.main.WorldToScreenPoint(transform.position);
+            CountHealth -= amount;
+            OnHealthChange?.Invoke(CountHealth);
+        }
+
+        public virtual void Hover()
+        {
+            UIBarContainer?.gameObject.SetActive(true);
+        }
+
+        public void Unhover()
+        {
+            UIBarContainer?.gameObject.SetActive(false);
         }
     }
 }

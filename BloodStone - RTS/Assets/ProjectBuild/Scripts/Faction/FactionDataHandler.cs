@@ -4,62 +4,48 @@ using System.Linq;
 using Unit;
 using UnityEngine;
 using Build;
+using GlobalData;
 
 namespace Faction
 {
     [Serializable]
     public class FactionDataHandler
     {
-        [field: SerializeField] public List<UnitBase> UnitsCollect { get; private set; }
-        [field: SerializeField] public List<BuildBase> BuildsCollect { get; private set; }
-
         public FactionType FactionType { get; private set; }
         public InteractionMode InteractionMode { get; private set; }
 
-        public void Initialize(FactionType FactionType)
-        {
-            this.FactionType = FactionType;
-
-            foreach (var item in UnitsCollect)
-            {
-                item.InitializationEntity(FactionType);
-            }
-
-            foreach (var item in BuildsCollect)
-            { 
-                item.InitializationEntity(FactionType);
-            }
-        }
+        public event Action<InteractionMode> OnInteractionModeChanged;
 
         public void ChangeInteractionMode(InteractionMode interactionMode)
         {
             InteractionMode = interactionMode;
+            OnInteractionModeChanged?.Invoke(interactionMode);
         }
 
-        public void SetUnit<T>(T unit) where T : UnitBase
+        public List<T> GetUnits<T>()
         {
-            UnitsCollect.Add(unit);
-        }
-
-        public void SetBuild<T>(T build) where T : BuildBase
-        {
-            BuildsCollect.Add(build);
-        }
-
-        public List<T> GetUnits<T>() where T : UnitBase
-        {
-            List<T> units = UnitsCollect.Where(t => t is T).Cast<T>().ToList();
+            List<T> units = GlobalUnitsDataHandler.GetUnits<T>();
             return units;
         }
-
-        public List<T> GetBuilds<T>() where T : BuildBase
+        
+        public List<T> GetBuilds<T>()
         {
-            List<T> builds = BuildsCollect.Where(t => t is T).Cast<T>().ToList();
+            List<T> builds = GlobalBuildsDataHandler.GetBuilds<T>();
             return builds;
         }
 
+        public List<T> GetAll<T>()
+        {
+            var units = GetUnits<T>().Where(unit => unit is T);
+            var builds = GetBuilds<T>().Where(build => build is T);
 
+            List<T> result = new List<T>();
 
+            result.AddRange(units);
+            result.AddRange(builds);
+
+            return result;
+        }
 
 
     }
