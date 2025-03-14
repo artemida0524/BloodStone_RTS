@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Rendering.LookDev;
 
 namespace Unit
 {
@@ -7,6 +8,10 @@ namespace Unit
         Vector3 Position { get; }
         bool IsSelection { get; }
         bool CanSelected { get; }
+
+        Sprite Sprite { get; } 
+
+        IInteractable SelectInfo { get; }
 
         bool Select();
         void Unselect();

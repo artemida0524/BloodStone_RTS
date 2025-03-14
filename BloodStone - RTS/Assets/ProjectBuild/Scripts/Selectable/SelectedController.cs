@@ -59,7 +59,7 @@ namespace Select
                                     var units = selectedUnits.Where(unit => unit is UnitBase).Cast<UnitBase>().ToList();
 
                                     build.Interaction(units);
-                                    selectableHandler.UnselectAll();
+                                    //selectableHandler.UnselectAll();
                                 }
                                 else if (faction.Data.InteractionMode == InteractionMode.None)
                                 {

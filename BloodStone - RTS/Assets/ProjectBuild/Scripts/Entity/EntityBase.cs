@@ -2,7 +2,7 @@ using Faction;
 using System;
 using System.Threading.Tasks;
 using UnityEngine;
-
+using UnityEngine.UIElements;
 
 namespace Entity
 {
@@ -25,5 +25,12 @@ namespace Entity
         {
             this.FactionType = type;
         }
+
+
+        public void Delete()
+        {
+            transform.position += new Vector3(10, 0, 0);
+        }
+
     }
 }

@@ -6,6 +6,7 @@ using System;
 using Bar;
 using GlobalData;
 using Select;
+using Unity.VisualScripting;
 
 namespace Unit
 {
@@ -35,6 +36,11 @@ namespace Unit
         public bool IsSelection { get; protected set; } = false;
         public bool CanSelected { get; protected set; } = true;
 
+
+        public abstract Sprite Sprite { get; protected set; }
+
+        public IInteractable SelectInfo { get; protected set; }
+
         public event Action<int> OnHealthChange;
 
         protected virtual void Awake()
@@ -44,12 +50,13 @@ namespace Unit
 
             UIBarContainer?.AddBar(new HealthBar(this));
 
-        }
 
+            SelectInfo = new InteractableUnit(this);
+        }
 
         public virtual void Start()
         {
-
+            
         }
 
         public virtual void Update()
@@ -120,5 +127,12 @@ namespace Unit
         {
             UIBarContainer?.gameObject.SetActive(false);
         }
+
+
+        public void DoSomething()
+        {
+            StateInteractable.SetState(new WalkingState(this, FindObjectOfType<Build.Faction>().Position));
+        }
+
     }
 }

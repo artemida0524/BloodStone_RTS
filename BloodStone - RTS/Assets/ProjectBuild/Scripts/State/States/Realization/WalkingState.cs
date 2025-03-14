@@ -46,9 +46,6 @@ namespace State
         {
             unit.Animator.Play(unit.WalkingAnimation);
             unit.Agent.SetDestination(point);
-
-
-
         }
 
         public override void Update()

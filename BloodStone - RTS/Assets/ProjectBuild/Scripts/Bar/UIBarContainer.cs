@@ -12,10 +12,6 @@ public class UIBarContainer : MonoBehaviour
 
     private List<UIBar> bars;
 
-
-
-
-
     private void Update()
     {
         transform.LookAt(transform.position + Camera.main.transform.forward);

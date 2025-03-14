@@ -1,8 +1,7 @@
-using Build;
+﻿
 using Entity;
 using Faction;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unit;
@@ -12,7 +11,7 @@ using Zenject;
 
 namespace Select
 {
-    public class SelectableHandler : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerMoveHandler
+    public class SelectableHandler : MonoBehaviour
     {
         [SerializeField] private RectTransform selectRect;
         private Build.Faction faction;
@@ -21,10 +20,13 @@ namespace Select
         private Vector3 endPosition;
 
         private List<ISelectable> selectables = new();
-
         private Camera camera;
-
         private IHoverable hover;
+
+        private bool isDragging = false;
+
+        private bool isPreparingToDrag = false;
+        [SerializeField] private float dragThreshold = 10f;
 
         public event Action<List<ISelectable>> OnSelectedUnits;
 
@@ -34,7 +36,6 @@ namespace Select
             this.faction = faction;
         }
 
-
         private void Awake()
         {
             camera = Camera.main;
@@ -42,16 +43,24 @@ namespace Select
 
         private void Update()
         {
+            if (!EventSystem.current.IsPointerOverGameObject())
+            {
+                HandleClickSelection();
+                HandleHoverEffect();
+            }
+            HandleDragSelection();
+        }
+
+        private void HandleClickSelection() 
+        {
             if (Input.GetMouseButtonDown(0))
             {
                 Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-
                 if (Physics.Raycast(ray, out RaycastHit hitInfo))
                 {
                     if (hitInfo.collider.TryGetComponent(out ISelectable unit))
                     {
                         EntityBase entity = unit as EntityBase;
-
                         if (entity.FactionType == faction.FactionType)
                         {
                             ToggleUnitSelection(unit);
@@ -59,53 +68,53 @@ namespace Select
                     }
                     else
                     {
-                        Unselect();
+                        Debug.Log("unsleect");
+                        UnselectAll();
                     }
-
                     UpdateInteractionMode();
                 }
             }
-
-
         }
 
-        public void OnBeginDrag(PointerEventData eventData)
+        private void HandleDragSelection()
         {
-            if (eventData.button == PointerEventData.InputButton.Left && (faction.Data.InteractionMode == InteractionMode.None || faction.Data.InteractionMode == InteractionMode.Setable))
+            if (Input.GetMouseButtonDown(0) && (faction.Data.InteractionMode == InteractionMode.None || faction.Data.InteractionMode == InteractionMode.Setable))
             {
-                #region View
-                startPosition = Input.mousePosition;
-
-                selectRect.gameObject.SetActive(true);
-                #endregion
-
-                faction.Data.ChangeInteractionMode(InteractionMode.Selectable);
+                if (!EventSystem.current.IsPointerOverGameObject())
+                {
+                    startPosition = Input.mousePosition;
+                    isPreparingToDrag = true;
+                }
             }
-        }
 
-        public void OnDrag(PointerEventData eventData)
-        {
-            if (eventData.button == PointerEventData.InputButton.Left && faction.Data.InteractionMode == InteractionMode.Selectable)
+            if (Input.GetMouseButton(0) && isPreparingToDrag)
             {
-                #region View
+                float distance = Vector2.Distance(Input.mousePosition, startPosition);
+                if (distance > dragThreshold)
+                {
+                    isPreparingToDrag = false;
+                    isDragging = true;
+                    selectRect.gameObject.SetActive(true);
+                    selectRect.sizeDelta = Vector2.zero;
+                    faction.Data.ChangeInteractionMode(InteractionMode.Selectable);
+                }
+            }
+
+            if (Input.GetMouseButton(0) && isDragging)
+            {
                 endPosition = Input.mousePosition;
 
                 Vector2 pivotPosition = Vector2.Min(startPosition, endPosition);
                 Vector2 width = Vector2.Max(startPosition, endPosition);
                 Vector2 size = width - pivotPosition;
 
-                selectRect.anchoredPosition = pivotPosition;
-
+                selectRect.position = (startPosition + endPosition) / 2;
                 selectRect.sizeDelta = size;
-                #endregion
 
                 Unselect();
-
                 Rect rect = new Rect(pivotPosition, size);
 
-
-                List<ISelectable> allSelectable = faction.Data.GetAll<ISelectable>();
-                IEnumerable<ISelectable> myEntities = allSelectable.Where(unit => (unit as EntityBase).FactionType == faction.FactionType);
+                IEnumerable<ISelectable> myEntities = faction.Data.GetAll<ISelectable>().Where(unit => (unit as EntityBase).FactionType == faction.FactionType);
 
                 foreach (var item in myEntities)
                 {
@@ -115,47 +124,49 @@ namespace Select
                         {
                             selectables.Add(item);
                         }
-                    }
+                    }   
                 }
             }
-        }
 
-        public void OnEndDrag(PointerEventData eventData)
-        {
-
-            if (eventData.button == PointerEventData.InputButton.Left && faction.Data.InteractionMode == InteractionMode.Selectable)
+            if (Input.GetMouseButtonUp(0))
             {
-                #region View
-                selectRect.gameObject.SetActive(false);
-
-                #endregion
-
-                UpdateInteractionMode();
-                OnSelectedUnits?.Invoke(selectables);
-            }
-
-        }
-
-
-        public void OnPointerMove(PointerEventData eventData)
-        {
-            Ray ray2 = camera.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray2, out RaycastHit hitInfo2))
-            {
-                if (hitInfo2.collider.TryGetComponent(out IHoverable hover))
+                if (isDragging)
                 {
-                    if (this.hover != hover)
+                    selectRect.gameObject.SetActive(false);
+                    UpdateInteractionMode();
+                    OnSelectedUnits?.Invoke(selectables);
+                    isDragging = false;
+                }
+                else if (isPreparingToDrag)
+                {
+                    HandleClickSelection();
+                }
+
+                isPreparingToDrag = false;
+            }
+        }
+
+
+
+
+        private void HandleHoverEffect()
+        {
+            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hitInfo))
+            {
+                if (hitInfo.collider.TryGetComponent(out IHoverable newHover))
+                {
+                    if (hover != newHover)
                     {
-                        this.hover?.Unhover();
-                        this.hover = hover;
-                        this.hover.Hover();
+                        hover?.Unhover();
+                        hover = newHover;
+                        hover.Hover();
                     }
                 }
                 else
                 {
-                    this.hover?.Unhover();
-                    this.hover = null;
+                    hover?.Unhover();
+                    hover = null;
                 }
             }
         }
@@ -172,14 +183,11 @@ namespace Select
         {
             UnselectUnits();
             selectables.Clear();
-
         }
-
 
         public void UnselectAll()
         {
-            UnselectUnits();
-            selectables.Clear();
+            Unselect();
             OnSelectedUnits?.Invoke(selectables);
             UpdateInteractionMode();
         }
@@ -189,7 +197,7 @@ namespace Select
             return camera.WorldToScreenPoint(position);
         }
 
-        void ToggleUnitSelection(ISelectable select)
+        private void ToggleUnitSelection(ISelectable select)
         {
             if (select.IsSelection)
             {
@@ -200,16 +208,13 @@ namespace Select
             {
                 selectables.Add(select);
             }
-
             OnSelectedUnits?.Invoke(selectables);
         }
 
-        void UpdateInteractionMode()
+        private void UpdateInteractionMode()
         {
             var mode = selectables.Count > 0 ? InteractionMode.Setable : InteractionMode.None;
             faction.Data.ChangeInteractionMode(mode);
         }
-
-
     }
 }
