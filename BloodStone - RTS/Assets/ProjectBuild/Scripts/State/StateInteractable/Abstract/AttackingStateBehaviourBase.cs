@@ -30,7 +30,7 @@ namespace State
             //    }
             //}
 
-            //if (state is FollowState followState && StateMachine.State is FollowState followState2)
+            //if (state is FollowWithChangeState followState && StateMachine.State is FollowWithChangeState followState2)
             //{
             //    if (followState.targetEntity.Equals(followState2.targetEntity))
             //    {
@@ -39,7 +39,7 @@ namespace State
             //}
 
 
-            //if (state is AttackAndFollowState qwer && StateMachine.State is FollowState qwerty)
+            //if (state is AttackAndFollowState qwer && StateMachine.State is FollowWithChangeState qwerty)
             //{
             //    if (qwer.targetEntity.Equals(qwerty.targetEntity))
             //    {

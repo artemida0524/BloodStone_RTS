@@ -1,63 +1,93 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unit;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OptionSelected : MonoBehaviour
+namespace Option
 {
-    [SerializeField] private Image image;
-    [SerializeField] private OptionSOList options;
-    private Button button;
-    private DoActionOption option;
-
-    private void Awake()
+    public class OptionSelected : MonoBehaviour
     {
-        button = GetComponent<Button>();
-    }
+        [SerializeField] private Image image;
+        [SerializeField] private OptionSOList options;
+        private Button button;
+        private DoActionOption option;
 
-    private void OnEnable()
-    {
-        Debug.Log("enable");
-        button.onClick.AddListener(OnClick);
-    }
+        private List<DoActionOption> optionList;
 
-
-    private void OnDisable()
-    {
-        button.onClick.RemoveListener(OnClick);
-    }
-
-    private void OnDestroy()
-    {
-        button.onClick.RemoveListener(OnClick);
-    }
-
-    private void OnClick()
-    {
-        option.Action?.Invoke();
-    }
-
-    public void SetAction(DoActionOption option)
-    {
-        this.option = option;
-
-        foreach (var item in options.Options)
+        private void Awake()
         {
-            if(this.option.Name == item.Name)
+            button = GetComponent<Button>();
+        }
+
+        private void OnEnable()
+        {
+            Debug.Log("enable");
+            button.onClick.AddListener(OnClick);
+        }
+
+
+        private void OnDisable()
+        {
+            button.onClick.RemoveListener(OnClick);
+        }
+
+        private void OnDestroy()
+        {
+            button.onClick.RemoveListener(OnClick);
+        }
+
+        private void OnClick()
+        {
+            //option.Action?.Invoke();
+
+            foreach (var item in optionList)
             {
-                image.sprite = item.Icon;
-                return;
+                item.Action?.Invoke();
+            }
+
+        }
+
+        public void SetAction(DoActionOption option)
+        {
+            this.option = option;
+
+            foreach (var item in options.Options)
+            {
+                if (this.option.Name == item.Name)
+                {
+                    image.sprite = item.Icon;
+                    return;
+                }
             }
         }
 
-    }
+        public void SetActions(List<DoActionOption> options)
+        {
+            this.optionList = options;
 
-    public void Remove()
-    {
-        image.sprite = null;
-        option.Name = string.Empty;
-        option.Action = null;
-    }
+            DoActionOption option = options[0];
 
+
+            foreach (var item in this.options.Options)
+            {
+                if (option.Name == item.Name)
+                {
+                    image.sprite = item.Icon;
+                    return;
+                }
+            }
+
+        }
+
+
+        public void Remove()
+        {
+            image.sprite = null;
+            option.Name = string.Empty;
+            option.Action = null;
+        }
+
+    } 
 }

@@ -16,13 +16,6 @@ namespace State
         {
             unit.Animator.Play(unit.IdleAnimation);
         }
-
-
-        //public override void Exit()
-        //{
-        //    Debug.Log("Exit idle state");
-        //}
-
     }
 
 }

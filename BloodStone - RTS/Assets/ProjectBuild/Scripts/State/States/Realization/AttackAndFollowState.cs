@@ -26,7 +26,7 @@ namespace State
             unit.Agent.ResetPath();
 
 
-            if(!(Vector3.Distance(unit.Position, targetEntity.Position) - targetEntity.Radius < unit.Weapon.Distance / 1.5f))
+            if(!(Vector3.Distance(unit.Position, targetEntity.Position) - targetEntity.Radius < unit.CurrentWeapon.Distance / 1.5f))
             {
                 ChangeStateToFollow();
             }
@@ -68,7 +68,7 @@ namespace State
         private bool ShouldFollowTarget()
         {
             float distanceToTarget = Vector3.Distance(unit.Position, targetEntity.Position);
-            bool isOutOfRange = distanceToTarget - targetEntity.Radius > unit.Weapon.Distance * 1.5f;
+            bool isOutOfRange = distanceToTarget - targetEntity.Radius > unit.CurrentWeapon.Distance * 1.5f;
 
             bool hasObstacle = Physics.Raycast(
                 new Ray(unit.Position, targetEntity.Position - unit.Position),
@@ -80,7 +80,7 @@ namespace State
 
         private void ChangeStateToFollow()
         {
-            var followState = new FollowState(unit, targetEntity, new AttackAndFollowState(unit, targetEntity));
+            var followState = new FollowWithChangeState(unit, targetEntity, new AttackAndFollowState(unit, targetEntity));
             //unit.StateInteractable.SetState(followState);
 
 

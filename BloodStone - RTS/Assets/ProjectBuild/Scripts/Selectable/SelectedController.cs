@@ -56,7 +56,9 @@ namespace Select
                             {
                                 if (faction.Data.InteractionMode == InteractionMode.Setable)
                                 {
-                                    var units = selectedUnits.Where(unit => unit is UnitBase).Cast<UnitBase>().ToList();
+                                    //var units = selectedUnits.Where(unit => unit is UnitBase).Cast<UnitBase>().ToList();
+
+                                    var units = selectedUnits.OfType<UnitBase>().ToList();
 
                                     build.Interaction(units);
                                     //selectableHandler.UnselectAll();
@@ -70,7 +72,7 @@ namespace Select
                         }
                         else if (entity.FactionType != faction.FactionType)
                         {
-                            List<AttackingUnitBase> attackingUnits = selectedUnits.Where(unit => unit is AttackingUnitBase).Cast<AttackingUnitBase>().ToList();
+                            List<AttackingUnitBase> attackingUnits = selectedUnits.OfType<AttackingUnitBase>().ToList();
 
                             foreach (var item in attackingUnits)
                             {

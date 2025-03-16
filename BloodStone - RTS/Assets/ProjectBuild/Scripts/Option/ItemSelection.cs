@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemSelection : MonoBehaviour
+namespace Option
 {
-    public Image icon;
+	public class ItemSelection : MonoBehaviour
+	{
+		public Image icon;
+	} 
 }

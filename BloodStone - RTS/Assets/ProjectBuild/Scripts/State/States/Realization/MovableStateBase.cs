@@ -15,11 +15,25 @@ namespace State
             await SetDestinationAsync(unit, target, interval);
         }
 
-        private async Task SetDestinationAsync(UnitBase unit, EntityBase target, int interval = 100)
+        protected async void SetDestinationAsyncRunner(UnitBase unit, Vector3 point, int interval = 100)
+        {
+            await SetDestinationAsync(unit, point, interval);
+        }
+
+        private async Task SetDestinationAsync(UnitBase unit, EntityBase target, int interval)
         {
             while (isSetDestination)
             {
                 unit.Agent.SetDestination(target.Position);
+                await Task.Delay(interval);
+            }
+        }
+
+        private async Task SetDestinationAsync(UnitBase unit, Vector3 point, int interval)
+        {
+            while (isSetDestination)
+            {
+                unit.Agent.SetDestination(point);
                 await Task.Delay(interval);
             }
         }
@@ -30,7 +44,3 @@ namespace State
         }
     }
 }
-
-
-
-

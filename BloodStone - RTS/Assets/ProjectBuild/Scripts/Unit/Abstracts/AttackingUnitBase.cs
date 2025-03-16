@@ -11,7 +11,8 @@ namespace Unit
     {
         [field: SerializeField] public Transform LeftTargetWeapon { get; protected set; }
         [field: SerializeField] public Transform RightTargetWeapon { get; protected set; }
-        [field: SerializeField] public WeaponBase Weapon { get; protected set; }
+
+        [field: SerializeField] public WeaponBase CurrentWeapon { get; protected set; }
         [field: SerializeField] public WeaponBase Melle { get; protected set; }
         [field: SerializeField] public AnimationEventHandler AnimationEventHandler { get; protected set; }
 
@@ -27,7 +28,7 @@ namespace Unit
                     alreadyInitialized = true;
                 }
 
-                return Weapon.IdleAnimation;
+                return CurrentWeapon.IdleAnimation;
 
             }
             protected set { }
@@ -42,7 +43,7 @@ namespace Unit
                     alreadyInitialized = true;
                 }
 
-                return Weapon.WalkingAnimation;
+                return CurrentWeapon.WalkingAnimation;
             }
             protected set { }
         }
@@ -56,7 +57,7 @@ namespace Unit
                     alreadyInitialized = true;
                 }
 
-                return Weapon.RunningAnimation;
+                return CurrentWeapon.RunningAnimation;
             }
             protected set { }
         }
@@ -69,9 +70,6 @@ namespace Unit
 
         public override void MoveTo(Vector3 point)
         {
-            //StateInteractable.SetState(new RunningState(this, point));
-
-            
             StateInteractable.SetState(new RunningState(this, point));
         }
 
@@ -80,32 +78,32 @@ namespace Unit
             switch (weapon.weaponLocation)
             {
                 case WeaponLocation.LeftHand:
-                    Weapon = Instantiate(weapon, LeftTargetWeapon);
+                    CurrentWeapon = Instantiate(weapon, LeftTargetWeapon);
                     break;
                 case WeaponLocation.RightHand:
-                    Weapon = Instantiate(weapon, RightTargetWeapon);
+                    CurrentWeapon = Instantiate(weapon, RightTargetWeapon);
                     break;
             }
-            Weapon.transform.localPosition = Vector3.zero;
+            CurrentWeapon.transform.localPosition = Vector3.zero;
         }
 
         public bool CanShoot()
         {
-            return Weapon.CanShoot();
+            return CurrentWeapon.CanShoot();
         }
 
         public void Shoot(EntityBase enemyEntity)
         {
-            Weapon.Shoot(enemyEntity);
+            CurrentWeapon.Shoot(enemyEntity);
         }
 
 
         protected void InitializationWeapon()
         {
 
-            if (Weapon != null)
+            if (CurrentWeapon != null)
             {
-                SetWeapon(Weapon);
+                SetWeapon(CurrentWeapon);
             }
             else
             {
@@ -113,7 +111,7 @@ namespace Unit
             }
 
 
-            Weapon.Unit = this;
+            CurrentWeapon.Unit = this;
 
         }
 

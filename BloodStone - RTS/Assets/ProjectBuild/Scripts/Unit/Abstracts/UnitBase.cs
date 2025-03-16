@@ -7,6 +7,7 @@ using Bar;
 using GlobalData;
 using Select;
 using Unity.VisualScripting;
+using Option;
 
 namespace Unit
 {
@@ -77,6 +78,9 @@ namespace Unit
         public virtual void OnDestroy()
         {
             GlobalUnitsDataHandler.RemoveUnit(this);
+
+            
+
         }
 
         protected abstract StateBehaviourBase InitializeState();
@@ -132,6 +136,7 @@ namespace Unit
         public void DoSomething()
         {
             StateInteractable.SetState(new WalkingState(this, FindObjectOfType<Build.Faction>().Position));
+            Debug.Log(FindObjectOfType<Build.Faction>().Position);
         }
 
     }

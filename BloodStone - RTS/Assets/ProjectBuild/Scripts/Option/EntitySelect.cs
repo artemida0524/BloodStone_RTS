@@ -1,56 +1,64 @@
+using System;
 using Unit;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EntitySelect : MonoBehaviour
+namespace Option
 {
-    [SerializeField] private Image icon;
-    [SerializeField] private OptionSelectedGrid optionsGrid;
-    private Button button;
-    private IInteractable interactable;
-
-    private void Awake()
+    public class EntitySelect : MonoBehaviour
     {
-        button = GetComponent<Button>();
-    }
+        [SerializeField] private Image icon;
+        [SerializeField] private RectTransform selectView;
+        private Button button;
+        public IInteractable Interactable { get; private set; }
 
-    private void OnEnable()
-    {
-        button.onClick.AddListener(OnClick);
-    }
+        public event Action<EntitySelect> OnClick;
 
-
-    private void OnDisable()
-    {
-        button.onClick.RemoveListener(OnClick);
-    }
-
-    private void OnDestroy()
-    {
-        button.onClick.RemoveListener(OnClick);
-    }
-
-    private void OnClick()
-    {
-        optionsGrid.RemoveAll();
-        if (interactable != null)
+        private void Awake()
         {
-            optionsGrid.Init(interactable.Actions); 
+            button = GetComponent<Button>();
+        }
+
+        private void OnEnable()
+        {
+            button.onClick.AddListener(OnClickHandler);
+        }
+
+        private void OnDisable()
+        {
+            button.onClick.RemoveListener(OnClickHandler);
+        }
+
+        private void OnDestroy()
+        {
+            button.onClick.RemoveListener(OnClickHandler);
+        }
+
+        private void OnClickHandler()
+        {
+            OnClick?.Invoke(this);
+        }
+
+        public void SetInteractable(IInteractable interactable)
+        {
+            this.Interactable = interactable;
+            icon.sprite = interactable.Icon;
+        }
+
+        public void Remove()
+        {
+            icon.sprite = null;
+            Interactable = null;
+        }
+
+        public void Select()
+        {
+            selectView.gameObject.SetActive(true);
+        }
+
+        public void Unselect()
+        {
+            selectView.gameObject.SetActive(false);
         }
     }
-
-
-    public void SetInteractable(IInteractable interactable)
-    {
-        this.interactable = interactable;
-        icon.sprite = interactable.Icon;
-
-    }
-
-    public void Remove()
-    {
-        icon.sprite = null;
-        interactable = null;
-    }
-
 }
