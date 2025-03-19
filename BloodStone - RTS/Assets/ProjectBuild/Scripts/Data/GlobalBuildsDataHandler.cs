@@ -11,7 +11,8 @@ namespace GlobalData
 
         public static List<T> GetBuilds<T>()
         {
-            return AllBuilds.Where(t => t is T).Cast<T>().ToList();
+            //return AllBuilds.Where(t => t is T).Cast<T>().ToList();
+            return AllBuilds.OfType<T>().ToList();
         }
 
         public static void AddBuild(BuildBase build)

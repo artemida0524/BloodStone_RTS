@@ -39,6 +39,7 @@ namespace Option
             foreach (var item in Items)
             {
                 item.Remove();
+                item.Unselect();
             }
         }
 
@@ -66,11 +67,19 @@ namespace Option
                 entitySelect.Unselect();
                 alreadySelect.Remove(entitySelect);
             }
-
-
-            optionsGrid.Init(alreadySelect);
-
-
+            optionsGrid.Init(GetInteractables());
         }
+
+        private List<IInteractable> GetInteractables()
+        {
+            List<IInteractable> interactables = new List<IInteractable>();
+            foreach (var item in alreadySelect)
+            {
+                interactables.Add(item.Interactable);
+            }
+
+            return interactables;
+        }
+
     }
 }

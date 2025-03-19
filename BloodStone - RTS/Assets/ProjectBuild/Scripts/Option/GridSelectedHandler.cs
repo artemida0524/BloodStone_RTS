@@ -23,7 +23,10 @@ namespace Option
             entitySelectedGrid.RemoveAll();
             optionSelectedGrid.RemoveAll();
 
-            entitySelectedGrid.Init(GetInteractables(selectables));
+            if (selectables.Count > 0)
+            {
+                entitySelectedGrid.Init(GetInteractables(selectables)); 
+            }
         }
 
 

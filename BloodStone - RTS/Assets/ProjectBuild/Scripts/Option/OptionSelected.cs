@@ -12,9 +12,11 @@ namespace Option
         [SerializeField] private Image image;
         [SerializeField] private OptionSOList options;
         private Button button;
-        private DoActionOption option;
 
-        private List<DoActionOption> optionList;
+        public bool CanInteraction = false;
+
+
+        private List<DoActionOption> optionList = new();
 
         private void Awake()
         {
@@ -23,7 +25,6 @@ namespace Option
 
         private void OnEnable()
         {
-            Debug.Log("enable");
             button.onClick.AddListener(OnClick);
         }
 
@@ -40,35 +41,20 @@ namespace Option
 
         private void OnClick()
         {
-            //option.Action?.Invoke();
-
-            foreach (var item in optionList)
+            if (CanInteraction)
             {
-                item.Action?.Invoke();
-            }
-
-        }
-
-        public void SetAction(DoActionOption option)
-        {
-            this.option = option;
-
-            foreach (var item in options.Options)
-            {
-                if (this.option.Name == item.Name)
+                Debug.Log("wefwef");
+                foreach (var item in optionList)
                 {
-                    image.sprite = item.Icon;
-                    return;
-                }
+                    item.Action?.Invoke();
+                } 
             }
         }
 
         public void SetActions(List<DoActionOption> options)
         {
             this.optionList = options;
-
             DoActionOption option = options[0];
-
 
             foreach (var item in this.options.Options)
             {
@@ -78,15 +64,15 @@ namespace Option
                     return;
                 }
             }
-
+            image.sprite = null;
         }
 
 
         public void Remove()
         {
             image.sprite = null;
-            option.Name = string.Empty;
-            option.Action = null;
+            //optionList.Clear();
+            CanInteraction = false;
         }
 
     } 

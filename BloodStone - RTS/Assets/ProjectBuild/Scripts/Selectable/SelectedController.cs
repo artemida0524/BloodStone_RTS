@@ -19,7 +19,7 @@ namespace Select
         private Build.Faction faction;
         private SelectableHandler selectableHandler;
 
-        private List<ISelectable> selectedUnits = new List<ISelectable>();
+        private List<ISelectable> selectedEntities = new List<ISelectable>();
         private Camera camera;
 
         [Inject]
@@ -37,7 +37,7 @@ namespace Select
 
         private void OnSelectedUnit(List<ISelectable> units)
         {
-            this.selectedUnits = units;
+            this.selectedEntities = units;
         }
 
         private void Update()
@@ -56,9 +56,7 @@ namespace Select
                             {
                                 if (faction.Data.InteractionMode == InteractionMode.Setable)
                                 {
-                                    //var units = selectedUnits.Where(unit => unit is UnitBase).Cast<UnitBase>().ToList();
-
-                                    var units = selectedUnits.OfType<UnitBase>().ToList();
+                                    var units = selectedEntities.OfType<UnitBase>().ToList();
 
                                     build.Interaction(units);
                                     //selectableHandler.UnselectAll();
@@ -72,7 +70,7 @@ namespace Select
                         }
                         else if (entity.FactionType != faction.FactionType)
                         {
-                            List<AttackingUnitBase> attackingUnits = selectedUnits.OfType<AttackingUnitBase>().ToList();
+                            List<AttackingUnitBase> attackingUnits = selectedEntities.OfType<AttackingUnitBase>().ToList();
 
                             foreach (var item in attackingUnits)
                             {
@@ -89,7 +87,7 @@ namespace Select
                         pointPositionerMeshRenderer.transform.position = positionArea;
 
 
-                        float scaleFactor = (float)selectedUnits.Count / 10;
+                        float scaleFactor = (float)selectedEntities.Count / 10;
 
                         scaleFactor = Mathf.Clamp(scaleFactor, 0.3f, 1.5f);
 
@@ -97,7 +95,7 @@ namespace Select
 
                         pointPositionerMeshRenderer.transform.localScale = scale;
 
-                        foreach (var item in selectedUnits)
+                        foreach (var item in selectedEntities)
                         {
                             try
                             {

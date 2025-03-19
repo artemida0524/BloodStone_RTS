@@ -1,5 +1,4 @@
-﻿
-using Entity;
+﻿using Entity;
 using Faction;
 using System;
 using System.Collections.Generic;
@@ -19,9 +18,13 @@ namespace Select
         private Vector3 startPosition;
         private Vector3 endPosition;
 
+        private Vector2 pivotPosition;
+        private Vector2 width;
+        private Vector2 size;
+
         private List<ISelectable> selectables = new();
         private Camera camera;
-        private IHoverable hover;
+        private IHoverable currentHover;
 
         private bool isDragging = false;
 
@@ -51,7 +54,7 @@ namespace Select
             HandleDragSelection();
         }
 
-        private void HandleClickSelection() 
+        private void HandleClickSelection()
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -76,6 +79,9 @@ namespace Select
             }
         }
 
+
+
+
         private void HandleDragSelection()
         {
             if (Input.GetMouseButtonDown(0) && (faction.Data.InteractionMode == InteractionMode.None || faction.Data.InteractionMode == InteractionMode.Setable))
@@ -97,6 +103,7 @@ namespace Select
                     selectRect.gameObject.SetActive(true);
                     selectRect.sizeDelta = Vector2.zero;
                     faction.Data.ChangeInteractionMode(InteractionMode.Selectable);
+                    Unselect();
                 }
             }
 
@@ -104,28 +111,12 @@ namespace Select
             {
                 endPosition = Input.mousePosition;
 
-                Vector2 pivotPosition = Vector2.Min(startPosition, endPosition);
-                Vector2 width = Vector2.Max(startPosition, endPosition);
-                Vector2 size = width - pivotPosition;
+                pivotPosition = Vector2.Min(startPosition, endPosition);
+                width = Vector2.Max(startPosition, endPosition);
+                size = width - pivotPosition;
 
                 selectRect.position = (startPosition + endPosition) / 2;
                 selectRect.sizeDelta = size;
-
-                Unselect();
-                Rect rect = new Rect(pivotPosition, size);
-
-                IEnumerable<ISelectable> myEntities = faction.Data.GetAll<ISelectable>().Where(unit => (unit as EntityBase).FactionType == faction.FactionType);
-
-                foreach (var item in myEntities)
-                {
-                    if (rect.Contains(GetScreenPoint(item.Position)))
-                    {
-                        if (item.Select())
-                        {
-                            selectables.Add(item);
-                        }
-                    }   
-                }
             }
 
             if (Input.GetMouseButtonUp(0))
@@ -133,6 +124,21 @@ namespace Select
                 if (isDragging)
                 {
                     selectRect.gameObject.SetActive(false);
+
+                    Rect rect = new Rect(pivotPosition, size);
+                    IEnumerable<ISelectable> myEntities = faction.Data.GetAll<ISelectable>().Where(unit => (unit as EntityBase).FactionType == faction.FactionType);
+
+                    foreach (var item in myEntities)
+                    {
+                        if (rect.Contains(GetScreenPoint(item.Position)))
+                        {
+                            if (item.Select())
+                            {
+                                selectables.Add(item);
+                            }
+                        }
+                    }
+
                     UpdateInteractionMode();
                     OnSelectedUnits?.Invoke(selectables);
                     isDragging = false;
@@ -146,9 +152,6 @@ namespace Select
             }
         }
 
-
-
-
         private void HandleHoverEffect()
         {
             Ray ray = camera.ScreenPointToRay(Input.mousePosition);
@@ -156,17 +159,17 @@ namespace Select
             {
                 if (hitInfo.collider.TryGetComponent(out IHoverable newHover))
                 {
-                    if (hover != newHover)
+                    if (currentHover != newHover)
                     {
-                        hover?.Unhover();
-                        hover = newHover;
-                        hover.Hover();
+                        currentHover?.Unhover();
+                        currentHover = newHover;
+                        currentHover.Hover();
                     }
                 }
                 else
                 {
-                    hover?.Unhover();
-                    hover = null;
+                    currentHover?.Unhover();
+                    currentHover = null;
                 }
             }
         }

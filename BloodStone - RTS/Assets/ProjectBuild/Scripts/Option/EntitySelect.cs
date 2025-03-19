@@ -12,6 +12,7 @@ namespace Option
         private Button button;
         public IInteractable Interactable { get; private set; }
 
+
         public event Action<EntitySelect> OnClick;
 
         private void Awake()

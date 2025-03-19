@@ -52,7 +52,7 @@ namespace Unit
             UIBarContainer?.AddBar(new HealthBar(this));
 
 
-            SelectInfo = new InteractableUnit(this);
+            InitInteractable();
         }
 
         public virtual void Start()
@@ -78,9 +78,6 @@ namespace Unit
         public virtual void OnDestroy()
         {
             GlobalUnitsDataHandler.RemoveUnit(this);
-
-            
-
         }
 
         protected abstract StateBehaviourBase InitializeState();
@@ -132,6 +129,10 @@ namespace Unit
             UIBarContainer?.gameObject.SetActive(false);
         }
 
+        public virtual void InitInteractable()
+        {
+            SelectInfo = new InteractableUnit(this);
+        }
 
         public void DoSomething()
         {
