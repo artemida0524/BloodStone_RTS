@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 using Unit;
-using Option;
 
 namespace Option
 {
@@ -25,20 +24,20 @@ namespace Option
 
             if (selectables.Count > 0)
             {
-                entitySelectedGrid.Init(GetInteractables(selectables)); 
+                entitySelectedGrid.Init(GetOptions(selectables));
             }
         }
 
 
-        private List<IInteractable> GetInteractables(List<ISelectable> selectables)
+        private List<IOption> GetOptions(List<ISelectable> selectables)
         {
-            List<IInteractable> interactables = new List<IInteractable>();
+            List<IOption> options = new List<IOption>();
             foreach (var item in selectables)
             {
-                interactables.Add(item.SelectInfo);
+                options.Add(item.Options);
             }
 
-            return interactables;
+            return options;
         }
     }
 

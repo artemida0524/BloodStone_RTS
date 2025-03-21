@@ -1,59 +1,66 @@
 ﻿using System.Collections.Generic;
-using Unit;
-using Unity.VisualScripting.Dependencies.Sqlite;
-using UnityEditor;
+using System.Data.Common;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering;
-using UnityEngine.Rendering;
 
 namespace Option
 {
     public class OptionSelectedGrid : MonoBehaviour
     {
         [field: SerializeField] public List<OptionSelected> Items { get; private set; }
+        [SerializeField] private OptionSOList optionSOList;
 
         private Dictionary<string, List<DoActionOption>> dict = new Dictionary<string, List<DoActionOption>>();
 
 
-        public void Init(List<IInteractable> interactions)
+        private void Start()
+        {
+            foreach (var item in Items)
+            {
+                item.OnClick += OnClickHandler;
+            }
+        }
+
+        public void Init(List<IOption> interactions)
         {
             dict.Clear();
-
-            //RemoveAll();
+            RemoveAll();
 
             int countOptioin = interactions.Count;
 
             foreach (var item in interactions)
             {
-                foreach (var option in item.Actions)
+                foreach (var option in item.Options)
                 {
-
                     if (!dict.ContainsKey(option.Name))
                     {
                         dict[option.Name] = new List<DoActionOption>();
                     }
-
                     dict[option.Name].Add(option);
-
                 }
             }
             int indexer = 0;
             foreach (var item in dict)
             {
-                if(item.Value.Count == countOptioin)
+                if (item.Value.Count > countOptioin)
                 {
-                    Items[indexer].SetActions(item.Value);
-                    Items[indexer].CanInteraction = true;
-                    indexer++;
+                    Debug.LogWarning($"Too much Action in one entity with the same name: {item.Key}");
+                    return;
+                }
+                if (item.Value.Count == countOptioin)
+                {
+                    DoActionOption option = item.Value[0];
+
+                    foreach (var item2 in this.optionSOList.Options)
+                    {
+                        if (option.Name == item2.Name)
+                        {
+                            Items[indexer].SetOptions(item.Value, item2.Icon);
+                            indexer++;
+                            break;
+                        }
+                    }
                 }
             }
-
-
-            for (int i = indexer; i < Items.Count; i++)
-            {
-                Items[i].CanInteraction = false;
-            }
-
         }
 
         public void RemoveAll()
@@ -61,6 +68,15 @@ namespace Option
             foreach (var item in Items)
             {
                 item.Remove();
+            }
+        }
+        private void OnClickHandler(OptionSelected option)
+        {
+            List<DoActionOption> options = new List<DoActionOption>(option.OptionList);
+
+            foreach (var item in options)
+            {
+                item.Action?.Invoke();
             }
         }
     }

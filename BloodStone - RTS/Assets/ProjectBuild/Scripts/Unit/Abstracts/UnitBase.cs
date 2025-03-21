@@ -38,9 +38,7 @@ namespace Unit
         public bool CanSelected { get; protected set; } = true;
 
 
-        public abstract Sprite Sprite { get; protected set; }
-
-        public IInteractable SelectInfo { get; protected set; }
+        public IOption Options { get; protected set; }
 
         public event Action<int> OnHealthChange;
 
@@ -131,7 +129,7 @@ namespace Unit
 
         public virtual void InitInteractable()
         {
-            SelectInfo = new InteractableUnit(this);
+            Options = new OptionUnitBase(this);
         }
 
         public void DoSomething()

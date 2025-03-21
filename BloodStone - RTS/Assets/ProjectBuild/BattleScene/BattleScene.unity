@@ -265,7 +265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 480917f3d279ca84a9f1589ee44bda70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 27.51
+  speed: 59.1
 --- !u!4 &53066452
 Transform:
   m_ObjectHideFlags: 0
@@ -1118,11 +1118,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <FactionType>k__BackingField: 1
+  <EntityInfo>k__BackingField: {fileID: 11400000, guid: 0c413ad6180e3484db8cd4207e367bbe, type: 2}
   <Height>k__BackingField: 7
   <Width>k__BackingField: 8
   <BodyRenderer>k__BackingField: {fileID: 2061618677}
   selectObject: {fileID: 1626323582}
-  <Sprite>k__BackingField: {fileID: 0}
 --- !u!4 &551391803
 Transform:
   m_ObjectHideFlags: 0
@@ -2052,7 +2052,7 @@ Transform:
   m_GameObject: {fileID: 910772902}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2.51}
+  m_LocalPosition: {x: 0, y: 0, z: -15.84}
   m_LocalScale: {x: 5.1587596, y: 5.1587596, z: 5.1587596}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3395,11 +3395,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <FactionType>k__BackingField: 0
+  <EntityInfo>k__BackingField: {fileID: 11400000, guid: 0c413ad6180e3484db8cd4207e367bbe, type: 2}
   <Height>k__BackingField: 7
   <Width>k__BackingField: 8
   <BodyRenderer>k__BackingField: {fileID: 1242612838646625108}
   selectObject: {fileID: 991423388}
-  <Sprite>k__BackingField: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!4 &1530255972
 Transform:
   m_ObjectHideFlags: 0
@@ -4426,11 +4426,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <FactionType>k__BackingField: 0
+  <EntityInfo>k__BackingField: {fileID: 11400000, guid: 0c413ad6180e3484db8cd4207e367bbe, type: 2}
   <Height>k__BackingField: 6
   <Width>k__BackingField: 10
   <BodyRenderer>k__BackingField: {fileID: 1813522914}
   selectObject: {fileID: 2038471483}
-  <Sprite>k__BackingField: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!135 &2001934902
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4854,10 +4854,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1705916377933632629, guid: 331eecc2c7bf45e44ba09b018cda8de5, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3060725534888397963, guid: 331eecc2c7bf45e44ba09b018cda8de5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.68
@@ -4898,21 +4894,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4076294804293661386, guid: 331eecc2c7bf45e44ba09b018cda8de5, type: 3}
-      propertyPath: <FactionType>k__BackingField
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6100566499812680711, guid: 331eecc2c7bf45e44ba09b018cda8de5, type: 3}
       propertyPath: m_Name
       value: GenerateNewSimpleUnitTower
-      objectReference: {fileID: 0}
-    - target: {fileID: 6100566499812680711, guid: 331eecc2c7bf45e44ba09b018cda8de5, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6752174093637409450, guid: 331eecc2c7bf45e44ba09b018cda8de5, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6834,6 +6818,7 @@ MonoBehaviour:
   - {fileID: 2054863906}
   - {fileID: 596214827}
   - {fileID: 2040660098}
+  optionSOList: {fileID: 8902562920377887244, guid: e0babb81dfcddd14a9145fc77cdb2b88, type: 3}
 --- !u!114 &8879821209393310023 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2008102175130711010, guid: ab0066da3978a634993e3fa8d9ffe9cf, type: 3}

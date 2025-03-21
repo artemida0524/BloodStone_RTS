@@ -1,5 +1,6 @@
 ﻿using Entity;
 using Faction;
+using Option;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,14 +45,23 @@ namespace Select
             camera = Camera.main;
         }
 
+        private bool Condition(int data)
+        {
+            return true;
+        }
+
+
         private void Update()
         {
-            if (!EventSystem.current.IsPointerOverGameObject())
+            if (faction.Data.InteractionMode != InteractionMode.Build)
             {
-                HandleClickSelection();
-                HandleHoverEffect();
+                if (!EventSystem.current.IsPointerOverGameObject())
+                {
+                    HandleClickSelection();
+                    HandleHoverEffect();
+                }
+                HandleDragSelection();
             }
-            HandleDragSelection();
         }
 
         private void HandleClickSelection()
@@ -71,16 +81,12 @@ namespace Select
                     }
                     else
                     {
-                        Debug.Log("unsleect");
                         UnselectAll();
                     }
                     UpdateInteractionMode();
                 }
             }
         }
-
-
-
 
         private void HandleDragSelection()
         {

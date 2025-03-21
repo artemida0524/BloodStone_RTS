@@ -1,7 +1,5 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using Unit;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,13 +8,10 @@ namespace Option
     public class OptionSelected : MonoBehaviour
     {
         [SerializeField] private Image image;
-        [SerializeField] private OptionSOList options;
         private Button button;
 
-        public bool CanInteraction = false;
-
-
-        private List<DoActionOption> optionList = new();
+        public List<DoActionOption> OptionList { get; private set; } = new List<DoActionOption>();
+        public event Action<OptionSelected> OnClick;
 
         private void Awake()
         {
@@ -25,55 +20,36 @@ namespace Option
 
         private void OnEnable()
         {
-            button.onClick.AddListener(OnClick);
+            button.onClick.AddListener(OnClickHandler);
         }
-
 
         private void OnDisable()
         {
-            button.onClick.RemoveListener(OnClick);
+            button.onClick.RemoveListener(OnClickHandler);
         }
 
         private void OnDestroy()
         {
-            button.onClick.RemoveListener(OnClick);
+            button.onClick.RemoveListener(OnClickHandler);
         }
 
-        private void OnClick()
+        private void OnClickHandler()
         {
-            if (CanInteraction)
-            {
-                Debug.Log("wefwef");
-                foreach (var item in optionList)
-                {
-                    item.Action?.Invoke();
-                } 
-            }
+            OnClick?.Invoke(this);
         }
 
-        public void SetActions(List<DoActionOption> options)
+        public void SetOptions(List<DoActionOption> options, Sprite sprite)
         {
-            this.optionList = options;
-            DoActionOption option = options[0];
-
-            foreach (var item in this.options.Options)
-            {
-                if (option.Name == item.Name)
-                {
-                    image.sprite = item.Icon;
-                    return;
-                }
-            }
-            image.sprite = null;
+            this.OptionList = options;
+            this.image.sprite = sprite;
         }
 
 
         public void Remove()
         {
             image.sprite = null;
-            //optionList.Clear();
-            CanInteraction = false;
+            OptionList.Clear();
         }
 
-    } 
+    }
 }

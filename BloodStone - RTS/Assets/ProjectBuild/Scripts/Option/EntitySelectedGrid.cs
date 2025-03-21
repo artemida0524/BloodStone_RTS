@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Unit;
 using UnityEngine;
 
 namespace Option
@@ -19,7 +18,7 @@ namespace Option
             }
         }
 
-        public void Init(List<IInteractable> interactables)
+        public void Init(List<IOption> options)
         {
             alreadySelect.Clear();
 
@@ -28,9 +27,9 @@ namespace Option
                 item.Unselect();
             }
 
-            for (int i = 0; i < interactables.Count; i++)
+            for (int i = 0; i < options.Count; i++)
             {
-                Items[i].SetInteractable(interactables[i]);
+                Items[i].SetEntity(options[i], options[i].EntityInfo.Icon);
             }
         }
 
@@ -47,11 +46,11 @@ namespace Option
         {
             optionsGrid.RemoveAll();
 
-            if (entitySelect.Interactable == null) return;
+            if (entitySelect.Option == null) return;
 
             if (!alreadySelect.Contains(entitySelect))
             {
-                if(!Input.GetKey(KeyCode.LeftShift))
+                if (!Input.GetKey(KeyCode.LeftShift))
                 {
                     foreach (var item in alreadySelect)
                     {
@@ -70,12 +69,12 @@ namespace Option
             optionsGrid.Init(GetInteractables());
         }
 
-        private List<IInteractable> GetInteractables()
+        private List<IOption> GetInteractables()
         {
-            List<IInteractable> interactables = new List<IInteractable>();
+            List<IOption> interactables = new List<IOption>();
             foreach (var item in alreadySelect)
             {
-                interactables.Add(item.Interactable);
+                interactables.Add(item.Option);
             }
 
             return interactables;

@@ -778,6 +778,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <FactionType>k__BackingField: 0
+  <EntityInfo>k__BackingField: {fileID: 11400000, guid: 79f9e838c5d691c45968f9d3540c80d1, type: 2}
   <BodyRenderer>k__BackingField: {fileID: 5946744539415257584}
   <UIBarContainer>k__BackingField: {fileID: 0}
   <StateInteractable>k__BackingField:
@@ -790,7 +791,6 @@ MonoBehaviour:
   <CurrentWeapon>k__BackingField: {fileID: 6467472800866572565, guid: dc4210a3491ba9d4a8ce513136df78e2, type: 3}
   <Melle>k__BackingField: {fileID: 7180483273294464134, guid: e14c9976bd76c6543ae6798321a8620f, type: 3}
   <AnimationEventHandler>k__BackingField: {fileID: 487589541590830845}
-  <Sprite>k__BackingField: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!114 &487589541590830845
 MonoBehaviour:
   m_ObjectHideFlags: 0

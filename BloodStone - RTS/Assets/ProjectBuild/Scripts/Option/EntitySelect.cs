@@ -1,5 +1,4 @@
 using System;
-using Unit;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,9 +9,8 @@ namespace Option
         [SerializeField] private Image icon;
         [SerializeField] private RectTransform selectView;
         private Button button;
-        public IInteractable Interactable { get; private set; }
 
-
+        public IOption Option { get; private set; }
         public event Action<EntitySelect> OnClick;
 
         private void Awake()
@@ -40,16 +38,16 @@ namespace Option
             OnClick?.Invoke(this);
         }
 
-        public void SetInteractable(IInteractable interactable)
+        public void SetEntity(IOption entity, Sprite sprite)
         {
-            this.Interactable = interactable;
-            icon.sprite = interactable.Icon;
+            this.Option = entity;
+            icon.sprite = sprite;
         }
 
         public void Remove()
         {
             icon.sprite = null;
-            Interactable = null;
+            Option = null;
         }
 
         public void Select()

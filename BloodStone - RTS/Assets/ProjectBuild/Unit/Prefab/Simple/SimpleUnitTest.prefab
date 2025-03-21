@@ -1321,6 +1321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <FactionType>k__BackingField: 0
+  <EntityInfo>k__BackingField: {fileID: 11400000, guid: 6ef60cc34b8478e4e930b900af25a8bf, type: 2}
   <BodyRenderer>k__BackingField: {fileID: 6353904766621675391}
   <UIBarContainer>k__BackingField: {fileID: 7836794981272452832}
   <StateInteractable>k__BackingField:
@@ -1328,7 +1329,6 @@ MonoBehaviour:
   selectObject: {fileID: 6928722464574562445}
   <MaxCountHealth>k__BackingField: 100
   <CountHealth>k__BackingField: 100
-  <Sprite>k__BackingField: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &6273862810115828400
 GameObject:
   m_ObjectHideFlags: 0

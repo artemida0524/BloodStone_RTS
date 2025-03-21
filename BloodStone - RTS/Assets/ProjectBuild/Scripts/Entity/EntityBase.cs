@@ -1,8 +1,6 @@
 using Faction;
 using System;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Entity
 {
@@ -12,6 +10,7 @@ namespace Entity
         public abstract Vector3 Position { get; }
         public abstract float Radius { get; }
         [field: SerializeField] public FactionType FactionType { get; protected set; }
+        [field: SerializeField] public EntityInfoSO EntityInfo { get; protected set; }
         
         public event Action OnFactionChanged;
 
