@@ -6,5 +6,6 @@ namespace Option
     {
         public string Name;
         public Action Action;
+        public ActionType myEnum;
     }
 }

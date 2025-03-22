@@ -13,6 +13,8 @@ namespace Select
 {
     public class SelectableHandler : MonoBehaviour
     {
+        [SerializeField] private RotateObj _rotateObj;
+
         [SerializeField] private RectTransform selectRect;
         private Build.Faction faction;
 

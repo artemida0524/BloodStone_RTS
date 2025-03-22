@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Data.Common;
+﻿using Option;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Option
@@ -31,6 +32,7 @@ namespace Option
             {
                 foreach (var option in item.Options)
                 {
+
                     if (!dict.ContainsKey(option.Name))
                     {
                         dict[option.Name] = new List<DoActionOption>();
@@ -38,8 +40,25 @@ namespace Option
                     dict[option.Name].Add(option);
                 }
             }
+
+            var newDict = dict.Where((a) =>
+            {
+                foreach (var item in a.Value)
+                {
+                    if(item.myEnum == ActionType.More && a.Value.Count > 1)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            });
+
             int indexer = 0;
-            foreach (var item in dict)
+            foreach (var item in newDict)
             {
                 if (item.Value.Count > countOptioin)
                 {
@@ -81,7 +100,3 @@ namespace Option
         }
     }
 }
-
-
-
-

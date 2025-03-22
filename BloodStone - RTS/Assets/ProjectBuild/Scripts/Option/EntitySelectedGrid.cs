@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
+using Unit;
 using UnityEngine;
 
 namespace Option
 {
     public class EntitySelectedGrid : MonoBehaviour
     {
-        [field: SerializeField] public List<EntitySelect> Items { get; private set; }
+        [field: SerializeField] public List<EntitySelected> Items { get; private set; }
         [SerializeField] private OptionSelectedGrid optionsGrid;
 
-        private List<EntitySelect> alreadySelect = new List<EntitySelect>();
+        private List<EntitySelected> alreadySelect = new List<EntitySelected>();
 
         private void Start()
         {
@@ -18,7 +19,7 @@ namespace Option
             }
         }
 
-        public void Init(List<IOption> options)
+        public void Init(List<ISelectable> selectables)
         {
             alreadySelect.Clear();
 
@@ -27,9 +28,9 @@ namespace Option
                 item.Unselect();
             }
 
-            for (int i = 0; i < options.Count; i++)
+            for (int i = 0; i < selectables.Count; i++)
             {
-                Items[i].SetEntity(options[i], options[i].EntityInfo.Icon);
+                Items[i].SetEntity(selectables[i], selectables[i].EntityInfo.Icon);
             }
         }
 
@@ -42,11 +43,11 @@ namespace Option
             }
         }
 
-        private void OnClickHandler(EntitySelect entitySelect)
+        private void OnClickHandler(EntitySelected entitySelect)
         {
             optionsGrid.RemoveAll();
 
-            if (entitySelect.Option == null) return;
+            if (entitySelect.SelectedEntity == null) return;
 
             if (!alreadySelect.Contains(entitySelect))
             {
@@ -71,13 +72,13 @@ namespace Option
 
         private List<IOption> GetInteractables()
         {
-            List<IOption> interactables = new List<IOption>();
+            List<IOption> optins = new List<IOption>();
             foreach (var item in alreadySelect)
             {
-                interactables.Add(item.Option);
+                optins.Add(item.SelectedEntity.Options);
             }
 
-            return interactables;
+            return optins;
         }
 
     }

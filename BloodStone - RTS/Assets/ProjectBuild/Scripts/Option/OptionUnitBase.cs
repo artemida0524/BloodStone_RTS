@@ -1,6 +1,4 @@
-﻿using Build;
-using Entity;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Unit;
 using UnityEngine;
 
@@ -11,54 +9,56 @@ namespace Option
     {
         public OptionUnitBase(UnitBase unitbase) : base(unitbase)
         {
-            Options.Add(new DoActionOption() { Action = unitbase.DoSomething, Name = nameof(unitbase.DoSomething) });
-        }
-    }
-
-    public class TestOption : OptionBase
-    {
-        private TestBuild testBuild;
-        public TestOption(TestBuild build) : base(build)
-        {
-            this.testBuild = build;
-            OptionSelectedGrid optionSelectedGrid = Object.FindObjectOfType<OptionSelectedGrid>();
-
-            Options.Add(new DoActionOption() { Action = () => optionSelectedGrid.Init(GetOptions()), Name = "Beeem" });
-            Options.Add(new DoActionOption() { Action = () => Debug.Log("bemsS"), Name = "DoSomething" });
+            Options.Add(new DoActionOption() { Action = unitbase.DoSomething, Name = nameof(unitbase.DoSomething), myEnum = ActionType.Once });
+            Options.Add(new DoActionOption() { Name = "More", Action = Do, myEnum = ActionType.More });
         }
 
-        private List<IOption> GetOptions()
+        private void Do()
         {
+            Object.FindObjectOfType<OptionSelectedGrid>().Init(GetOption());
+        }
 
-            List<IOption> interactables = new List<IOption>()
+        private List<IOption> GetOption()
+        {
+            return new List<IOption>()
             {
-                new Interact(testBuild),
+                new Option()
             };
-
-            return interactables;
         }
 
-
-        private class Interact : IOption
+        public class Option : IOption
         {
-            public EntityInfoSO EntityInfo { get; private set; }
             public List<DoActionOption> Options { get; private set; }
 
-
-
-            public Interact(EntityBase entity)
+            public Option()
             {
-
-                this.EntityInfo = entity.EntityInfo;
-
                 Options = new List<DoActionOption>()
-                    {
-                        new DoActionOption() { Name = "Optio1", Action = () => Debug.Log("Action1")},
-                        new DoActionOption() { Name = "Optio2", Action = () => Debug.Log("Action2")},
-                        new DoActionOption() { Name = "Optio3", Action = () => Debug.Log("Action3")}
-                    };
-            }
+                {
 
+                    new DoActionOption()
+                    {
+                        Name = "Optio1",
+                        Action = () => Debug.Log("Optio1"),
+                        myEnum = ActionType.Once
+                    },
+
+                    new DoActionOption()
+                    {
+                        Name = "Optio2",
+                        Action = () => Debug.Log("Optio2"),
+                        myEnum = ActionType.Once
+                    },
+
+
+                    new DoActionOption()
+                    {
+                        Name = "Optio3",
+                        Action = () => Debug.Log("Optio3"),
+                        myEnum = ActionType.Once
+                    },
+
+                };
+            }
         }
     }
 }

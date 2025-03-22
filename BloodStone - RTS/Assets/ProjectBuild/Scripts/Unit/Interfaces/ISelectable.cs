@@ -9,8 +9,8 @@ namespace Unit
         Vector3 Position { get; }
         bool IsSelection { get; }
         bool CanSelected { get; }
-        EntityInfoSO EntityInfo { get; }
         IOption Options { get; }
+        EntityInfoSO EntityInfo { get; }
 
         bool Select();
         void Unselect();

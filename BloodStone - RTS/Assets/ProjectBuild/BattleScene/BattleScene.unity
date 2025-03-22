@@ -252,7 +252,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &53066451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,6 +438,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6975c2ed7ef3e44cab5094735bcd61f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rotateObj: {fileID: 53066451}
   selectRect: {fileID: 1428111370}
   dragThreshold: 25
 --- !u!1 &370894698

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 using Unit;
+using Weapon;
+using UnityEngine.UI;
 
 namespace Option
 {
@@ -10,6 +12,8 @@ namespace Option
     {
         [SerializeField] private EntitySelectedGrid entitySelectedGrid;
         [SerializeField] private OptionSelectedGrid optionSelectedGrid;
+
+
 
         [Inject]
         private void Construct(SelectableHandler handler)
@@ -22,22 +26,12 @@ namespace Option
             entitySelectedGrid.RemoveAll();
             optionSelectedGrid.RemoveAll();
 
+
+
             if (selectables.Count > 0)
             {
-                entitySelectedGrid.Init(GetOptions(selectables));
+                entitySelectedGrid.Init(selectables);
             }
-        }
-
-
-        private List<IOption> GetOptions(List<ISelectable> selectables)
-        {
-            List<IOption> options = new List<IOption>();
-            foreach (var item in selectables)
-            {
-                options.Add(item.Options);
-            }
-
-            return options;
         }
     }
 
