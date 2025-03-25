@@ -11,10 +11,10 @@ namespace Bar
         [SerializeField] private Slider slider;
         [SerializeField] private TextMeshProUGUI countText;
 
-        public IResourceBar ResourceBar { get; private set; }
+        public IBar ResourceBar { get; private set; }
 
 
-        public void Init(IResourceBar resourceBar, UIBarDataSO rowBarAsset)
+        public void Init(IBar resourceBar, UIBarDataSO rowBarAsset)
         {
             this.ResourceBar = resourceBar;
             icon.sprite = rowBarAsset.Icon;

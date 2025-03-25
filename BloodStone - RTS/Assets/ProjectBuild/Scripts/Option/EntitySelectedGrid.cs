@@ -19,7 +19,7 @@ namespace Option
             }
         }
 
-        public void Init(List<ISelectable> selectables)
+        public void Init(IReadOnlyList<ISelectable> selectables)
         {
             alreadySelect.Clear();
 
@@ -32,6 +32,12 @@ namespace Option
             {
                 Items[i].SetEntity(selectables[i], selectables[i].EntityInfo.Icon);
             }
+
+            if (selectables.Count == 1)
+            {
+                OnClickHandler(Items[0]);
+            }
+
         }
 
         public void RemoveAll()
@@ -45,9 +51,12 @@ namespace Option
 
         private void OnClickHandler(EntitySelected entitySelect)
         {
+            if (entitySelect.SelectedEntity == null) return;
             optionsGrid.RemoveAll();
 
-            if (entitySelect.SelectedEntity == null) return;
+
+            Debug.Log(entitySelect.SelectedEntity);
+
 
             if (!alreadySelect.Contains(entitySelect))
             {

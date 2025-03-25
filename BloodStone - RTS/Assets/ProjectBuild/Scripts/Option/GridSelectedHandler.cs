@@ -21,13 +21,12 @@ namespace Option
             handler.OnSelectedUnits += OnSelectedUnitsHandler;
         }
 
-        private void OnSelectedUnitsHandler(List<ISelectable> selectables)
+        private void OnSelectedUnitsHandler(IReadOnlyList<ISelectable> selectables)
         {
             entitySelectedGrid.RemoveAll();
             optionSelectedGrid.RemoveAll();
 
-
-
+                
             if (selectables.Count > 0)
             {
                 entitySelectedGrid.Init(selectables);

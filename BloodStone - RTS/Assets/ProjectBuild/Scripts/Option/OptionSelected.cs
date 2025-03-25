@@ -44,7 +44,6 @@ namespace Option
             this.image.sprite = sprite;
         }
 
-
         public void Remove()
         {
             image.sprite = null;

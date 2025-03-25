@@ -18,11 +18,11 @@ public class UIBarContainer : MonoBehaviour
     }
 
 
-    public void AddBar(IResourceBar bar)
+    public void AddBar(IBar bar)
     {
         if (bars == null)
         {
-            bars = new();
+            bars = new();   
         }
 
 

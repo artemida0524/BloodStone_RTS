@@ -4,7 +4,7 @@ using Unit;
 
 namespace Bar
 {
-    public class HealthBar : IResourceBar
+    public class HealthBar : IBar
     {
         public string Name { get; private set; } = "Health";
         public int MaxCount { get; private set; }
@@ -34,5 +34,5 @@ namespace Bar
         {
             health.OnHealthChange -= OnChange;
         }
-    } 
+    }
 }

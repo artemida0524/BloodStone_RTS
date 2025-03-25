@@ -12,7 +12,6 @@ namespace Option
 
         private Dictionary<string, List<DoActionOption>> dict = new Dictionary<string, List<DoActionOption>>();
 
-
         private void Start()
         {
             foreach (var item in Items)

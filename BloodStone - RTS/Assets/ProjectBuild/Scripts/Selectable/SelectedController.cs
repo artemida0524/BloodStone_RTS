@@ -19,7 +19,7 @@ namespace Select
         private Build.Faction faction;
         private SelectableHandler selectableHandler;
 
-        private List<ISelectable> selectedEntities = new List<ISelectable>();
+        private IReadOnlyList<ISelectable> selectedEntities = new List<ISelectable>();
         private Camera camera;
 
         [Inject]
@@ -35,7 +35,7 @@ namespace Select
             camera = Camera.main;
         }
 
-        private void OnSelectedUnit(List<ISelectable> units)
+        private void OnSelectedUnit(IReadOnlyList<ISelectable> units)
         {
             this.selectedEntities = units;
         }

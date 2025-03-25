@@ -46,3 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <BarDataList>k__BackingField:
   - {fileID: 11400000, guid: 70816897aed41cf4abe233272c9ab727, type: 2}
+  - {fileID: 11400000, guid: 1985d92a27830964ea12a6fde9d5d42f, type: 2}

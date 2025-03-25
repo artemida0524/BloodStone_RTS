@@ -9,8 +9,8 @@ namespace Option
     {
         public OptionUnitBase(UnitBase unitbase) : base(unitbase)
         {
-            Options.Add(new DoActionOption() { Action = unitbase.DoSomething, Name = nameof(unitbase.DoSomething), myEnum = ActionType.Once });
-            Options.Add(new DoActionOption() { Name = "More", Action = Do, myEnum = ActionType.More });
+            options.Add(new DoActionOption() { Action = unitbase.DoSomething, Name = nameof(unitbase.DoSomething), myEnum = ActionType.Once });
+            options.Add(new DoActionOption() { Name = "More", Action = Do, myEnum = ActionType.More });
         }
 
         private void Do()
@@ -22,13 +22,13 @@ namespace Option
         {
             return new List<IOption>()
             {
-                new Option()
+                new Option(),
             };
         }
 
         public class Option : IOption
         {
-            public List<DoActionOption> Options { get; private set; }
+            public IReadOnlyList<DoActionOption> Options { get; private set; }
 
             public Option()
             {

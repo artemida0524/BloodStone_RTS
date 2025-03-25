@@ -4,6 +4,6 @@ namespace Option
 {
     public interface IOption
     {
-        List<DoActionOption> Options { get; }
+        IReadOnlyList<DoActionOption> Options { get; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Build;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 namespace Option
 {
@@ -8,8 +9,8 @@ namespace Option
     {
         public TestOption(TestBuild build) : base(build)
         {
-            Options.Add(new DoActionOption() { Action = () => Debug.Log("bemsS"), Name = "DoSomething" });
-            Options.Add(new DoActionOption() { Name = "More2", Action = Do, myEnum = ActionType.More });
+            options.Add(new DoActionOption() { Action = () => Debug.Log("bemsS"), Name = "DoSomething" });
+            options.Add(new DoActionOption() { Name = "More2", Action = Do, myEnum = ActionType.More });
         }
 
         private void Do()
@@ -21,13 +22,13 @@ namespace Option
         {
             return new List<IOption>()
             {
-                new Option()
+                new Option(),
             };
         }
 
         public class Option : IOption
         {
-            public List<DoActionOption> Options { get; private set; }
+            public IReadOnlyList<DoActionOption> Options { get; private set; }
 
             public Option()
             {

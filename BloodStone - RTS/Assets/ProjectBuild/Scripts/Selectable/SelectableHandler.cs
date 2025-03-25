@@ -1,6 +1,6 @@
-﻿using Entity;
+﻿using Currency;
+using Entity;
 using Faction;
-using Option;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +34,7 @@ namespace Select
         private bool isPreparingToDrag = false;
         [SerializeField] private float dragThreshold = 10f;
 
-        public event Action<List<ISelectable>> OnSelectedUnits;
+        public event Action<IReadOnlyList<ISelectable>> OnSelectedUnits;
 
         [Inject]
         private void Construct(Build.Faction faction)
@@ -47,11 +47,11 @@ namespace Select
             camera = Camera.main;
         }
 
-        private bool Condition(int data)
-        {
-            return true;
-        }
 
+        private void Start()
+        {
+            Debug.Log(faction.GetCurrency<Gold>().Count);
+        }
 
         private void Update()
         {
