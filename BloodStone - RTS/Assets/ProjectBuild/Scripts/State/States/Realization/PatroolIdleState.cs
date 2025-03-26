@@ -21,7 +21,7 @@ namespace State
 
         public override void Update()
         {
-            Collider[] colliders = Physics.OverlapSphere(unit.transform.position, /*unit.StateInteractable.radius*/  unit.StateInteractable.radius);
+            Collider[] colliders = Physics.OverlapSphere(unit.transform.position, unit.StateInteractable.Radius);
 
             if (colliders.Length > 0)
             {

@@ -17,5 +17,4 @@ namespace State
             unit.Animator.Play(unit.IdleAnimation);
         }
     }
-
 }

@@ -53,10 +53,7 @@ namespace Option
         {
             if (entitySelect.SelectedEntity == null) return;
             optionsGrid.RemoveAll();
-
-
-            Debug.Log(entitySelect.SelectedEntity);
-
+    
 
             if (!alreadySelect.Contains(entitySelect))
             {

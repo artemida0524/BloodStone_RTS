@@ -22,24 +22,16 @@ namespace State
 
         private async Task SetDestinationAsync(UnitBase unit, EntityBase target, int interval)
         {
-            while (isSetDestination && Application.isPlaying)
-            {
-                Debug.Log("Move");
-                unit.Agent.SetDestination(target.Position);
-                await Task.Delay(interval);
-            }
-            Debug.Log("Exit");
+            await SetDestinationAsync(unit, target.Position, interval);
         }
 
         private async Task SetDestinationAsync(UnitBase unit, Vector3 point, int interval)
         {
             while (isSetDestination && Application.isPlaying)
             {
-                Debug.Log(Application.isPlaying);
                 unit.Agent.SetDestination(point);
                 await Task.Delay(interval);
             }
-            Debug.Log("Exit");
         }
         public override void Exit()
         {

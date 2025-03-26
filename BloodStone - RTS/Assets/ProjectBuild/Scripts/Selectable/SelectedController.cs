@@ -68,6 +68,23 @@ namespace Select
                             }
                             return;
                         }
+                        else if (entity.FactionType == FactionType.Systems)
+                        {
+                            if (entity is BuildInteractableBase build)
+                            {
+                                if (faction.Data.InteractionMode == InteractionMode.Setable)
+                                {
+                                    var units = selectedEntities.OfType<UnitBase>().ToList();
+
+                                    build.Interaction(units);
+                                }
+                                else if (faction.Data.InteractionMode == InteractionMode.None)
+                                {
+                                    build.Interaction();
+                                }
+                            }
+                            return;
+                        }
                         else if (entity.FactionType != faction.FactionType)
                         {
                             List<AttackingUnitBase> attackingUnits = selectedEntities.OfType<AttackingUnitBase>().ToList();
@@ -77,6 +94,7 @@ namespace Select
                                 item.StateInteractable.SetState(new AttackAndFollowState(item, entity));
                             }
                         }
+
                     }
                     else
                     {

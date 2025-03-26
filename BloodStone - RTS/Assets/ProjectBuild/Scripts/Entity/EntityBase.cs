@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Entity
 {
-    public abstract class EntityBase : MonoBehaviour
+    public abstract class EntityBase : MonoBehaviour, IEntity
     {
         public abstract Renderer BodyRenderer { get; protected set; } 
         public abstract Vector3 Position { get; }
@@ -30,6 +30,5 @@ namespace Entity
         {
             transform.position += new Vector3(10, 0, 0);
         }
-
     }
 }

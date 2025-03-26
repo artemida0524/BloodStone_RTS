@@ -6,12 +6,11 @@ using System;
 using Bar;
 using GlobalData;
 using Select;
-using Unity.VisualScripting;
 using Option;
 
 namespace Unit
 {
-    [SelectionBase, RequireComponent(typeof(NavMeshAgent))]
+    [SelectionBase, RequireComponent(typeof(NavMeshAgent), typeof(CapsuleCollider), typeof(Rigidbody))]
     public abstract class UnitBase : EntityBase, IUnit, IMovable, ISelectable, IHealth, IDamageable, IHoverable
     {
         [field: SerializeField] public override Renderer BodyRenderer { get; protected set; }
@@ -53,27 +52,27 @@ namespace Unit
             InitInteractable();
         }
 
-        public virtual void Start()
+        protected virtual void Start()
         {
-            
+
         }
 
-        public virtual void Update()
+        protected virtual void Update()
         {
             StateInteractable.Update();
         }
 
-        public virtual void OnEnable()
+        protected virtual void OnEnable()
         {
             GlobalUnitsDataHandler.AddUnit(this);
         }
 
-        public virtual void OnDisable()
+        protected virtual void OnDisable()
         {
             GlobalUnitsDataHandler.RemoveUnit(this);
         }
 
-        public virtual void OnDestroy()
+        protected virtual void OnDestroy()
         {
             GlobalUnitsDataHandler.RemoveUnit(this);
         }
@@ -135,8 +134,8 @@ namespace Unit
         public void DoSomething()
         {
             StateInteractable.SetState(new WalkingState(this, FindObjectOfType<Build.Faction>().Position));
-            Debug.Log(FindObjectOfType<Build.Faction>().Position);
         }
 
     }
+
 }

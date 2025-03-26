@@ -48,10 +48,6 @@ namespace Select
         }
 
 
-        private void Start()
-        {
-            Debug.Log(faction.GetCurrency<Gold>().Count);
-        }
 
         private void Update()
         {
