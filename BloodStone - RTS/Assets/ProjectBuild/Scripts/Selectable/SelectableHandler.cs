@@ -13,8 +13,6 @@ namespace Select
 {
     public class SelectableHandler : MonoBehaviour
     {
-        [SerializeField] private RotateObj _rotateObj;
-
         [SerializeField] private RectTransform selectRect;
         private Build.Faction faction;
 
@@ -45,9 +43,19 @@ namespace Select
         private void Awake()
         {
             camera = Camera.main;
+
+            UnitUtility.OnUnitDisableOrDestroy += OnUnitDisableOrDestroyHandler;
         }
 
+        private void OnUnitDisableOrDestroyHandler(UnitBase unit)
+        {
+            if(selectables.Contains(unit))
+            {
+                selectables.Remove(unit);
 
+                OnSelectedUnits?.Invoke(selectables);
+            }
+        }
 
         private void Update()
         {

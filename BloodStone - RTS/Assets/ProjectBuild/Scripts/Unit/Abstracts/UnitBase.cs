@@ -36,10 +36,10 @@ namespace Unit
         public bool IsSelection { get; protected set; } = false;
         public bool CanSelected { get; protected set; } = true;
 
-
         public IOption Options { get; protected set; }
 
         public event Action<int> OnHealthChange;
+        public event Action<int> OnTakeDamage;
 
         protected virtual void Awake()
         {
@@ -47,14 +47,11 @@ namespace Unit
             StateInteractable.Behaviour = InitializeState();
 
             UIBarContainer?.AddBar(new HealthBar(this));
-
-
-            InitInteractable();
         }
 
         protected virtual void Start()
         {
-
+            Options = InitOption();
         }
 
         protected virtual void Update()
@@ -64,17 +61,18 @@ namespace Unit
 
         protected virtual void OnEnable()
         {
-            GlobalUnitsDataHandler.AddUnit(this);
+            UnitUtility.OnUnitEnableInvoke(this);
+
         }
 
         protected virtual void OnDisable()
         {
-            GlobalUnitsDataHandler.RemoveUnit(this);
+            UnitUtility.OnUnitDisableOrDestroyInvoke(this);
         }
 
         protected virtual void OnDestroy()
         {
-            GlobalUnitsDataHandler.RemoveUnit(this);
+            UnitUtility.OnUnitDisableOrDestroyInvoke(this);
         }
 
         protected abstract StateBehaviourBase InitializeState();
@@ -114,6 +112,7 @@ namespace Unit
         {
             CountHealth -= amount;
             OnHealthChange?.Invoke(CountHealth);
+            OnTakeDamage?.Invoke(amount);
         }
 
         public virtual void Hover()
@@ -126,9 +125,9 @@ namespace Unit
             UIBarContainer?.gameObject.SetActive(false);
         }
 
-        public virtual void InitInteractable()
+        public virtual IOption InitOption()
         {
-            Options = new OptionUnitBase(this);
+            return new OptionUnitBase(this);
         }
 
         public void DoSomething()

@@ -36,8 +36,8 @@ namespace Faction
 
         public List<T> GetAll<T>()
         {
-            var units = GetUnits<T>().Where(unit => unit is T);
-            var builds = GetBuilds<T>().Where(build => build is T);
+            var units = GetUnits<T>().OfType<T>();
+            var builds = GetBuilds<T>().OfType<T>();
 
             List<T> result = new List<T>();
 

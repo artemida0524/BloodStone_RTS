@@ -59,7 +59,7 @@ namespace Select
                                     var units = selectedEntities.OfType<UnitBase>().ToList();
 
                                     build.Interaction(units);
-                                    //selectableHandler.UnselectAll();
+                                    selectableHandler.UnselectAll();
                                 }
                                 else if (faction.Data.InteractionMode == InteractionMode.None)
                                 {
@@ -77,6 +77,7 @@ namespace Select
                                     var units = selectedEntities.OfType<UnitBase>().ToList();
 
                                     build.Interaction(units);
+                                    selectableHandler.UnselectAll();
                                 }
                                 else if (faction.Data.InteractionMode == InteractionMode.None)
                                 {

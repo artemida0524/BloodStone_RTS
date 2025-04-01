@@ -6,9 +6,9 @@ namespace Currency
     {
         IReadOnlyList<ICurrency> Currencies { get; }
 
-        void AddCurrency<T>(int amount) where T : ICurrency;
-        bool SpendCurrency<T>(int amount) where T : ICurrency;
-        ICurrency GetCurrency<T>() where T : ICurrency;
+        void AddCurrencyByType(ICurrency typeCurrency, int amount);
+        bool SpendCurrencyByType(ICurrency typeCurrency, int amount);
+        ICurrency GetCurrency(ICurrency typeCurrency);
         ICurrency GetFirstCurrency();
     } 
 }

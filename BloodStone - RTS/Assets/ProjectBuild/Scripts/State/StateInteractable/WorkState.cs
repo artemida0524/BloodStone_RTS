@@ -9,58 +9,53 @@ namespace State
     public class WorkState : StateBase
     {
         private readonly WorkerUnitBase unit;
-        private readonly ICurrencyStorage treasureStorage;
-        private readonly Build.Faction faction;
-        private readonly ICurrency currentCurrency;
+        private readonly ICurrencyStorage fromStorage;
+        private readonly ICurrencyStorage toStorage;
+        private readonly ICurrency currentCurrencyType;
 
         private int amount;
 
         private bool takeCurrency = false;
 
-        public WorkState(WorkerUnitBase unit, ICurrencyStorage treasureStorage, Build.Faction currentFaction, ICurrency currentCurrency)
+        public WorkState(WorkerUnitBase unit, ICurrencyStorage fromStorage, ICurrencyStorage toStorage, ICurrency currentCurrency)
         {
             this.unit = unit; 
-            this.treasureStorage = treasureStorage;
-            this.currentCurrency = currentCurrency;
-            this.faction = currentFaction;
+            this.fromStorage = fromStorage;
+            this.currentCurrencyType = currentCurrency;
+            this.toStorage = toStorage;
         }
 
         public override void Enter()
         {
-           
-            
-            unit.Agent.SetDestination(treasureStorage.Position);
+            unit.Agent.SetDestination(fromStorage.Position);
             unit.Animator.Play(unit.WalkingAnimation);
         }
 
 
         public override void Update()
         {
-            if(Vector3.Distance(unit.Position, treasureStorage.Position) < 10f && !takeCurrency)
+            if(Vector3.Distance(unit.Position, fromStorage.Position) < 5f && !takeCurrency)
             {
-                if (treasureStorage.GetFirstCurrency().Spend(30))
+                if (fromStorage.GetCurrency(currentCurrencyType).Spend(30))
                 {
                     amount = 30;
-                    unit.Agent.SetDestination(faction.Position);
+                    unit.Agent.SetDestination(toStorage.Position);
                     takeCurrency = true;
                 }
             }
-            else if(Vector3.Distance(unit.Position, faction.Position) < 10f && takeCurrency)
+            else if(Vector3.Distance(unit.Position, toStorage.Position) < 5f && takeCurrency)
             {
-                faction.AddCurrency<Gold>(amount);
+                toStorage.AddCurrencyByType(currentCurrencyType, amount);
                 amount = 0;
-                unit.Agent.SetDestination(treasureStorage.Position);
+                unit.Agent.SetDestination(fromStorage.Position);
 
                 takeCurrency = false;
             }
-            Debug.Log("Update");
         }
 
         public override void Exit()
         {
-
             unit.Agent.ResetPath();
-
         }
 
     }

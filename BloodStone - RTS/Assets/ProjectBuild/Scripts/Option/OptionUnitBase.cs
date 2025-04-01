@@ -1,15 +1,34 @@
-﻿using System.Collections.Generic;
+﻿using Build;
+using Currency;
+using GlobalData;
+using State;
+using System.Collections.Generic;
+using System.Linq;
 using Unit;
 using UnityEngine;
 
 namespace Option
 {
 
+    public class OptionWorkerUnit : OptionUnitBase
+    {
+        public OptionWorkerUnit(WorkerUnitBase unit) : base(unit)
+        {
+            Build.Faction faction = GlobalBuildsDataHandler.GetBuilds<Build.Faction>().First(a => a.FactionType == unit.FactionType);
+            TreasureBuild treasure = GlobalBuildsDataHandler.GetBuilds<TreasureBuild>()[0];
+
+
+
+            options.Add(new DoActionOption() { Action = () => unit.StateInteractable.SetState(new WorkState(unit, treasure, faction, new Gold())), myEnum = ActionType.Once, Name = "Work1" });
+        }
+    }
+
+
     public class OptionUnitBase : OptionBase
     {
-        public OptionUnitBase(UnitBase unitbase) : base(unitbase)
+        public OptionUnitBase(UnitBase unit) : base(unit)
         {
-            options.Add(new DoActionOption() { Action = unitbase.DoSomething, Name = nameof(unitbase.DoSomething), myEnum = ActionType.Once });
+            options.Add(new DoActionOption() { Action = unit.DoSomething, Name = nameof(unit.DoSomething), myEnum = ActionType.Once });
             options.Add(new DoActionOption() { Name = "More", Action = Do, myEnum = ActionType.More });
         }
 
