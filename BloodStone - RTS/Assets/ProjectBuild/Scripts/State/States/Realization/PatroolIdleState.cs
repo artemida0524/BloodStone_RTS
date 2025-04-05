@@ -21,26 +21,25 @@ namespace State
 
         public override void Update()
         {
+
             Collider[] colliders = Physics.OverlapSphere(unit.transform.position, unit.StateInteractable.Radius);
 
             if (colliders.Length > 0)
             {
-                
+
                 foreach (var item in colliders)
                 {
-                    if(item.TryGetComponent(out EntityBase entity))
+                    if (item.TryGetComponent(out EntityBase entity))
                     {
-                        if(entity.FactionType != this.unit.FactionType)
+                        if (entity.FactionType != this.unit.FactionType)
                         {
-                            //this.unit.StateInteractable.SetState(new AttackAndFollowState(this.unit, entity));
-
-
                             this.unit.StateInteractable.SetState(new AttackAndFollowState(this.unit, entity));
                             return;
                         }
                     }
                 }
             }
+
         }
     }
 }

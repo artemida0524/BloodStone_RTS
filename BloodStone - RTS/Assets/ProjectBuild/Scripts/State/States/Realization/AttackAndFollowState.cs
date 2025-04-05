@@ -4,50 +4,72 @@ using UnityEngine;
 
 namespace State
 {
-    
-    //CHANGE STATE
     public class AttackAndFollowState : StateBase
     {
-        public readonly AttackingUnitBase unit;
-        public readonly EntityBase targetEntity;
+        private readonly AttackingUnitBase unit;
+        private readonly EntityBase targetEntity;
 
-        private readonly float beginSpeed;
+        private bool isMovingToTarget;
+
         public AttackAndFollowState(AttackingUnitBase unit, EntityBase targetEntity)
         {
             this.unit = unit;
             this.targetEntity = targetEntity;
-
-            beginSpeed = unit.Agent.speed;
         }
-
 
         public override void Enter()
         {
-            unit.Agent.ResetPath();
-
-
-            if(!(Vector3.Distance(unit.Position, targetEntity.Position) - targetEntity.Radius < unit.CurrentWeapon.Distance / 1.5f))
-            {
-                ChangeStateToFollow();
-            }
-
+            TryMoveToTarget();
         }
 
         public override void Update()
         {
-
-
-
-            Debug.DrawRay(unit.transform.position, targetEntity.Position - unit.Position);
-
-            if (ShouldFollowTarget())
-            {
-                ChangeStateToFollow();
+            if (targetEntity == null || unit == null)
                 return;
+
+            if (/*!unit.CurrentWeapon.AttackRightNow*/ true )
+            {
+                if (isMovingToTarget)
+                {
+                    TryMoveToTarget();
+
+                    if (IsInAttackRange() && HasLineOfSight())
+                    {
+                        isMovingToTarget = false;
+                        unit.ResetMove();
+                    }
+                }
+                else
+                {
+                    if (ShouldFollowTarget())
+                    {
+                        TryMoveToTarget();
+                        return;
+                    }
+
+                    unit.transform.LookAt(targetEntity.Position);
+                    TryAttack();
+                }
+
+            }
+            else
+            {
+                unit.transform.LookAt(targetEntity.Position);
             }
 
-            unit.transform.LookAt(targetEntity.Position);
+        }
 
+        private void TryMoveToTarget()
+        {
+            if (ShouldFollowTarget())
+            {
+                unit.MoveTo(targetEntity.Position, targetEntity.Radius);
+                isMovingToTarget = true;
+            }
+        }
+
+        private void TryAttack()
+        {
             if (unit.CanShoot())
             {
                 Debug.Log("Attack");
@@ -55,38 +77,27 @@ namespace State
             }
         }
 
-
-        public override void Exit()
+        private bool IsInAttackRange()
         {
-            unit.Agent.enabled = true;
-            unit.Agent.ResetPath();
+            float distance = Vector3.Distance(unit.Position, targetEntity.Position);
+            return distance - targetEntity.Radius < unit.CurrentWeapon.Distance / 1.5f;
+        }
 
-            unit.Agent.speed = beginSpeed;
-
+        private bool HasLineOfSight()
+        {
+            return Physics.Raycast(new Ray(unit.Position, targetEntity.Position - unit.Position), out RaycastHit hit)
+                   && hit.collider.gameObject.Equals(targetEntity.gameObject);
         }
 
         private bool ShouldFollowTarget()
         {
-            float distanceToTarget = Vector3.Distance(unit.Position, targetEntity.Position);
-            bool isOutOfRange = distanceToTarget - targetEntity.Radius > unit.CurrentWeapon.Distance * 1.5f;
+            float distance = Vector3.Distance(unit.Position, targetEntity.Position);
+            bool isOutOfRange = distance - targetEntity.Radius > unit.CurrentWeapon.Distance * 1.5f;
 
-            bool hasObstacle = Physics.Raycast(
-                new Ray(unit.Position, targetEntity.Position - unit.Position),
-                out RaycastHit hitInfo) &&
-                !hitInfo.collider.gameObject.Equals(targetEntity.gameObject);
+            bool hasObstacle = Physics.Raycast(new Ray(unit.Position, targetEntity.Position - unit.Position), out RaycastHit hit)
+                               && !hit.collider.gameObject.Equals(targetEntity.gameObject);
 
             return isOutOfRange || hasObstacle;
-        }
-
-        private void ChangeStateToFollow()
-        {
-            var followState = new FollowWithChangeState(unit, targetEntity, new AttackAndFollowState(unit, targetEntity));
-            //unit.StateInteractable.SetState(followState);
-
-
-
-
-            unit.StateInteractable.SetState(followState);
         }
     }
 }

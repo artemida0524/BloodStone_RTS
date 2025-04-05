@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
 
 namespace State
 {
-
+    
     public abstract class StateBehaviourBase
     {
         public StateMachine StateMachine { get; protected set; }

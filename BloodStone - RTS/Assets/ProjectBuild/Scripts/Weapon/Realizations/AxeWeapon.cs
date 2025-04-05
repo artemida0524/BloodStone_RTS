@@ -15,15 +15,14 @@ namespace Weapon
             base.Shoot(enemyEntity);
 
             Unit.Animator.Play(AttackAnimation, 0, 0);
-
         }
 
         protected override void OnShootDetect()
         {
             Debug.Log("efwefwe");
         }
+
+
+
     }
-
-    
-
 }

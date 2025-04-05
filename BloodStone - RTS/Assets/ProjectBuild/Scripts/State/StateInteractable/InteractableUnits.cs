@@ -8,12 +8,13 @@ namespace State
     public class InteractableUnits
     {
         public StateBehaviourBase Behaviour { get; set; }
+        public StateMachine MoveState { get; set; } = new StateMachine(null);
         [field: SerializeField] public float Radius { get; private set; } = 5f;
 
         public void Update()
         {
             UpdateState();
-            if (Behaviour.StateMachine.State.IsFinished)
+            if (Behaviour.StateMachine.State != null && Behaviour.StateMachine.State.IsFinished)
             {
                 Behaviour.SetStateIfFinished();
             }
@@ -27,9 +28,7 @@ namespace State
         private void UpdateState()
         {
             Behaviour.StateMachine?.Update();
+            MoveState.Update();
         }
-
-
     }
-
 }

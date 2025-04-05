@@ -1,4 +1,7 @@
+using Cinemachine;
 using Entity;
+using System.Collections;
+using System.Drawing;
 using Unit;
 using UnityEngine;
 
@@ -8,17 +11,15 @@ namespace State
     {
         private readonly UnitBase unit;
         private readonly Vector3 point;
+        private readonly float radius;
+        private readonly bool automaticIdleAnimation;
 
-        public WalkingState(UnitBase unit, EntityBase entity)
-        {
-            this.unit = unit;
-            this.point = entity.Position;
-        }
-
-        public WalkingState(UnitBase unit, Vector3 point)
+        public WalkingState(UnitBase unit, Vector3 point, float radius, bool automaticIdleAnimation = true)
         {
             this.unit = unit;
             this.point = point;
+            this.radius = radius;
+            this.automaticIdleAnimation = automaticIdleAnimation;
         }
 
         public override void Enter()
@@ -29,20 +30,15 @@ namespace State
 
         public override void Update()
         {
-            if ((point - unit.Position).sqrMagnitude < unit.Agent.stoppingDistance)
+            if ((point - unit.Position).magnitude < unit.Agent.stoppingDistance + radius)
             {
                 unit.Agent.ResetPath();
+                if (automaticIdleAnimation)
+                {
+                    unit.Animator.Play(unit.IdleAnimation);
+                }
                 IsFinished = true;
             }
-                    
         }
-
-
-
-        public override void Exit()
-        {
-            base.Exit();
-        }
-
     }
 }

@@ -5,7 +5,8 @@ namespace Unit
     public interface IMovable
     {
         bool CanMove { get; }
-
-        void MoveTo(Vector3 point);
+        
+        bool MoveTo(Vector3 point, float radius);
+        void ResetMove();
     }
 }

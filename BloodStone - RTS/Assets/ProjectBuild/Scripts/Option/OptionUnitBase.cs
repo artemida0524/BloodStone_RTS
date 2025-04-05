@@ -12,15 +12,22 @@ namespace Option
 
     public class OptionWorkerUnit : OptionUnitBase
     {
+        private TreasureBuild treasureBuild;
+        private WorkerUnitBase workerUnit;
         public OptionWorkerUnit(WorkerUnitBase unit) : base(unit)
         {
+            this.workerUnit = unit;
             Build.Faction faction = GlobalBuildsDataHandler.GetBuilds<Build.Faction>().First(a => a.FactionType == unit.FactionType);
-            TreasureBuild treasure = GlobalBuildsDataHandler.GetBuilds<TreasureBuild>()[0];
+            treasureBuild = GlobalBuildsDataHandler.GetBuilds<TreasureBuild>().NearestEntity(unit);
 
-
-
-            options.Add(new DoActionOption() { Action = () => unit.StateInteractable.SetState(new WorkState(unit, treasure, faction, new Gold())), myEnum = ActionType.Once, Name = "Work1" });
+            options.Add(new DoActionOption() { Action =  AAAa, myEnum = ActionType.Once, Name = "Work1" });
         }
+
+        private void AAAa()
+        {
+            treasureBuild.Interaction(new List<WorkerUnitBase>() { workerUnit });
+        }
+
     }
 
 

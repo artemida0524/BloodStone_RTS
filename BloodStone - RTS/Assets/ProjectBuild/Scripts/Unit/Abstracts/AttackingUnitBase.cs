@@ -62,15 +62,25 @@ namespace Unit
             protected set { }
         }
 
+
+        protected override void Update()
+        {
+            base.Update();
+            Debug.Log(StateInteractable.Behaviour.StateMachine.State + " " + name);
+        }
+
         protected override StateBehaviourBase InitializeState()
         {
             return new AttackingBehaviour(this);
         }
 
-
-        public override void MoveTo(Vector3 point)
+        public override bool MoveTo(Vector3 point, float radius)
         {
-            StateInteractable.SetState(new RunningState(this, point));
+            if (CanMove)
+            {
+                StateInteractable.MoveState.ChangeState(new RunningState(this, point, radius));
+            }
+            return CanMove;
         }
 
         protected void SetWeapon(WeaponBase weapon)

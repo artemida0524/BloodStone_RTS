@@ -1,95 +1,54 @@
-﻿using Entity;
-using System;
-using System.Drawing;
-using System.Xml.Schema;
-using Unit;
+﻿using Unit;
 using UnityEngine;
 
 namespace State
 {
-    public class RunningState : StateBase
+    public class RunningState : MovableStateBase
     {
         private readonly UnitBase unit;
         private readonly Vector3 point;
+        private readonly float radius;
+        private readonly bool automaticIdleAnimation;
+
 
         private readonly float beginSpeed;
-        public RunningState(UnitBase unit, Vector3 point)
+        public RunningState(UnitBase unit, Vector3 point, float radius, bool automaticIdleAnimation = true)
         {
             this.unit = unit;
             this.point = point;
+            this.radius = radius;
+            this.automaticIdleAnimation = automaticIdleAnimation;
 
             this.beginSpeed = unit.Agent.speed;
         }
 
         public override void Enter()
         {
-            unit.Agent.SetDestination(point);
-            unit.Animator.Play(AnimationStateNames.RUNNING);
-            unit.Agent.speed = 6f;
+            SetDestinationAsyncRunner(unit, point);
+            unit.Animator.Play(unit.RunningAnimation);
+            unit.Agent.speed = 10f;
         }
-
 
         public override void Update()
         {
-            Debug.Log(unit.Agent.pathStatus);
-
-            if ((point - unit.Position).sqrMagnitude < unit.Agent.stoppingDistance)
+            Debug.Log("run");
+            if ((point - unit.Position).magnitude < unit.Agent.stoppingDistance + radius)
             {
                 unit.Agent.ResetPath();
+                if (automaticIdleAnimation)
+                {
+                    unit.Animator.Play(unit.IdleAnimation);
+                }
                 IsFinished = true;
             }
         }
 
-
-        public override void Exit()
-        {
-            unit.Agent.speed = beginSpeed;
-        }
-
-    }
-
-
-    public class MoveStateWithAction : MovableStateBase
-    {
-        private readonly UnitBase unit;
-        private readonly Action action;
-        private readonly EntityBase entity;
-
-        public MoveStateWithAction(UnitBase unit, EntityBase entityBase, Action action)
-        {
-            this.unit = unit;
-            this.action = action;
-        }
-
-
-
-        public override void Enter()
-        {
-
-            unit.Animator.Play(unit.RunningAnimation);
-            SetDestinationAsyncRunner(unit, entity);
-        }
-
-        public override void Update()
-        {
-
-            if ((entity.Position - unit.Position).sqrMagnitude < unit.Agent.stoppingDistance)
-            {
-                unit.Agent.ResetPath();
-                action();
-            }
-
-
-        }
-
-
-
-
         public override void Exit()
         {
             base.Exit();
+            unit.Agent.speed = beginSpeed;
+            unit.Agent.ResetPath();
         }
 
     }
-
 }

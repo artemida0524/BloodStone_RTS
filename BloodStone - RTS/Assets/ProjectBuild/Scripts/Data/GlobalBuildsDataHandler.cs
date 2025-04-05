@@ -1,4 +1,5 @@
 ﻿using Build;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,8 +12,12 @@ namespace GlobalData
 
         public static List<T> GetBuilds<T>()
         {
-            //return AllBuilds.Where(t => t is T).Cast<T>().ToList();
             return AllBuilds.OfType<T>().ToList();
+        }
+
+        public static List<T> GetBuilds<T>(Func<T, bool> predicat)
+        {
+            return AllBuilds.OfType<T>().Where(predicat).ToList();
         }
 
         public static void AddBuild(BuildBase build)

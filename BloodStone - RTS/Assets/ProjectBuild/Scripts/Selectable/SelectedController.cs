@@ -11,7 +11,7 @@ using UnityEngine.AI;
 
 namespace Select
 {
-    public class SelectedController : MonoBehaviour 
+    public class SelectedController : MonoBehaviour
     {
         [SerializeField] private LayerMask ground;
         [SerializeField] private MeshRenderer pointPositionerMeshRenderer;
@@ -99,12 +99,10 @@ namespace Select
                     }
                     else
                     {
-
                         Vector3 positionArea = hitInfo.point;
                         positionArea.y = 0f;
 
                         pointPositionerMeshRenderer.transform.position = positionArea;
-
 
                         float scaleFactor = (float)selectedEntities.Count / 10;
 
@@ -118,7 +116,10 @@ namespace Select
                         {
                             try
                             {
-                                ((IMovable)item).MoveTo(GetPosition());
+                                if (item is UnitBase unit)
+                                {
+                                    unit.StateInteractable.SetState(new MoveState(unit, GetPosition(), 0));
+                                }
                             }
                             catch (System.Exception ex)
                             {

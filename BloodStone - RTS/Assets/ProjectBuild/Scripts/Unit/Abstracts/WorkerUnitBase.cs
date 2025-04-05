@@ -1,10 +1,22 @@
 ﻿using Option;
 using State;
+using UnityEngine;
+using Zenject;
 
 namespace Unit
 {
     public class WorkerUnitBase : UnitBase
     {
+
+
+
+        protected override void Update()
+        {
+            base.Update();
+
+            //Debug.Log(StateInteractable.Behaviour.StateMachine.State + " " + name);
+
+        }
 
         public override IOption InitOption()
         {

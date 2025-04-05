@@ -7,6 +7,7 @@ using Bar;
 using GlobalData;
 using Select;
 using Option;
+using System.Drawing;
 
 namespace Unit
 {
@@ -36,6 +37,7 @@ namespace Unit
         public bool IsSelection { get; protected set; } = false;
         public bool CanSelected { get; protected set; } = true;
 
+
         public IOption Options { get; protected set; }
 
         public event Action<int> OnHealthChange;
@@ -56,6 +58,8 @@ namespace Unit
 
         protected virtual void Update()
         {
+            //Debug.Log(StateInteractable.MoveState.State + "   " + StateInteractable.Behaviour.StateMachine.State + " " + name);
+
             StateInteractable.Update();
         }
 
@@ -75,6 +79,11 @@ namespace Unit
             UnitUtility.OnUnitDisableOrDestroyInvoke(this);
         }
 
+        //private void OnCollisionEnter(Collision collision)
+        //{
+        //    StateInteractable.Behaviour.Interaction(collision.collider);
+        //}
+
         protected abstract StateBehaviourBase InitializeState();
 
         protected virtual void Initialization()
@@ -83,12 +92,18 @@ namespace Unit
             Animator = GetComponent<Animator>();
         }
 
-        public virtual void MoveTo(Vector3 point)
+        public virtual bool MoveTo(Vector3 point, float radius)
         {
             if (CanMove)
             {
-                StateInteractable.SetState(new WalkingState(this, point));
+                StateInteractable.MoveState.ChangeState(new WalkingState(this, point, radius));
             }
+            return CanMove;
+        }
+
+        public void ResetMove()
+        {
+            StateInteractable.MoveState.ChangeState(null);
         }
 
         public virtual bool Select()
@@ -132,9 +147,9 @@ namespace Unit
 
         public void DoSomething()
         {
-            StateInteractable.SetState(new WalkingState(this, FindObjectOfType<Build.Faction>().Position));
+            StateInteractable.SetState(new MoveState(this, FindObjectOfType<Build.Faction>().Position, FindObjectOfType<Build.Faction>().Radius));
         }
 
-    }
 
+    }
 }

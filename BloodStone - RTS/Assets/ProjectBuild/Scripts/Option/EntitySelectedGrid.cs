@@ -74,10 +74,10 @@ namespace Option
                 entitySelect.Unselect();
                 alreadySelect.Remove(entitySelect);
             }
-            optionsGrid.Init(GetInteractables());
+            optionsGrid.Init(GetOption());
         }
 
-        private List<IOption> GetInteractables()
+        private List<IOption> GetOption()
         {
             List<IOption> optins = new List<IOption>();
             foreach (var item in alreadySelect)

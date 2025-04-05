@@ -1,8 +1,6 @@
 ﻿using Currency;
 using Unit;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace State
 {
@@ -27,10 +25,8 @@ namespace State
 
         public override void Enter()
         {
-            unit.Agent.SetDestination(fromStorage.Position);
-            unit.Animator.Play(unit.WalkingAnimation);
+            unit.MoveTo(fromStorage.Position, fromStorage.Radius);
         }
-
 
         public override void Update()
         {
@@ -39,7 +35,8 @@ namespace State
                 if (fromStorage.GetCurrency(currentCurrencyType).Spend(30))
                 {
                     amount = 30;
-                    unit.Agent.SetDestination(toStorage.Position);
+                    unit.MoveTo(toStorage.Position, toStorage.Radius);
+
                     takeCurrency = true;
                 }
             }
@@ -47,16 +44,10 @@ namespace State
             {
                 toStorage.AddCurrencyByType(currentCurrencyType, amount);
                 amount = 0;
-                unit.Agent.SetDestination(fromStorage.Position);
+                unit.MoveTo(fromStorage.Position, fromStorage.Radius);
 
                 takeCurrency = false;
             }
         }
-
-        public override void Exit()
-        {
-            unit.Agent.ResetPath();
-        }
-
     }
 }

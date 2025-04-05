@@ -10,7 +10,7 @@ namespace State
     {
         protected bool isSetDestination = true;
 
-        protected async void SetDestinationAsyncRunner(UnitBase unit, EntityBase target, int interval = 100)
+        protected async void SetDestinationAsyncRunner(UnitBase unit, IEntity target, int interval = 100)
         {
             await SetDestinationAsync(unit, target, interval);
         }
@@ -20,19 +20,24 @@ namespace State
             await SetDestinationAsync(unit, point, interval);
         }
 
-        private async Task SetDestinationAsync(UnitBase unit, EntityBase target, int interval)
-        {
-            await SetDestinationAsync(unit, target.Position, interval);
-        }
-
         private async Task SetDestinationAsync(UnitBase unit, Vector3 point, int interval)
         {
+            unit.Agent.SetDestination(point);
             while (isSetDestination && Application.isPlaying)
             {
-                unit.Agent.SetDestination(point);
                 await Task.Delay(interval);
             }
         }
+
+        private async Task SetDestinationAsync(UnitBase unit, IEntity target, int interval)
+        {
+            while (isSetDestination && Application.isPlaying)
+            {
+                unit.Agent.SetDestination(target.Position);
+                await Task.Delay(interval);
+            }
+        }
+
         public override void Exit()
         {
             isSetDestination = false;
