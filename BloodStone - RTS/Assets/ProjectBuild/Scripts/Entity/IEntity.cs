@@ -7,4 +7,5 @@ namespace Entity
         Vector3 Position { get; }
         float Radius { get; }
     }
+
 }

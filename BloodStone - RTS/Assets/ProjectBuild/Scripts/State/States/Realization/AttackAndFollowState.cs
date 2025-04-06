@@ -27,7 +27,7 @@ namespace State
             if (targetEntity == null || unit == null)
                 return;
 
-            if (/*!unit.CurrentWeapon.AttackRightNow*/ true )
+            if (/*!Unit.CurrentWeapon.AttackRightNow*/ true )
             {
                 if (isMovingToTarget)
                 {
@@ -57,6 +57,12 @@ namespace State
                 unit.transform.LookAt(targetEntity.Position);
             }
 
+        }
+
+        public override void Exit()
+        {
+            //unit.ResetMove();
+            Debug.Log("Exit");
         }
 
         private void TryMoveToTarget()

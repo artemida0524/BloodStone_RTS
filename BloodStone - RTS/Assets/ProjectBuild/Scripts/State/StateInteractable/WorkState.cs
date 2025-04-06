@@ -32,7 +32,7 @@ namespace State
         {
             if(Vector3.Distance(unit.Position, fromStorage.Position) < 5f && !takeCurrency)
             {
-                if (fromStorage.GetCurrency(currentCurrencyType).Spend(30))
+                if (fromStorage.GetCurrencyByType(currentCurrencyType).Spend(30))
                 {
                     amount = 30;
                     unit.MoveTo(toStorage.Position, toStorage.Radius);

@@ -8,7 +8,7 @@ namespace Currency
 
         void AddCurrencyByType(ICurrency typeCurrency, int amount);
         bool SpendCurrencyByType(ICurrency typeCurrency, int amount);
-        ICurrency GetCurrency(ICurrency typeCurrency);
+        ICurrency GetCurrencyByType(ICurrency typeCurrency);
         ICurrency GetFirstCurrency();
     } 
 }

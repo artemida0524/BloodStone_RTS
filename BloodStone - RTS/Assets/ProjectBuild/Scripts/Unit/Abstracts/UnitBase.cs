@@ -4,10 +4,8 @@ using UnityEngine.AI;
 using State;
 using System;
 using Bar;
-using GlobalData;
 using Select;
 using Option;
-using System.Drawing;
 
 namespace Unit
 {
@@ -37,20 +35,20 @@ namespace Unit
         public bool IsSelection { get; protected set; } = false;
         public bool CanSelected { get; protected set; } = true;
 
-
         public IOption Options { get; protected set; }
 
         public event Action<int> OnHealthChange;
         public event Action<int> OnTakeDamage;
+        public event Action<StateBase> OnStateChange;
 
         protected virtual void Awake()
         {
             Initialization();
-            StateInteractable.Behaviour = InitializeState();
+            StateInteractable.Init(InitializeState());
 
             UIBarContainer?.AddBar(new HealthBar(this));
         }
-
+            
         protected virtual void Start()
         {
             Options = InitOption();
@@ -61,6 +59,7 @@ namespace Unit
             //Debug.Log(StateInteractable.MoveState.State + "   " + StateInteractable.Behaviour.StateMachine.State + " " + name);
 
             StateInteractable.Update();
+
         }
 
         protected virtual void OnEnable()
@@ -90,6 +89,12 @@ namespace Unit
         {
             Agent = GetComponent<NavMeshAgent>();
             Animator = GetComponent<Animator>();
+        }
+
+        public void SetState(StateBase state)
+        {
+            StateInteractable.SetState(state);
+            OnStateChange?.Invoke(state);
         }
 
         public virtual bool MoveTo(Vector3 point, float radius)
@@ -147,9 +152,7 @@ namespace Unit
 
         public void DoSomething()
         {
-            StateInteractable.SetState(new MoveState(this, FindObjectOfType<Build.Faction>().Position, FindObjectOfType<Build.Faction>().Radius));
+            SetState(new MoveState(this, FindObjectOfType<Build.Faction>().Position, FindObjectOfType<Build.Faction>().Radius));
         }
-
-
     }
 }

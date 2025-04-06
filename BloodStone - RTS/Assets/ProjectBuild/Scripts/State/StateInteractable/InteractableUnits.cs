@@ -7,8 +7,8 @@ namespace State
     [Serializable]
     public class InteractableUnits
     {
-        public StateBehaviourBase Behaviour { get; set; }
-        public StateMachine MoveState { get; set; } = new StateMachine(null);
+        public StateBehaviourBase Behaviour { get; private set; }
+        public StateMachine MoveState { get; private set; } = new StateMachine(null);
         [field: SerializeField] public float Radius { get; private set; } = 5f;
 
         public void Update()
@@ -18,6 +18,11 @@ namespace State
             {
                 Behaviour.SetStateIfFinished();
             }
+        }
+
+        public void Init(StateBehaviourBase stateBehaviour)
+        {
+            Behaviour = stateBehaviour;
         }
 
         public void SetState(StateBase state)

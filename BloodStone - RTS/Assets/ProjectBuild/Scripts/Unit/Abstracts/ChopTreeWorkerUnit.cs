@@ -5,4 +5,12 @@
 
     }
 
+    public class SomeWorkUnit : WorkerUnitBase
+    {
+        protected override void Awake()
+        {
+            base.Awake();
+        }
+    }
+
 }

@@ -92,7 +92,7 @@ namespace Select
 
                             foreach (var item in attackingUnits)
                             {
-                                item.StateInteractable.SetState(new AttackAndFollowState(item, entity));
+                                item.SetState(new AttackAndFollowState(item, entity));
                             }
                         }
 
@@ -118,7 +118,7 @@ namespace Select
                             {
                                 if (item is UnitBase unit)
                                 {
-                                    unit.StateInteractable.SetState(new MoveState(unit, GetPosition(), 0));
+                                    unit.SetState(new MoveState(unit, GetPosition(), 0));
                                 }
                             }
                             catch (System.Exception ex)

@@ -5,7 +5,6 @@ using Weapon;
 
 namespace Unit
 {
-    // CHANGE STATE
     [RequireComponent(typeof(AnimationEventHandler))]
     public abstract class AttackingUnitBase : UnitBase
     {

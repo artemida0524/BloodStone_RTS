@@ -29,7 +29,6 @@ namespace State
             if (unit.StateInteractable.MoveState.State.IsFinished)
             {
                 action(unit);
-                //IsFinished = true;
             }
         }
 

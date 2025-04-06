@@ -33,7 +33,7 @@ namespace State
                     {
                         if (entity.FactionType != this.unit.FactionType)
                         {
-                            this.unit.StateInteractable.SetState(new AttackAndFollowState(this.unit, entity));
+                            this.unit.SetState(new AttackAndFollowState(this.unit, entity));
                             return;
                         }
                     }

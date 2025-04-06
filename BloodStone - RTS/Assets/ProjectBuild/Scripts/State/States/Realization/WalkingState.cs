@@ -40,5 +40,12 @@ namespace State
                 IsFinished = true;
             }
         }
+
+        public override void Exit()
+        {
+            base.Exit();
+            //unit.Agent.ResetPath();
+        }
+
     }
 }

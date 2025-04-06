@@ -31,7 +31,6 @@ namespace State
 
         public override void Update()
         {
-            Debug.Log("run");
             if ((point - unit.Position).magnitude < unit.Agent.stoppingDistance + radius)
             {
                 unit.Agent.ResetPath();
@@ -47,7 +46,6 @@ namespace State
         {
             base.Exit();
             unit.Agent.speed = beginSpeed;
-            unit.Agent.ResetPath();
         }
 
     }

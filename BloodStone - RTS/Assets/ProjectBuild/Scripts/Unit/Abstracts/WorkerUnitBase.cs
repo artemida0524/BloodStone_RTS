@@ -5,7 +5,7 @@ using Zenject;
 
 namespace Unit
 {
-    public class WorkerUnitBase : UnitBase
+    public abstract class WorkerUnitBase : UnitBase
     {
 
 

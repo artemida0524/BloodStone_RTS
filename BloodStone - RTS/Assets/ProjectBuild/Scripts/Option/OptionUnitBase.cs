@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unit;
 using UnityEngine;
+using Entity;
 
 namespace Option
 {

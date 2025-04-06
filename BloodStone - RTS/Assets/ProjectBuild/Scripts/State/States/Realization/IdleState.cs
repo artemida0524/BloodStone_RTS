@@ -1,5 +1,4 @@
 using Unit;
-using UnityEngine;
 
 namespace State
 {
@@ -15,6 +14,7 @@ namespace State
         public override void Enter()
         {
             unit.Animator.Play(unit.IdleAnimation);
+
         }
     }
 }
