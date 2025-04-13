@@ -1,15 +1,17 @@
-﻿namespace Unit
+﻿using Currency;
+using UnityEngine;
+
+namespace Unit
 {
     public class ChopTreeWorkerUnit : WorkerUnitBase
     {
+        public ICurrency TreeCurrency { get; private set; } = new TreeCurrency(0, 30);
 
-    }
-
-    public class SomeWorkUnit : WorkerUnitBase
-    {
-        protected override void Awake()
+        protected override void Update()
         {
-            base.Awake();
+            base.Update();
+
+            //Debug.Log(StateInteractable.Behaviour.StateMachine.State);
         }
     }
 

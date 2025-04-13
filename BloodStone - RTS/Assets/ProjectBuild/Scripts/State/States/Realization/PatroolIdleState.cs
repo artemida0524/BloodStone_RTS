@@ -31,7 +31,7 @@ namespace State
                 {
                     if (item.TryGetComponent(out EntityBase entity))
                     {
-                        if (entity.FactionType != this.unit.FactionType)
+                        if (entity.FactionType != this.unit.FactionType && entity.FactionType != Faction.FactionType.Systems)
                         {
                             this.unit.SetState(new AttackAndFollowState(this.unit, entity));
                             return;

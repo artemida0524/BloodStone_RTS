@@ -14,9 +14,6 @@ namespace State
             this.unit = unit;
             this.target = target;
             this.radius = radius;
-
-
-
         }
 
         public override void Enter()
@@ -30,6 +27,9 @@ namespace State
             if (unit.StateInteractable.MoveState.State.IsFinished)
             {
                 Debug.Log("wefrgewr");
+
+                unit.Animator.Play(unit.IdleAnimation);
+
                 unit.ResetMove();
                 IsFinished = true;
             }
@@ -38,8 +38,6 @@ namespace State
         public override void Exit()
         {
             unit.ResetMove();
-
         }
     }
-
 }

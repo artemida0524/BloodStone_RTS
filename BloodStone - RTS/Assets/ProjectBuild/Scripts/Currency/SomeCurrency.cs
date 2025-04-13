@@ -2,6 +2,6 @@
 {
 	public class SomeCurrency : CurrencyBase
 	{
-		public override int Count { get; protected set; } = 1488;
+		public override int Count { get; protected set; } = 1040;
 	} 
 }

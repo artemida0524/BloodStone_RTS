@@ -5,13 +5,13 @@ namespace Entity
 {
     public static class EntityExtension
     {
-        public static TSource NearestEntity<TSource>(this List<TSource> entities, IEntity entity) where TSource : IEntity
+        public static TSource NearestEntity<TSource>(this List<TSource> entities, IEntity entity) where TSource : class, IEntity
         {
 
             if(entities.Count == 0)
             {
                 Debug.LogWarning("Zero Entities");
-                
+                return null;
             }
 
             float distance = float.PositiveInfinity;

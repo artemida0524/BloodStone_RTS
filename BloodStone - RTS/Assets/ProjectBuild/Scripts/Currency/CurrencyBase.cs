@@ -5,9 +5,11 @@ namespace Currency
 {
     public abstract class CurrencyBase : ICurrency
     {
-        public virtual int Count { get; protected set; } = 52;
+        public virtual int Count { get; protected set; } = 1000;
 
-        public virtual int MaxCount { get; protected set; } = int.MaxValue;
+        public virtual int MaxCount { get; protected set; } = 10000;
+
+        public bool IsFull => MaxCount == Count;
 
         public event Action<int> OnValueChange;
 
@@ -31,6 +33,15 @@ namespace Currency
                 return true;
 
             }
+        }
+
+        public int SpendAll()
+        {
+            int count = Count;
+
+            this.Count = 0;
+            ValueChange();
+            return count;
         }
 
         protected virtual void ValueChange() => OnValueChange?.Invoke(Count);

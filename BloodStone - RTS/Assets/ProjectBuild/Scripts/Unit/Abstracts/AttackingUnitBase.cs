@@ -65,7 +65,7 @@ namespace Unit
         protected override void Update()
         {
             base.Update();
-            Debug.Log(StateInteractable.Behaviour.StateMachine.State + " " + name);
+            //Debug.Log(StateInteractable.Behaviour.StateMachine.State + " " + name);
         }
 
         protected override StateBehaviourBase InitializeState()
