@@ -8,6 +8,7 @@ using Entity;
 using Build;
 using Zenject;
 using UnityEngine.AI;
+using Interaction;
 
 namespace Select
 {
@@ -20,7 +21,7 @@ namespace Select
         private SelectableHandler selectableHandler;
 
         private IReadOnlyList<ISelectable> selectedEntities = new List<ISelectable>();
-        private Camera camera;
+        new private Camera camera;
 
         [Inject]
         private void Construct(SelectableHandler selectableHandler, Build.Faction faction)
@@ -48,51 +49,103 @@ namespace Select
 
                 if (Physics.Raycast(ray, out RaycastHit hitInfo))
                 {
-                    if (hitInfo.collider.TryGetComponent(out EntityBase entity))
+                    //if (hitInfo.collider.TryGetComponent(out EntityBase entity))
+                    //{
+                    //    if (entity.FactionType == faction.FactionType)
+                    //    {
+                    //        if (entity is BuildInteractableBase build)
+                    //        {
+                    //            if (faction.Data.InteractionMode == InteractionMode.Setable)
+                    //            {
+                    //                var units = selectedEntities.OfType<UnitBase>().ToList();
+
+                    //                build.Interact(units);
+                    //                selectableHandler.UnselectAll();
+                    //            }
+                    //            else if (faction.Data.InteractionMode == InteractionMode.None)
+                    //            {
+                    //                build.Interact();
+                    //            }
+                    //        }
+                    //        return;
+                    //    }
+                    //    else if (entity.FactionType == FactionType.Systems)
+                    //    {
+                    //        if (entity is BuildInteractableBase build)
+                    //        {
+                    //            if (faction.Data.InteractionMode == InteractionMode.Setable)
+                    //            {
+                    //                var units = selectedEntities.OfType<UnitBase>().ToList();
+
+                    //                build.Interact(units);
+                    //                selectableHandler.UnselectAll();
+                    //            }
+                    //            else if (faction.Data.InteractionMode == InteractionMode.None)
+                    //            {
+                    //                build.Interact();
+                    //            }
+                    //        }
+                    //        return;
+                    //    }
+                    //    else if (entity.FactionType != faction.FactionType)
+                    //    {
+                    //        List<AttackingUnitBase> attackingUnits = selectedEntities.OfType<AttackingUnitBase>().ToList();
+
+                    //        foreach (var item in attackingUnits)
+                    //        {
+                    //            item.SetState(new AttackAndFollowState(item, entity));
+                    //        }
+                    //    }
+
+                    //}
+                    //else
+                    //{
+                    //    Vector3 positionArea = hitInfo.point;
+                    //    positionArea.y = 0f;
+
+                    //    pointPositionerMeshRenderer.transform.position = positionArea;
+
+                    //    float scaleFactor = (float)selectedEntities.Count / 10;
+
+                    //    scaleFactor = Mathf.Clamp(scaleFactor, 0.3f, 1.5f);
+
+                    //    Vector3 scale = new Vector3(scaleFactor, pointPositionerMeshRenderer.transform.localScale.y, scaleFactor);
+
+                    //    pointPositionerMeshRenderer.transform.localScale = scale;
+
+                    //    foreach (var item in selectedEntities)
+                    //    {
+                    //        try
+                    //        {
+                    //            if (item is UnitBase unit)
+                    //            {
+                    //                unit.SetState(new MoveState(unit, GetPosition(), 0));
+                    //            }
+                    //        }
+                    //        catch (System.Exception ex)
+                    //        {
+                    //            Debug.LogWarning(ex);
+                    //        }
+                    //    }
+                    //}
+
+                    if (hitInfo.collider.TryGetComponent(out IEntity entity))
                     {
-                        if (entity.FactionType == faction.FactionType)
+                        if (entity.FactionType == faction.FactionType || entity.FactionType == FactionType.Systems)
                         {
-                            if (entity is BuildInteractableBase build)
+                            if (selectedEntities.Count > 0)
                             {
-                                if (faction.Data.InteractionMode == InteractionMode.Setable)
+                                if (entity is IInteractableSelectables interaction)
                                 {
-                                    var units = selectedEntities.OfType<UnitBase>().ToList();
-
-                                    build.Interaction(units);
-                                    selectableHandler.UnselectAll();
-                                }
-                                else if (faction.Data.InteractionMode == InteractionMode.None)
-                                {
-                                    build.Interaction();
+                                    interaction.Interact(selectedEntities);
                                 }
                             }
-                            return;
-                        }
-                        else if (entity.FactionType == FactionType.Systems)
-                        {
-                            if (entity is BuildInteractableBase build)
+                            else
                             {
-                                if (faction.Data.InteractionMode == InteractionMode.Setable)
+                                if(entity is IInteractable interaction)
                                 {
-                                    var units = selectedEntities.OfType<UnitBase>().ToList();
-
-                                    build.Interaction(units);
-                                    selectableHandler.UnselectAll();
+                                    interaction.Interact();
                                 }
-                                else if (faction.Data.InteractionMode == InteractionMode.None)
-                                {
-                                    build.Interaction();
-                                }
-                            }
-                            return;
-                        }
-                        else if (entity.FactionType != faction.FactionType)
-                        {
-                            List<AttackingUnitBase> attackingUnits = selectedEntities.OfType<AttackingUnitBase>().ToList();
-
-                            foreach (var item in attackingUnits)
-                            {
-                                item.SetState(new AttackAndFollowState(item, entity));
                             }
                         }
 
@@ -131,8 +184,13 @@ namespace Select
             }
         }
 
+
+
+
+
         private Vector3 GetPosition()
         {
+
             Vector3 newPos = new Vector3(Random.Range(pointPositionerMeshRenderer.bounds.min.x, pointPositionerMeshRenderer.bounds.max.x), Random.Range(pointPositionerMeshRenderer.bounds.min.y, pointPositionerMeshRenderer.bounds.max.y), Random.Range(pointPositionerMeshRenderer.bounds.min.z, pointPositionerMeshRenderer.bounds.max.z));
 
 

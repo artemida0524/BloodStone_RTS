@@ -4,6 +4,8 @@ using UnityEngine;
 
 namespace State
 {
+
+    // MUST BE CHANGED
     public class WearWorkState : StateBase
     {
         private readonly WearWorkerUnit unit;
@@ -30,6 +32,11 @@ namespace State
 
         public override void Update()
         {
+            if(fromStorage.GetFirstCurrency().Count < 30)
+            {
+                IsFinished = true;
+            }
+
             if(unit.StateInteractable.MoveState.State.IsFinished  && !takeCurrency)
             {
                 if (fromStorage.GetCurrencyByType(currentCurrencyType).Spend(30))

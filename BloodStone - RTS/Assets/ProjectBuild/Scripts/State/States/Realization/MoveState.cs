@@ -26,7 +26,6 @@ namespace State
         {
             if (unit.StateInteractable.MoveState.State.IsFinished)
             {
-                Debug.Log("wefrgewr");
 
                 unit.Animator.Play(unit.IdleAnimation);
 

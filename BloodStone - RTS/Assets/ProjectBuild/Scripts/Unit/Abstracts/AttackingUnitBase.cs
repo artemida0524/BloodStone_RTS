@@ -5,7 +5,7 @@ using Weapon;
 
 namespace Unit
 {
-    [RequireComponent(typeof(AnimationEventHandler))]
+    [RequireComponent(typeof(AnimationEventCallBackAttack))]
     public abstract class AttackingUnitBase : UnitBase
     {
         [field: SerializeField] public Transform LeftTargetWeapon { get; protected set; }
@@ -13,7 +13,7 @@ namespace Unit
 
         [field: SerializeField] public WeaponBase CurrentWeapon { get; protected set; }
         [field: SerializeField] public WeaponBase Melle { get; protected set; }
-        [field: SerializeField] public AnimationEventHandler AnimationEventHandler { get; protected set; }
+        [field: SerializeField] public AnimationEventCallBackAttack AnimationEventCallBalck { get; protected set; }
 
         protected bool alreadyInitialized = false;
 

@@ -26,7 +26,7 @@ namespace Option
 
         private void AAAa()
         {
-            treasureBuild.Interaction(new List<WorkerUnitBase>() { workerUnit });
+            treasureBuild.Interact(new List<WorkerUnitBase>() { workerUnit });
         }
 
     }

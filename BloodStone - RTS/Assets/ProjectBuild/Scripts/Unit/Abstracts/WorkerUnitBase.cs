@@ -1,14 +1,26 @@
-﻿using Option;
+﻿using UnityEngine;
+using Option;
 using State;
-using System;
-using UnityEngine;
-using Zenject;
+using Interaction;
+using System.Collections.Generic;
+using Select;
+using UnityEngine.XR;
 
 namespace Unit
 {
+    [RequireComponent(typeof(AnimationEventCallBackWoker))]
     public abstract class WorkerUnitBase : UnitBase
     {
+        [field :SerializeField] public AnimationEventCallBackWoker AnimationEventCallBack { get; protected set; }
 
+        protected override void Update()
+        {
+            base.Update();
+
+            //Debug.Log(StateInteractable.Behaviour.StateMachine.State + " " + name);
+        }
+
+        
         public override bool MoveTo(Vector3 point, float radius)
         {
             if (CanMove)
@@ -18,22 +30,6 @@ namespace Unit
             return CanMove;
         }
 
-        //public override bool MoveTo(Vector3 point, float radius, bool automaticIdleAnimation)
-        //{
-        //    if (CanMove)
-        //    {
-        //        StateInteractable.MoveState.ChangeState(new RunningState(this, point, radius, automaticIdleAnimation));
-        //    }
-        //    return CanMove;
-        //}
-
-        protected override void Update()
-        {
-            base.Update();
-
-            //Debug.Log(StateInteractable.Behaviour.StateMachine.State + " " + name);
-
-        }
 
         public override IOption InitOption()
         {
@@ -44,13 +40,5 @@ namespace Unit
         {
             return new WorkerStateBehaviour(this);
         }
-
-
-        public event Action OnCall;
-        private void CallBack()
-        {
-            OnCall?.Invoke();
-        }
-
     }
 }

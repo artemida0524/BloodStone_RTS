@@ -1,14 +1,16 @@
 using Cinemachine;
-using Unity.VisualScripting;
-using UnityEditor.ShaderGraph.Internal;
+using UnityEditor.MemoryProfiler;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private float speedScrool;
+    [SerializeField] private float speedZoom;
+
 
     private CinemachineVirtualCamera cCamera;
+    private float destinationZoom;
 
     private float x;
     private float z;
@@ -16,6 +18,7 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         cCamera = FindAnyObjectByType<CinemachineVirtualCamera>();
+        destinationZoom = cCamera.m_Lens.FieldOfView;
     }
 
     private void Update()
@@ -30,11 +33,10 @@ public class CameraController : MonoBehaviour
 
         if (aa != 0)
         {
-            cCamera.m_Lens.FieldOfView -= aa;
-
-            cCamera.m_Lens.FieldOfView = Mathf.Clamp(cCamera.m_Lens.FieldOfView, 40, 70);
+            destinationZoom -= aa;
+            destinationZoom = Mathf.Clamp(destinationZoom, 40, 70);
         }
-
+        cCamera.m_Lens.FieldOfView = Mathf.Lerp(cCamera.m_Lens.FieldOfView, destinationZoom, Time.deltaTime * speedZoom);
 
     }
 

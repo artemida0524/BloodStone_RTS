@@ -24,7 +24,7 @@ namespace Select
         private Vector2 size;
 
         private List<ISelectable> selectables = new();
-        private Camera camera;
+        new private Camera camera;
         private IHoverable currentHover;
 
         private bool isDragging = false;

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Faction;
+using UnityEngine;
 
 namespace Entity
 {
@@ -6,6 +7,8 @@ namespace Entity
     {
         Vector3 Position { get; }
         float Radius { get; }
+
+        FactionType FactionType { get; }
     }
 
 }

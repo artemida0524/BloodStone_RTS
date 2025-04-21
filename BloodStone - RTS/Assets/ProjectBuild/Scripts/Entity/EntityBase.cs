@@ -14,11 +14,6 @@ namespace Entity
         
         public event Action OnFactionChanged;
 
-
-
-
-
-
         public void ChangeFaction(FactionType faction)
         {
             FactionType = faction;

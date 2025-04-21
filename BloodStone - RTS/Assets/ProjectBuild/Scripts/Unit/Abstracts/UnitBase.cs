@@ -80,7 +80,7 @@ namespace Unit
 
         //private void OnCollisionEnter(Collision collision)
         //{
-        //    StateInteractable.Behaviour.Interaction(collision.collider);
+        //    StateInteractable.Behaviour.Interact(collision.collider);
         //}
 
         protected abstract StateBehaviourBase InitializeState();

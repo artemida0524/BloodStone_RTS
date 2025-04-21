@@ -27,35 +27,29 @@ namespace State
             if (targetEntity == null || unit == null)
                 return;
 
-            if (/*!Unit.CurrentWeapon.AttackRightNow*/ true )
+            if (isMovingToTarget)
             {
-                if (isMovingToTarget)
+                TryMoveToTarget();
+
+                if (IsInAttackRange() && HasLineOfSight())
                 {
-                    TryMoveToTarget();
-
-                    if (IsInAttackRange() && HasLineOfSight())
-                    {
-                        isMovingToTarget = false;
-                        unit.ResetMove();
-                    }
+                    isMovingToTarget = false;
+                    unit.ResetMove();
                 }
-                else
-                {
-                    if (ShouldFollowTarget())
-                    {
-                        TryMoveToTarget();
-                        return;
-                    }
-
-                    unit.transform.LookAt(targetEntity.Position);
-                    TryAttack();
-                }
-
             }
             else
             {
+                if (ShouldFollowTarget())
+                {
+                    TryMoveToTarget();
+                    return;
+                }
+
                 unit.transform.LookAt(targetEntity.Position);
+                TryAttack();
             }
+
+
 
         }
 

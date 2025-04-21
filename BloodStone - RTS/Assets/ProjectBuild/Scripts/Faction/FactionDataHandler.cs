@@ -11,7 +11,6 @@ namespace Faction
     [Serializable]
     public class FactionDataHandler
     {
-        public FactionType FactionType { get; private set; }
         public InteractionMode InteractionMode { get; private set; }
 
         public event Action<InteractionMode> OnInteractionModeChanged;

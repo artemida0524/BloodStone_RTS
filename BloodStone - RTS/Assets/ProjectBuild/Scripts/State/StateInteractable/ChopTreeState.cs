@@ -2,7 +2,6 @@
 using Currency;
 using Entity;
 using GlobalData;
-using System.Collections;
 using Unit;
 using UnityEngine;
 
@@ -54,6 +53,12 @@ namespace State
                         case GoToStorage:
                             machine.ChangeState(new GoToTree(unit, tree));
                             break;
+
+                        case GoToStorageFinish:
+
+                            IsFinished = true;
+
+                            break;
                     }
                 }
             }
@@ -69,11 +74,17 @@ namespace State
 
             TreeBuildBase newTree = GlobalBuildsDataHandler.GetBuilds<TreeBuildBase>(tree => !tree.Equals(this.tree) && !tree.IsDone).NearestEntity(tree);
 
-
-            if(newTree == null)
+            if (newTree == null)
             {
-                IsFinished = true;
-                machine.ChangeState(null);
+                if(unit.TreeCurrency.Count > 0)
+                {
+                    machine.ChangeState(new GoToStorageFinish(unit, storage));
+                }
+                else
+                {
+                    IsFinished = true;
+                    machine.ChangeState(null);
+                }
                 return;
             }
 
@@ -82,34 +93,17 @@ namespace State
             switch (machine.State)
             {
                 case GoToTree:
-
-                    if (tree is null)
-                    {
-                        IsFinished = true;
-                    }
-                    else
-                    {
-                        machine.ChangeState(new GoToTree(unit, tree));
-                    }
+                    machine.ChangeState(new GoToTree(unit, tree));
                     break;
 
-                case Work work:
-
-                    if (tree is null)
-                    {
-                        machine.ChangeState(new GoToStorage(unit, storage));
-                    }
-                    else
-                    {
-                        machine.ChangeState(new GoToTree(unit, tree)); 
-                    }
-
+                case Work:
+                    machine.ChangeState(new GoToTree(unit, tree));
                     break;
             }
 
             if (tree is not null)
             {
-                tree.OnTreeOver += OnTreeOverHandler; 
+                tree.OnTreeOver += OnTreeOverHandler;
             }
         }
 
@@ -142,9 +136,6 @@ namespace State
             private ChopTreeWorkerUnit unit;
             private TreeBuildBase tree;
 
-            private const float TIME_COOL_DOWN = 1f;
-            private float time = 0f;
-
             private bool chop = false;
 
             public Work(ChopTreeWorkerUnit unit, TreeBuildBase currentTree)
@@ -155,68 +146,21 @@ namespace State
 
             public override void Enter()
             {
-                unit.OnCall += Unit_OnCall;
+                unit.AnimationEventCallBack.OnCall += OnCallHandler;
                 unit.Animator.Play("Chop");
                 Debug.Log("Enter");
             }
 
-            private void Unit_OnCall()
+            private void OnCallHandler()
             {
                 chop = true;
             }
 
             public override void Update()
             {
-                //time += Time.deltaTime;
-
-                //if(time > TIME_COOL_DOWN)
-                //{
-
-                //    if (tree is null)
-                //    {
-                //        IsFinished = true;
-                //        return;
-                //    }
-
-                //    //try
-                //    //{
-                //    if (tree.TreeCurrency.Spend(5))
-                //    {
-                //        unit.TreeCurrency.Add(5);
-                //    }
-                //    else
-                //    {
-                //        int amount = tree.TreeCurrency.SpendAll();
-
-                //        unit.TreeCurrency.Add(amount);
-                //        IsFinished = true;
-                //        return;
-
-                //    }
-
-                //    if (unit.TreeCurrency.IsFull)
-                //    {
-                //        IsFinished = true;
-                //    }
-                //    //}
-                //    //catch (System.Exception)
-                //    //{
-
-                //    //    IsFinished = true;
-                //    //}
-
-                //    time = 0f;
-                //}
 
                 if (chop)
                 {
-
-                    if (tree is null)
-                    {
-                        IsFinished = true;
-                        return;
-                    }
-
                     if (tree.TreeCurrency.Spend(5))
                     {
                         unit.TreeCurrency.Add(5);
@@ -239,11 +183,11 @@ namespace State
                     chop = false;
                 }
 
-                
+
             }
             public override void Exit()
             {
-                unit.OnCall -= Unit_OnCall;
+                unit.AnimationEventCallBack.OnCall -= OnCallHandler;
             }
         }
 
@@ -260,10 +204,6 @@ namespace State
 
             public override void Enter()
             {
-                //if (storage == null)
-                //{
-                //    IsFinished = true;
-                //}
                 unit.MoveTo(storage.Position, storage.Radius + 1);
             }
 
@@ -276,5 +216,33 @@ namespace State
                 }
             }
         }
+
+
+        private class GoToStorageFinish : StateBase
+        {
+            private ChopTreeWorkerUnit unit;
+            private ICurrencyStorage storage;
+
+            public GoToStorageFinish(ChopTreeWorkerUnit unit, ICurrencyStorage storage)
+            {
+                this.unit = unit;
+                this.storage = storage;
+            }
+
+            public override void Enter()
+            {
+                unit.MoveTo(storage.Position, storage.Radius + 1);
+            }
+
+            public override void Update()
+            {
+                if (unit.StateInteractable.MoveState.State.IsFinished)
+                {
+                    storage.AddCurrencyByType(unit.TreeCurrency, unit.TreeCurrency.SpendAll());
+                    IsFinished = true;
+                }
+            }
+        }
+
     }
 }

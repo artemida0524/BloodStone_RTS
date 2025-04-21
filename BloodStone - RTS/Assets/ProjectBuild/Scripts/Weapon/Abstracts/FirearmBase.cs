@@ -15,17 +15,17 @@ namespace Weapon
             {
                 if (currentUnit != null)
                 {
-                    currentUnit.AnimationEventHandler.OnShootDetect -= OnShootDetect;
-                    currentUnit.AnimationEventHandler.OnCreateBullet -= OnCreateBullet;
-                    currentUnit.AnimationEventHandler.OnBeginAttack -= BeginAttack;
-                    currentUnit.AnimationEventHandler.OnEndAttack -= EndAttack;
+                    currentUnit.AnimationEventCallBalck.OnShootDetect -= OnShootDetect;
+                    currentUnit.AnimationEventCallBalck.OnCreateBullet -= OnCreateBullet;
+                    currentUnit.AnimationEventCallBalck.OnBeginAttack -= BeginAttack;
+                    currentUnit.AnimationEventCallBalck.OnEndAttack -= EndAttack;
                 }
                 currentUnit = value;
 
-                currentUnit.AnimationEventHandler.OnShootDetect += OnShootDetect;
-                currentUnit.AnimationEventHandler.OnCreateBullet += OnCreateBullet;
-                currentUnit.AnimationEventHandler.OnBeginAttack += BeginAttack;
-                currentUnit.AnimationEventHandler.OnEndAttack += EndAttack;
+                currentUnit.AnimationEventCallBalck.OnShootDetect += OnShootDetect;
+                currentUnit.AnimationEventCallBalck.OnCreateBullet += OnCreateBullet;
+                currentUnit.AnimationEventCallBalck.OnBeginAttack += BeginAttack;
+                currentUnit.AnimationEventCallBalck.OnEndAttack += EndAttack;
             }
         }
 

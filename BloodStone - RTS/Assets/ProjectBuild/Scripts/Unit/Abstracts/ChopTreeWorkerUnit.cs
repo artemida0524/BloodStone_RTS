@@ -11,7 +11,7 @@ namespace Unit
         {
             base.Update();
 
-            //Debug.Log(StateInteractable.Behaviour.StateMachine.State);
+            //Debug.Log(TreeCurrency.Count + " " + name);
         }
     }
 
