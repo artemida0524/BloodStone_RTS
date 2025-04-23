@@ -1,5 +1,6 @@
 using Entity;
 using State;
+using System;
 using UnityEngine;
 using Weapon;
 
@@ -8,26 +9,44 @@ namespace Unit
     [RequireComponent(typeof(AnimationEventCallBackAttack))]
     public abstract class AttackingUnitBase : UnitBase
     {
-        [field: SerializeField] public Transform LeftTargetWeapon { get; protected set; }
-        [field: SerializeField] public Transform RightTargetWeapon { get; protected set; }
+        [field: SerializeField]
+        public Transform LeftTargetWeapon { get; protected set; }
 
-        [field: SerializeField] public WeaponBase CurrentWeapon { get; protected set; }
-        [field: SerializeField] public WeaponBase Melle { get; protected set; }
-        [field: SerializeField] public AnimationEventCallBackAttack AnimationEventCallBalck { get; protected set; }
+        [field: SerializeField]
+        public Transform RightTargetWeapon { get; protected set; }
 
-        protected bool alreadyInitialized = false;
+        [field: SerializeField]
+        public AnimationEventCallBackAttack AnimationEventCallBalck { get; protected set; }
+
+        [SerializeField]
+        protected WeaponBase beginWeapon;
+
+        protected WeaponBase _currentWeapon;
+        public WeaponBase CurrentWeapon
+        {
+            get { return _currentWeapon; }
+
+            protected set
+            {
+                _currentWeapon = value;
+
+                OnWeaponChanged?.Invoke(_currentWeapon);
+
+            }
+        }
+
+        public event Action<WeaponBase> OnWeaponChanged;
 
         public override string IdleAnimation
         {
             get
             {
-                if (!alreadyInitialized)
+                if (_currentWeapon == null)
                 {
                     InitializationWeapon();
-                    alreadyInitialized = true;
                 }
 
-                return CurrentWeapon.IdleAnimation;
+                return _currentWeapon.IdleAnimation;
 
             }
             protected set { }
@@ -36,13 +55,12 @@ namespace Unit
         {
             get
             {
-                if (!alreadyInitialized)
+                if (_currentWeapon == null)
                 {
                     InitializationWeapon();
-                    alreadyInitialized = true;
                 }
 
-                return CurrentWeapon.WalkingAnimation;
+                return _currentWeapon.WalkingAnimation;
             }
             protected set { }
         }
@@ -50,17 +68,26 @@ namespace Unit
         {
             get
             {
-                if (!alreadyInitialized)
+                if (_currentWeapon == null)
                 {
                     InitializationWeapon();
-                    alreadyInitialized = true;
                 }
 
-                return CurrentWeapon.RunningAnimation;
+                return _currentWeapon.RunningAnimation;
             }
             protected set { }
         }
 
+        protected override void Start()
+        {
+            base.Start();
+
+            if (_currentWeapon == null)
+            {
+                InitializationWeapon();
+            }
+
+        }
 
         protected override void Update()
         {
@@ -82,8 +109,22 @@ namespace Unit
             return CanMove;
         }
 
+        protected void ResetWeapon()
+        {
+
+            Destroy(_currentWeapon);
+            _currentWeapon = null;
+
+        }
+
         protected void SetWeapon(WeaponBase weapon)
         {
+
+            if (_currentWeapon != null)
+            {
+                ResetWeapon();
+            }
+
             switch (weapon.weaponLocation)
             {
                 case WeaponLocation.LeftHand:
@@ -93,38 +134,24 @@ namespace Unit
                     CurrentWeapon = Instantiate(weapon, RightTargetWeapon);
                     break;
             }
-            CurrentWeapon.transform.localPosition = Vector3.zero;
+            _currentWeapon.Unit = this;
+            _currentWeapon.transform.localPosition = Vector3.zero;
         }
 
         public bool CanShoot()
         {
-            return CurrentWeapon.CanShoot();
+            return beginWeapon.CanShoot();
         }
 
         public void Shoot(EntityBase enemyEntity)
         {
-            CurrentWeapon.Shoot(enemyEntity);
+            beginWeapon.Shoot(enemyEntity);
         }
 
 
         protected void InitializationWeapon()
         {
-
-            if (CurrentWeapon != null)
-            {
-                SetWeapon(CurrentWeapon);
-            }
-            else
-            {
-                SetWeapon(Melle);
-            }
-
-
-            CurrentWeapon.Unit = this;
-
+            SetWeapon(beginWeapon);
         }
-
-
-
     }
 }
