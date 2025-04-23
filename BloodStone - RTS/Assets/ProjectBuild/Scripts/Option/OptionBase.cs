@@ -1,7 +1,5 @@
 ﻿using Entity;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
-using UnityEngine;
 
 namespace Option
 {
