@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Entity
 {
+    [DisallowMultipleComponent]
     public abstract class EntityBase : MonoBehaviour, IEntity
     {
         public abstract Renderer BodyRenderer { get; protected set; } 
