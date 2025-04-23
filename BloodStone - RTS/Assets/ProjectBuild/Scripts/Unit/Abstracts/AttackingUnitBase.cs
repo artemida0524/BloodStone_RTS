@@ -24,14 +24,20 @@ namespace Unit
         protected WeaponBase _currentWeapon;
         public WeaponBase CurrentWeapon
         {
-            get { return _currentWeapon; }
+            get
+            {
+                if (_currentWeapon == null)
+                {
+                    SetWeapon(beginWeapon);
+                    
+                }
+                return _currentWeapon;
+            }
 
             protected set
             {
                 _currentWeapon = value;
-
                 OnWeaponChanged?.Invoke(_currentWeapon);
-
             }
         }
 
@@ -41,13 +47,7 @@ namespace Unit
         {
             get
             {
-                if (_currentWeapon == null)
-                {
-                    InitializationWeapon();
-                }
-
-                return _currentWeapon.IdleAnimation;
-
+                return CurrentWeapon.IdleAnimation;
             }
             protected set { }
         }
@@ -55,12 +55,7 @@ namespace Unit
         {
             get
             {
-                if (_currentWeapon == null)
-                {
-                    InitializationWeapon();
-                }
-
-                return _currentWeapon.WalkingAnimation;
+                return CurrentWeapon.WalkingAnimation;
             }
             protected set { }
         }
@@ -68,12 +63,7 @@ namespace Unit
         {
             get
             {
-                if (_currentWeapon == null)
-                {
-                    InitializationWeapon();
-                }
-
-                return _currentWeapon.RunningAnimation;
+                return CurrentWeapon.RunningAnimation;
             }
             protected set { }
         }
@@ -86,7 +76,6 @@ namespace Unit
             {
                 InitializationWeapon();
             }
-
         }
 
         protected override void Update()
@@ -111,10 +100,8 @@ namespace Unit
 
         protected void ResetWeapon()
         {
-
             Destroy(_currentWeapon);
             _currentWeapon = null;
-
         }
 
         protected void SetWeapon(WeaponBase weapon)
