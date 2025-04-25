@@ -22,16 +22,20 @@ namespace Unit
         protected WeaponBase beginWeapon;
 
         protected WeaponBase _currentWeapon;
-        public WeaponBase CurrentWeapon
+        public virtual WeaponBase CurrentWeapon
         {
-            get { return _currentWeapon; }
-
-            protected set
+            get
             {
-                _currentWeapon = value;
+                if (_currentWeapon == null)
+                {
+                    SetWeapon(beginWeapon);
+                }
+                return _currentWeapon;
+            }
 
-                OnWeaponChanged?.Invoke(_currentWeapon);
-
+            set
+            {
+                SetWeapon(value);
             }
         }
 
@@ -41,13 +45,7 @@ namespace Unit
         {
             get
             {
-                if (_currentWeapon == null)
-                {
-                    InitializationWeapon();
-                }
-
-                return _currentWeapon.IdleAnimation;
-
+                return CurrentWeapon.IdleAnimation;
             }
             protected set { }
         }
@@ -55,12 +53,7 @@ namespace Unit
         {
             get
             {
-                if (_currentWeapon == null)
-                {
-                    InitializationWeapon();
-                }
-
-                return _currentWeapon.WalkingAnimation;
+                return CurrentWeapon.WalkingAnimation;
             }
             protected set { }
         }
@@ -68,12 +61,7 @@ namespace Unit
         {
             get
             {
-                if (_currentWeapon == null)
-                {
-                    InitializationWeapon();
-                }
-
-                return _currentWeapon.RunningAnimation;
+                return CurrentWeapon.RunningAnimation;
             }
             protected set { }
         }
@@ -86,13 +74,11 @@ namespace Unit
             {
                 InitializationWeapon();
             }
-
         }
 
         protected override void Update()
         {
             base.Update();
-            //Debug.Log(StateInteractable.Behaviour.StateMachine.State + " " + name);
         }
 
         protected override StateBehaviourBase InitializeState()
@@ -109,13 +95,6 @@ namespace Unit
             return CanMove;
         }
 
-        protected void ResetWeapon()
-        {
-
-            Destroy(_currentWeapon);
-            _currentWeapon = null;
-
-        }
 
         protected void SetWeapon(WeaponBase weapon)
         {
@@ -128,14 +107,23 @@ namespace Unit
             switch (weapon.weaponLocation)
             {
                 case WeaponLocation.LeftHand:
-                    CurrentWeapon = Instantiate(weapon, LeftTargetWeapon);
+                    _currentWeapon = Instantiate(weapon, LeftTargetWeapon);
                     break;
                 case WeaponLocation.RightHand:
-                    CurrentWeapon = Instantiate(weapon, RightTargetWeapon);
+                    _currentWeapon = Instantiate(weapon, RightTargetWeapon);
                     break;
             }
             _currentWeapon.Unit = this;
             _currentWeapon.transform.localPosition = Vector3.zero;
+
+
+            OnWeaponChanged?.Invoke(_currentWeapon);
+
+        }
+        protected void ResetWeapon()
+        {
+            Destroy(_currentWeapon.gameObject);
+            _currentWeapon = null;
         }
 
         public bool CanShoot()
