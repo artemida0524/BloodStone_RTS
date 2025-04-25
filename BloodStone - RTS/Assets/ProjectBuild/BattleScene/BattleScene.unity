@@ -2277,6 +2277,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SimpleAttackingUnit
       objectReference: {fileID: 0}
+    - target: {fileID: 2942237860360911256, guid: 1f4e8d4e06b302b43b3ea50170b6e1be, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8435683056205260828, guid: 1f4e8d4e06b302b43b3ea50170b6e1be, type: 3}
       propertyPath: beginWeapon
       value: 
@@ -4657,6 +4661,22 @@ PrefabInstance:
       propertyPath: beginWeapon
       value: 
       objectReference: {fileID: 6467472800866572565, guid: dc4210a3491ba9d4a8ce513136df78e2, type: 3}
+    - target: {fileID: 8435683056205260828, guid: 1f4e8d4e06b302b43b3ea50170b6e1be, type: 3}
+      propertyPath: weapons.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8435683056205260828, guid: 1f4e8d4e06b302b43b3ea50170b6e1be, type: 3}
+      propertyPath: weapons.Array.data[0]
+      value: 
+      objectReference: {fileID: 7180483273294464134, guid: e14c9976bd76c6543ae6798321a8620f, type: 3}
+    - target: {fileID: 8435683056205260828, guid: 1f4e8d4e06b302b43b3ea50170b6e1be, type: 3}
+      propertyPath: weapons.Array.data[1]
+      value: 
+      objectReference: {fileID: 6467472800866572565, guid: dc4210a3491ba9d4a8ce513136df78e2, type: 3}
+    - target: {fileID: 8435683056205260828, guid: 1f4e8d4e06b302b43b3ea50170b6e1be, type: 3}
+      propertyPath: weapons.Array.data[2]
+      value: 
+      objectReference: {fileID: 7099050418635697112, guid: 0808fc3af1c81b14cab77f038c6f83d4, type: 3}
     - target: {fileID: 8435683056205260828, guid: 1f4e8d4e06b302b43b3ea50170b6e1be, type: 3}
       propertyPath: <FactionType>k__BackingField
       value: 1
