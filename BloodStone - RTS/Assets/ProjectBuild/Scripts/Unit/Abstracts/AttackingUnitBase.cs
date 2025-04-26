@@ -128,12 +128,12 @@ namespace Unit
 
         public bool CanShoot()
         {
-            return beginWeapon.CanShoot();
+            return _currentWeapon.CanShoot();
         }
 
         public void Shoot(EntityBase enemyEntity)
         {
-            beginWeapon.Shoot(enemyEntity);
+            _currentWeapon.Shoot(enemyEntity);
         }
 
 
