@@ -8,7 +8,4 @@ namespace Unit
         int CountHealth { get; }
         event Action<int> OnHealthChange;
     }
-
-
 }
-

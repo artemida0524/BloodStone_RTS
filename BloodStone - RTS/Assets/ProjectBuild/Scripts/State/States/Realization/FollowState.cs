@@ -1,34 +1,30 @@
-﻿using Unit;
-using UnityEngine;
+﻿using Entity;
+using Unit;
 
 namespace State
 {
-    public class RunningState : MovableStateBase
+    public class FollowState : MovableStateBase
     {
         private readonly UnitBase unit;
-        private readonly Vector3 point;
+        private readonly IEntity entity;
         private readonly float radius;
 
-        private readonly float beginSpeed;
-        public RunningState(UnitBase unit, Vector3 point, float radius)
+        public FollowState(UnitBase unit, IEntity entity, float radius)
         {
             this.unit = unit;
-            this.point = point;
+            this.entity = entity;
             this.radius = radius;
-
-            this.beginSpeed = unit.Agent.speed;
         }
 
         public override void Enter()
         {
-            SetDestinationAsyncRunner(unit, point);
+            SetDestinationAsyncRunner(unit, entity);
             unit.Animator.Play(unit.RunningAnimation);
-            unit.Agent.speed = 10f;
         }
 
         public override void Update()
         {
-            if ((point - unit.Position).magnitude < unit.Agent.stoppingDistance + radius)
+            if ((entity.Position - unit.Position).magnitude < unit.Agent.stoppingDistance + radius)
             {
                 unit.Agent.ResetPath();
                 IsFinished = true;
@@ -39,9 +35,7 @@ namespace State
         {
             base.Exit();
             unit.Agent.ResetPath();
-            unit.Agent.speed = beginSpeed;
         }
-
     }
 
 }

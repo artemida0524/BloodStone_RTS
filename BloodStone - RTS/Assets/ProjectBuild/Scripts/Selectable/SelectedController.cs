@@ -117,9 +117,9 @@ namespace Select
                     //    {
                     //        try
                     //        {
-                    //            if (item is UnitBase unit)
+                    //            if (item is UnitBase _unit)
                     //            {
-                    //                unit.SetState(new MoveState(unit, GetPosition(), 0));
+                    //                _unit.SetState(new MoveState(_unit, GetPosition(), 0));
                     //            }
                     //        }
                     //        catch (System.Exception ex)

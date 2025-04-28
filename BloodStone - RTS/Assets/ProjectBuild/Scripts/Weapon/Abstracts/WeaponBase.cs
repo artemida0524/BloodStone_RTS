@@ -26,13 +26,14 @@ namespace Weapon
 
         public bool AttackRightNow { get; protected set; } = false;
 
-        public void Update()
+        protected virtual void Update()
         {
             cooldownOut += Time.deltaTime;
             //Debug.Log(AttackRightNow);
         }
         public virtual void Shoot(EntityBase enemyEntity)
         {
+            Debug.Log("Shoot");
             cooldownOut = 0f;
         }
 

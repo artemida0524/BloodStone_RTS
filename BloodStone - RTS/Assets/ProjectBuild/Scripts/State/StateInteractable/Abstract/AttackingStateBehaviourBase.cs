@@ -24,7 +24,7 @@ namespace State
 
             //if (state is AttackAndFollowState attackAndFollowState && StateMachine.State is AttackAndFollowState attackAndFollowState2)
             //{
-            //    if (attackAndFollowState.targetEntity.Equals(attackAndFollowState2.targetEntity))
+            //    if (attackAndFollowState._entity.Equals(attackAndFollowState2._entity))
             //    {
             //        return;
             //    }
@@ -32,7 +32,7 @@ namespace State
 
             //if (state is FollowWithChangeState followState && StateMachine.State is FollowWithChangeState followState2)
             //{
-            //    if (followState.targetEntity.Equals(followState2.targetEntity))
+            //    if (followState._entity.Equals(followState2._entity))
             //    {
             //        return;
             //    }
@@ -41,7 +41,7 @@ namespace State
 
             //if (state is AttackAndFollowState qwer && StateMachine.State is FollowWithChangeState qwerty)
             //{
-            //    if (qwer.targetEntity.Equals(qwerty.targetEntity))
+            //    if (qwer._entity.Equals(qwerty._entity))
             //    {
             //        return;
             //    }

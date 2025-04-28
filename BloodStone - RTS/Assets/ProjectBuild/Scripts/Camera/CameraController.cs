@@ -1,5 +1,4 @@
 using Cinemachine;
-using UnityEditor.MemoryProfiler;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour

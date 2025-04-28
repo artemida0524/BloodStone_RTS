@@ -1,6 +1,8 @@
 using Entity;
 using State;
 using System;
+using System.Drawing;
+using Unit;
 using UnityEngine;
 using Weapon;
 
@@ -78,6 +80,7 @@ namespace Unit
 
         protected override void Update()
         {
+            Debug.Log(StateInteractable.Behaviour.StateMachine.State);
             base.Update();
         }
 
@@ -88,6 +91,7 @@ namespace Unit
 
         public override bool MoveTo(Vector3 point, float radius)
         {
+
             if (CanMove)
             {
                 StateInteractable.MoveState.ChangeState(new RunningState(this, point, radius));
@@ -95,6 +99,14 @@ namespace Unit
             return CanMove;
         }
 
+        public bool MoveTo(MovableStateBase myMovable)
+        {
+            if (CanMove)
+            {
+                StateInteractable.MoveState.ChangeState(myMovable);
+            }
+            return CanMove;
+        }
 
         protected void SetWeapon(WeaponBase weapon)
         {
@@ -136,10 +148,11 @@ namespace Unit
             _currentWeapon.Shoot(enemyEntity);
         }
 
-
         protected void InitializationWeapon()
         {
             SetWeapon(beginWeapon);
         }
     }
 }
+
+

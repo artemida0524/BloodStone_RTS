@@ -29,7 +29,7 @@ namespace State
         public override void Update()
         {
 
-            //Debug.Log((point - unit.Position).magnitude + ": " + (unit.Agent.stoppingDistance + radius));
+            //Debug.Log((point - _unit.Position).magnitude + ": " + (_unit.Agent.stoppingDistance + radius));
 
             if ((point - unit.Position).magnitude < unit.Agent.stoppingDistance + radius)
             {
@@ -41,7 +41,7 @@ namespace State
         public override void Exit()
         {
             base.Exit();
-            //unit.Agent.ResetPath();
+            //_unit.Agent.ResetPath();
         }
 
     }

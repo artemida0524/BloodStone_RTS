@@ -10,21 +10,21 @@ namespace State
         public StateBehaviourBase Behaviour { get; private set; }
         public StateMachine MoveState { get; private set; } = new StateMachine(null);
         [field: SerializeField] public float Radius { get; private set; } = 5f;
-
+        
         public void Update()
         {
-            UpdateState();
             if (Behaviour.StateMachine.State != null && Behaviour.StateMachine.State.IsFinished)
             {
                 Behaviour.SetStateIfFinished();
             }
+            UpdateState();
         }
 
         public void Init(StateBehaviourBase stateBehaviour)
         {
             Behaviour = stateBehaviour;
         }
-
+        
         public void SetState(StateBase state)
         {
             Behaviour.SetState(state);
