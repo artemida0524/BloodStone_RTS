@@ -764,9 +764,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27000533d568faf48b4c067f8f25d3d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  speedScrool: 15
-  speedZoom: 20
+  cinemachineCamera: {fileID: 1314311784}
+  moveSpeed: 10
+  scroolSpeed: 30
+  smoothSpeed: 10
+  minFOW: 40
+  maxFOW: 70
 --- !u!4 &378774761
 Transform:
   m_ObjectHideFlags: 0

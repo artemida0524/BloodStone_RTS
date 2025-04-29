@@ -1,42 +1,55 @@
 using Cinemachine;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+namespace GameCamera
 {
-    [SerializeField] private float speed;
-    [SerializeField] private float speedScrool;
-    [SerializeField] private float speedZoom;
-
-
-    private CinemachineVirtualCamera cCamera;
-    private float destinationZoom;
-
-    private float x;
-    private float z;
-
-    private void Start()
+    public class CameraController : MonoBehaviour
     {
-        cCamera = FindAnyObjectByType<CinemachineVirtualCamera>();
-        destinationZoom = cCamera.m_Lens.FieldOfView;
-    }
+        [SerializeField] private CinemachineVirtualCamera cinemachineCamera;
 
-    private void Update()
-    {
-        x = Input.GetAxis("Horizontal");
-        z = Input.GetAxis("Vertical");
+        [Header("Move Settings")]
+        [SerializeField] private float moveSpeed;
 
+        private ICameraMover _cameraMover;
 
-        transform.position += new Vector3(x, 0, z) * Time.deltaTime * speed * (cCamera.m_Lens.FieldOfView / 10);
+        [Header("Scrool Settings")]
+        [SerializeField] private float scroolSpeed;
+        [SerializeField] private float smoothSpeed;
+        [SerializeField] private int minFOW = 40;
+        [SerializeField] private int maxFOW = 70;
 
-        float aa = Input.GetAxis("Mouse ScrollWheel") * speedScrool;
+        private float _destinationZoom;
 
-        if (aa != 0)
+        private void Awake()
         {
-            destinationZoom -= aa;
-            destinationZoom = Mathf.Clamp(destinationZoom, 40, 70);
+            _cameraMover = new MouseMove(transform, () => cinemachineCamera.m_Lens.FieldOfView, () => moveSpeed / 10);
+
+            // Uncomment the following line to use keyboard movement instead of mouse movement
+            //_cameraMover = new KeyMove(transform, () => cinemachineCamera.m_Lens.FieldOfView, () => moveSpeed);
         }
-        cCamera.m_Lens.FieldOfView = Mathf.Lerp(cCamera.m_Lens.FieldOfView, destinationZoom, Time.deltaTime * speedZoom);
 
+        private void Start()
+        {
+            _destinationZoom = cinemachineCamera.m_Lens.FieldOfView;
+        }
+
+        private void LateUpdate()
+        {
+            HandleZoomInput();
+
+            _cameraMover.Move();
+        }
+
+        private void HandleZoomInput()
+        {
+            float aa = Input.GetAxis("Mouse ScrollWheel") * scroolSpeed;
+
+            if (aa != 0)
+            {
+                _destinationZoom -= aa;
+                _destinationZoom = Mathf.Clamp(_destinationZoom, minFOW, maxFOW);
+            }
+            cinemachineCamera.m_Lens.FieldOfView = Mathf.Lerp(cinemachineCamera.m_Lens.FieldOfView, _destinationZoom, Time.deltaTime * smoothSpeed);
+        }
     }
-
 }
