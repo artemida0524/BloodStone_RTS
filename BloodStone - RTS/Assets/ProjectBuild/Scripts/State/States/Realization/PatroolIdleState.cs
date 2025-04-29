@@ -26,10 +26,9 @@ namespace State
 
             if (colliders.Length > 0)
             {
-
                 foreach (var item in colliders)
                 {
-                    if (item.TryGetComponent(out EntityBase entity))
+                    if (item.TryGetComponent(out IDamageable entity))
                     {
                         if (entity.FactionType != this.unit.FactionType && entity.FactionType != Faction.FactionType.Systems)
                         {

@@ -10,6 +10,12 @@ namespace Weapon
         public override string WalkingAnimation { get; protected set; } = AnimationStateNames.WALKING;
         public override string RunningAnimation { get; protected set; } = AnimationStateNames.RUNNING;
 
+        protected override void Update()
+        {
+            base.Update();
+        }
+
+
         public override void Shoot(EntityBase enemyEntity)
         {
             base.Shoot(enemyEntity);
@@ -19,7 +25,7 @@ namespace Weapon
 
         protected override void OnShootDetect()
         {
-            Debug.Log("efwefwe");
+            Debug.LogWarning("efwefwe");
         }
 
 

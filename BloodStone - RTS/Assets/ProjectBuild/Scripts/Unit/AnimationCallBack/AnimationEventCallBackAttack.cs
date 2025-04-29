@@ -18,7 +18,7 @@ namespace Unit
             OnBeginAttack?.Invoke();
         }
 
-        private void OnEndAttackCallBack()
+        private void EndAttackCallBack()
         {
             OnEndAttack?.Invoke();
         }

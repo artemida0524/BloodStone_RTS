@@ -26,7 +26,6 @@ namespace Entity
             this.FactionType = type;
         }
 
-
         public void Delete()
         {
             transform.position += new Vector3(10, 0, 0);

@@ -20,35 +20,7 @@ namespace State
 
         public override void SetState(StateBase state)
         {
-            //Debug.Log(state + " " + StateMachine.State);
-
-            //if (state is AttackAndFollowState attackAndFollowState && StateMachine.State is AttackAndFollowState attackAndFollowState2)
-            //{
-            //    if (attackAndFollowState.targetEntity.Equals(attackAndFollowState2.targetEntity))
-            //    {
-            //        return;
-            //    }
-            //}
-
-            //if (state is FollowWithChangeState followState && StateMachine.State is FollowWithChangeState followState2)
-            //{
-            //    if (followState.targetEntity.Equals(followState2.targetEntity))
-            //    {
-            //        return;
-            //    }
-            //}
-
-
-            //if (state is AttackAndFollowState qwer && StateMachine.State is FollowWithChangeState qwerty)
-            //{
-            //    if (qwer.targetEntity.Equals(qwerty.targetEntity))
-            //    {
-            //        return;
-            //    }
-            //}
-
             StateMachine.ChangeState(state);
-
         }
 
         public override void SetStateIfFinished()
