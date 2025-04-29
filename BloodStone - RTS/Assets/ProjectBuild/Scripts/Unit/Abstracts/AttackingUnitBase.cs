@@ -80,7 +80,7 @@ namespace Unit
 
         protected override void Update()
         {
-            Debug.Log(StateInteractable.Behaviour.StateMachine.State);
+            //Debug.Log(StateInteractable.Behaviour.StateMachine.State);
             base.Update();
         }
 

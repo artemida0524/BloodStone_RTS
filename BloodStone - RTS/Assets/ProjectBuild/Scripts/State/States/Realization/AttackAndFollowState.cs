@@ -19,7 +19,6 @@ namespace State
             _unit = unit;
             _entity = targetEntity;
 
-
             IsObstacleDetected = ObstacleDetected;
         }
 
@@ -46,7 +45,6 @@ namespace State
                 IsFinished = true;
                 return;
             }
-
 
             Debug.Log(IsFinished);
 
@@ -133,6 +131,8 @@ namespace State
             private readonly AttackingUnitBase _unit;
             private readonly IDamageable _entity;
 
+            private bool _attackRightNow = false;
+
             private Func<bool> IsObstacleDetected;
 
             public AttackState(AttackingUnitBase unit, IDamageable entity, Func<bool> IsObstacleDetected)
@@ -146,6 +146,9 @@ namespace State
             {
                 base.Enter();
                 _unit.Animator.Play(_unit.IdleAnimation);
+
+                _unit.AnimationEventCallBalck.OnBeginAttack += OnBeginAttackHandler;
+                _unit.AnimationEventCallBalck.OnEndAttack += OnEndAttackHandler;
             }
 
             public override void Update()
@@ -154,7 +157,7 @@ namespace State
 
                 float distance = Vector3.Distance(_unit.Position, _entity.Position) - _entity.Radius;
 
-                if (distance > _unit.CurrentWeapon.Distance || IsObstacleDetected())
+                if ((distance > _unit.CurrentWeapon.Distance || IsObstacleDetected()) && !_attackRightNow)
                 {
                     IsFinished = true;
                 }
@@ -165,6 +168,24 @@ namespace State
                 }
 
                 _unit.transform.LookAt(_entity.Position);
+            }
+
+            public override void Exit()
+            {
+                base.Exit();
+
+                _unit.AnimationEventCallBalck.OnBeginAttack -= OnBeginAttackHandler;
+                _unit.AnimationEventCallBalck.OnEndAttack -= OnEndAttackHandler;
+            }
+
+            private void OnBeginAttackHandler()
+            {
+                _attackRightNow = true;
+            }
+
+            private void OnEndAttackHandler()
+            {
+                _attackRightNow = false;
             }
         }
     }

@@ -45,6 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Distance>k__BackingField: 1.7
-  <CooldownTime>k__BackingField: 1.2
+  <CooldownTime>k__BackingField: 2
   <CanShooting>k__BackingField: 1
   <weaponLocation>k__BackingField: 1

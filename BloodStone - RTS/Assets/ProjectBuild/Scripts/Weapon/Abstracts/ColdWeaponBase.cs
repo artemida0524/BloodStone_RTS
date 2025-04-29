@@ -16,29 +16,29 @@ namespace Weapon
                 if (currentUnit != null)
                 {
                     currentUnit.AnimationEventCallBalck.OnShootDetect -= OnShootDetect;
-                    currentUnit.AnimationEventCallBalck.OnBeginAttack -= BeginAttack;
-                    currentUnit.AnimationEventCallBalck.OnEndAttack -= EndAttack;
+                    //currentUnit.AnimationEventCallBalck.OnBeginAttack -= BeginAttack;
+                    //currentUnit.AnimationEventCallBalck.OnEndAttack -= EndAttack;
                 }
 
                 currentUnit = value;
 
                 currentUnit.AnimationEventCallBalck.OnShootDetect += OnShootDetect;
-                currentUnit.AnimationEventCallBalck.OnBeginAttack += BeginAttack;
-                currentUnit.AnimationEventCallBalck.OnEndAttack += EndAttack;
+                //currentUnit.AnimationEventCallBalck.OnBeginAttack += BeginAttack;
+                //currentUnit.AnimationEventCallBalck.OnEndAttack += EndAttack;
             }
         }
 
         protected abstract void OnShootDetect();
 
-        public override void BeginAttack()
-        {
-            AttackRightNow = true;
-        }
+        //public override void BeginAttack()
+        //{
+        //    AttackRightNow = true;
+        //}
 
-        public override void EndAttack()
-        {
-            AttackRightNow = false;
-        }
+        //public override void EndAttack()
+        //{
+        //    AttackRightNow = false;
+        //}
 
     }
 }

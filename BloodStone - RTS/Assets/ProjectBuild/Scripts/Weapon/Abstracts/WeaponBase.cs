@@ -1,7 +1,6 @@
 using Entity;
 using Unit;
 using UnityEngine;
-using UnityEngine.Rendering.UI;
 
 namespace Weapon
 {
@@ -42,8 +41,14 @@ namespace Weapon
             return CanShooting && cooldownOut > CooldownTime;
         }
 
-        public abstract void BeginAttack();
-        public abstract void EndAttack();
+        public virtual void BeginAttack()
+        {
+
+        }
+        public virtual void EndAttack()
+        {
+
+        }
 
 
     }
