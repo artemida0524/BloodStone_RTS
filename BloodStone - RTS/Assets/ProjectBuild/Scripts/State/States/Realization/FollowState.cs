@@ -5,28 +5,28 @@ namespace State
 {
     public class FollowState : MovableStateBase
     {
-        private readonly UnitBase unit;
-        private readonly IEntity entity;
-        private readonly float radius;
+        private readonly UnitBase _unit;
+        private readonly IEntity _entity;
+        private readonly float _radius;
 
         public FollowState(UnitBase unit, IEntity entity, float radius)
         {
-            this.unit = unit;
-            this.entity = entity;
-            this.radius = radius;
+            _unit = unit;
+            _entity = entity;
+            _radius = radius;
         }
 
         public override void Enter()
         {
-            SetDestinationAsyncRunner(unit, entity);
-            unit.Animator.Play(unit.RunningAnimation);
+            SetDestinationAsyncRunner(_unit, _entity);
+            _unit.Animator.Play(_unit.RunningAnimation);
         }
 
         public override void Update()
         {
-            if ((entity.Position - unit.Position).magnitude < unit.Agent.stoppingDistance + radius)
+            if ((_entity.Position - _unit.Position).magnitude < _unit.Agent.stoppingDistance + _radius)
             {
-                unit.Agent.ResetPath();
+                _unit.Agent.ResetPath();
                 IsFinished = true;
             }
         }
@@ -34,7 +34,7 @@ namespace State
         public override void Exit()
         {
             base.Exit();
-            unit.Agent.ResetPath();
+            _unit.Agent.ResetPath();
         }
     }
 

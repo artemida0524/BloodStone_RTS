@@ -49,86 +49,6 @@ namespace Select
 
                 if (Physics.Raycast(ray, out RaycastHit hitInfo))
                 {
-                    //if (hitInfo.collider.TryGetComponent(out EntityBase entity))
-                    //{
-                    //    if (entity.FactionType == faction.FactionType)
-                    //    {
-                    //        if (entity is BuildInteractableBase build)
-                    //        {
-                    //            if (faction.Data.InteractionMode == InteractionMode.Setable)
-                    //            {
-                    //                var units = selectedEntities.OfType<UnitBase>().ToList();
-
-                    //                build.Interact(units);
-                    //                selectableHandler.UnselectAll();
-                    //            }
-                    //            else if (faction.Data.InteractionMode == InteractionMode.None)
-                    //            {
-                    //                build.Interact();
-                    //            }
-                    //        }
-                    //        return;
-                    //    }
-                    //    else if (entity.FactionType == FactionType.Systems)
-                    //    {
-                    //        if (entity is BuildInteractableBase build)
-                    //        {
-                    //            if (faction.Data.InteractionMode == InteractionMode.Setable)
-                    //            {
-                    //                var units = selectedEntities.OfType<UnitBase>().ToList();
-
-                    //                build.Interact(units);
-                    //                selectableHandler.UnselectAll();
-                    //            }
-                    //            else if (faction.Data.InteractionMode == InteractionMode.None)
-                    //            {
-                    //                build.Interact();
-                    //            }
-                    //        }
-                    //        return;
-                    //    }
-                    //    else if (entity.FactionType != faction.FactionType)
-                    //    {
-                    //        List<AttackingUnitBase> attackingUnits = selectedEntities.OfType<AttackingUnitBase>().ToList();
-
-                    //        foreach (var item in attackingUnits)
-                    //        {
-                    //            item.SetState(new AttackAndFollowState(item, entity));
-                    //        }
-                    //    }
-
-                    //}
-                    //else
-                    //{
-                    //    Vector3 positionArea = hitInfo.point;
-                    //    positionArea.y = 0f;
-
-                    //    pointPositionerMeshRenderer.transform.position = positionArea;
-
-                    //    float scaleFactor = (float)selectedEntities.Count / 10;
-
-                    //    scaleFactor = Mathf.Clamp(scaleFactor, 0.3f, 1.5f);
-
-                    //    Vector3 scale = new Vector3(scaleFactor, pointPositionerMeshRenderer.transform.localScale.y, scaleFactor);
-
-                    //    pointPositionerMeshRenderer.transform.localScale = scale;
-
-                    //    foreach (var item in selectedEntities)
-                    //    {
-                    //        try
-                    //        {
-                    //            if (item is UnitBase _unit)
-                    //            {
-                    //                _unit.SetState(new MoveState(_unit, GetPosition(), 0));
-                    //            }
-                    //        }
-                    //        catch (System.Exception ex)
-                    //        {
-                    //            Debug.LogWarning(ex);
-                    //        }
-                    //    }
-                    //}
-
                     if (hitInfo.collider.TryGetComponent(out IEntity entity))
                     {
                         if (entity.FactionType == faction.FactionType || entity.FactionType == FactionType.Systems)
@@ -148,7 +68,6 @@ namespace Select
                                 }
                             }
                         }
-
                     }
                     else
                     {
