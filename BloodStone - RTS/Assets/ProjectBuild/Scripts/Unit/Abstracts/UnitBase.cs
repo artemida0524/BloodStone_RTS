@@ -65,21 +65,15 @@ namespace Unit
         protected virtual void OnEnable()
         {
             UnitUtility.OnUnitEnableInvoke(this);
-
         }
 
         protected virtual void OnDisable()
         {
-
-            Debug.Log("OnDisable");
-
             UnitUtility.OnUnitDisableOrDestroyInvoke(this);
         }
 
         protected virtual void OnDestroy()
         {
-
-            Debug.Log("OnDestroy");
             UnitUtility.OnUnitDisableOrDestroyInvoke(this);
         }
 

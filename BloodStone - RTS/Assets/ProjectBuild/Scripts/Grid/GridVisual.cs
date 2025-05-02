@@ -1,12 +1,15 @@
-using System.Collections;
+using GlobalData;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GridVisual : MonoBehaviour
 {
+
     [field: SerializeField] private int Height { get; set; } = 10;
     [field: SerializeField] private int Width { get; set; } = 10;
 
+
+    
     private void OnDrawGizmos()
     {
         for (int i = 0; i < Width; i++)

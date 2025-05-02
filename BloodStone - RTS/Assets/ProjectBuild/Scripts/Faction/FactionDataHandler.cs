@@ -15,6 +15,8 @@ namespace Faction
 
         public event Action<InteractionMode> OnInteractionModeChanged;
 
+        public GlobalBuildsDataHandler AllBuildBase { get; set; }
+
         public void ChangeInteractionMode(InteractionMode interactionMode)
         {
             InteractionMode = interactionMode;
@@ -29,7 +31,7 @@ namespace Faction
         
         public List<T> GetBuilds<T>()
         {
-            List<T> builds = GlobalBuildsDataHandler.GetBuilds<T>();
+            List<T> builds = AllBuildBase.GetBuilds<T>();
             return builds;
         }
 
@@ -45,7 +47,5 @@ namespace Faction
 
             return result;
         }
-
-
     }
 }

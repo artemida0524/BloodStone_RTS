@@ -255,8 +255,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <FactionType>k__BackingField: 0
   <EntityInfo>k__BackingField: {fileID: 11400000, guid: 0c413ad6180e3484db8cd4207e367bbe, type: 2}
-  <Height>k__BackingField: 2
-  <Width>k__BackingField: 2
+  <Height>k__BackingField: 1
+  <Width>k__BackingField: 1
   <BodyRenderer>k__BackingField: {fileID: 2271689959218944766}
   selectObject: {fileID: 5478979531362042970}
   chopWorkerUnit: {fileID: 7941688124854246978, guid: d3f7a2ef0e2dd614caa535ce48cbcbdf, type: 3}

@@ -1,4 +1,5 @@
-﻿using Currency;
+﻿using Build;
+using Currency;
 using Entity;
 using Faction;
 using System;
@@ -45,6 +46,17 @@ namespace Select
             camera = Camera.main;
 
             UnitUtility.OnUnitDisableOrDestroy += OnUnitDisableOrDestroyHandler;
+            BuildUtility.OnBuildDisableOrDestroy += OnBuildDisableOrDestroyHandler;
+        }
+
+        private void OnBuildDisableOrDestroyHandler(BuildBase build)
+        {
+            if (selectables.Contains(build as ISelectable))
+            {
+                selectables.Remove(build as ISelectable);
+
+                OnSelectedUnits?.Invoke(selectables);
+            }
         }
 
         private void OnUnitDisableOrDestroyHandler(UnitBase unit)
@@ -64,10 +76,11 @@ namespace Select
                 if (!EventSystem.current.IsPointerOverGameObject())
                 {
                     HandleClickSelection();
-                    HandleHoverEffect();
+                    
                 }
                 HandleDragSelection();
             }
+            HandleHoverEffect();
         }
 
         private void HandleClickSelection()

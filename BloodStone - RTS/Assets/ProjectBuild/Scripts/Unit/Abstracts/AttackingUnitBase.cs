@@ -1,8 +1,6 @@
 using Entity;
 using State;
 using System;
-using System.Drawing;
-using Unit;
 using UnityEngine;
 using Weapon;
 

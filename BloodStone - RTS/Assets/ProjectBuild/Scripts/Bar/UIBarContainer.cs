@@ -1,5 +1,6 @@
 using Bar;
 using Cinemachine;
+using GlobalData;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,8 @@ public class UIBarContainer : MonoBehaviour
     [SerializeField] private UIBarDataSOList uiBarDataSOList;
 
     private List<UIBar> bars;
+
+    public GlobalBuildsDataHandler AllBuildData { get; set; }
 
     private CinemachineVirtualCamera cCamera;
     private float referenceFOV = 60f;

@@ -1,21 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Zenject;
-using Build;
 using GlobalData;
+using Build;
 
 public class GlobalDataInjection : MonoInstaller
 {
+    public BuildSystem system;
 
     public override void InstallBindings()
     {
         Container
-            .Bind<GlobalBuildsGridDataHandler>()
+            .BindInstance(system)
             .AsSingle()
             .NonLazy()
             ;
-
 
         Container
             .Bind<GlobalUnitsDataHandler>()
@@ -23,5 +20,10 @@ public class GlobalDataInjection : MonoInstaller
             .NonLazy()
             ;
 
+        Container
+            .Bind<GlobalBuildsDataHandler>()
+            .AsSingle()
+            .NonLazy()
+            ;
     }
 }

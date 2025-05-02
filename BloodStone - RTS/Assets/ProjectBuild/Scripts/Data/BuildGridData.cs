@@ -1,14 +1,17 @@
 using Build;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace GlobalData
 {
-    public class GlobalBuildsGridDataHandler
+    public class BuildGridData
     {
-        private static Dictionary<Vector3Int, bool> buildGrid { get; } = new Dictionary<Vector3Int, bool>();
+        private Dictionary<Vector3Int, bool> buildGrid { get; } = new Dictionary<Vector3Int, bool>();
 
-        public GlobalBuildsGridDataHandler()
+        public event Action OnBuildGridChanged;
+
+        public BuildGridData()
         {
             Initialize();
         }
@@ -24,18 +27,22 @@ namespace GlobalData
             }
         }
 
-        public static void BuildInGrid(BuildBase build, Vector3Int point)
+        public void BuildInGrid(BuildBase build, Vector3Int point)
         {
             for (int height = 0; height < build.Height; height++)
             {
                 for (int width = 0; width < build.Width; width++)
                 {
                     buildGrid[new Vector3Int(width + point.x, 0, height + point.z)] = true;
+
+                    GameObject.CreatePrimitive(PrimitiveType.Cube).transform.position = new Vector3Int(width + point.x, 0, height + point.z);
                 }
             }
+
+            OnBuildGridChanged?.Invoke();
         }
 
-        public static bool CanBuildInGrid(BuildBase build, Vector3Int point)
+        public bool CanBuildInGrid(BuildBase build, Vector3Int point)
         {
             for (int height = 0; height < build.Height; height++)
             {
@@ -49,6 +56,20 @@ namespace GlobalData
                 }
             }
             return true;
+        }
+
+        public void RemoveInGrid(BuildBase build, Vector3Int point)
+        {
+
+            for (int height = 0; height < build.Height; height++)
+            {
+                for (int width = 0; width < build.Width; width++)
+                {
+                    buildGrid[new Vector3Int(width + point.x, 0, height + point.z)] = false;
+                }
+            }
+
+            OnBuildGridChanged?.Invoke();
         }
     }
 }

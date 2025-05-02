@@ -7,6 +7,9 @@ namespace GlobalData
 {
     public class GlobalUnitsDataHandler
     {
+        
+
+
         private static List<UnitBase> AllUnits { get; } = new List<UnitBase>();
 
         public GlobalUnitsDataHandler()

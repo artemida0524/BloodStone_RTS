@@ -2,9 +2,6 @@ using Select;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
-using Unit;
-using Weapon;
-using UnityEngine.UI;
 
 namespace Option
 {
