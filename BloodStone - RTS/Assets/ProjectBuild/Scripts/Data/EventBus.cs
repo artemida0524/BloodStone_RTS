@@ -43,24 +43,11 @@ public class EventBus
     {
         if (actions == null) return;
 
-
-        try
+        if (actions.ContainsKey(name))
         {
-            if (actions.ContainsKey(name))
-            {
-                actions[name].Remove(action);
-            }
+            actions[name].Remove(action);
         }
-        catch (Exception)
-        {
-
-            Debug.LogWarning("Error");
-            
-        }
-
     }
-
-
 
     private void Init()
     {

@@ -6,36 +6,66 @@ using UnityEngine;
 
 namespace GlobalData
 {
-    public class GlobalBuildsDataHandler
+    public class GlobalBuildsDataHandler : IBuildingProvider, IBuildGridData
     {
-        public static List<BuildBase> AllBuilds { get; } = new List<BuildBase>();
+        private List<BuildBase> _allBuilds = new List<BuildBase>();
+        public IEnumerable<BuildBase> AllBuilds => _allBuilds;
+        public BuildGridData GlobalBuildsGridData { get; private set; } = new BuildGridData();
 
-        public static List<T> GetBuilds<T>()
+
+        public GlobalBuildsDataHandler()
         {
-            return AllBuilds.OfType<T>().ToList();
+            BuildUtility.OnBuildEnable += OnBuildEnableHandler;
+            BuildUtility.OnBuildDisableOrDestroy += OnBuildDisableOrDestroyHandler;
         }
 
-        public static List<T> GetBuilds<T>(Func<T, bool> predicat)
+        private void OnBuildDisableOrDestroyHandler(BuildBase build)
         {
-            return AllBuilds.OfType<T>().Where(predicat).ToList();
+            RemoveBuild(build);
         }
 
-        public static void AddBuild(BuildBase build)
+        private void OnBuildEnableHandler(BuildBase build)
         {
+            AddBuild(build);
+        }
 
+        public IEnumerable<T> GetBuilds<T>()
+        {
+            return AllBuilds.OfType<T>();
+        }
+
+        public IEnumerable<T> GetBuilds<T>(Func<T, bool> predicat)
+        {
+            return AllBuilds.OfType<T>().Where(predicat);
+        }
+
+        public void AddBuild(BuildBase build)
+        {
             if (AllBuilds.Contains(build))
             {
-                Debug.LogWarning("Already exists");
+                Debug.LogWarning("Already exists" + " " + build.name);
                 return;
             }
-            AllBuilds.Add(build);
+            _allBuilds.Add(build);
+            BuildInGrid(build, Vector3Int.FloorToInt(build.transform.position));
         }
 
-        public static void RemoveBuild(BuildBase build)
+        public void RemoveBuild(BuildBase build)
         {
-            AllBuilds.Remove(build);
+            _allBuilds.Remove(build);
+
+            RemoveBuildInGrid(build, Vector3Int.FloorToInt(build.transform.position));
         }
 
+        private void BuildInGrid(BuildBase build, Vector3Int point)
+        {
+            GlobalBuildsGridData.BuildInGrid(build, point);
+        }
+
+        private void RemoveBuildInGrid(BuildBase build, Vector3Int point)
+        {
+            GlobalBuildsGridData.RemoveInGrid(build, point);
+        }
 
     }
 }

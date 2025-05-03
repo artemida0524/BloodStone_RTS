@@ -12,14 +12,16 @@ namespace State
         private readonly ChopTreeWorkerUnit unit;
         private readonly ICurrencyStorage storage;
         private TreeBuildBase tree;
+        private IBuildingProvider _buildingProvider;
 
         private StateMachine machine = new StateMachine(null);
 
-        public ChopTreeState(ChopTreeWorkerUnit unit, TreeBuildBase tree, ICurrencyStorage storage)
+        public ChopTreeState(ChopTreeWorkerUnit unit, TreeBuildBase tree, ICurrencyStorage storage, IBuildingProvider buildingProvider)
         {
             this.unit = unit;
             this.tree = tree;
             this.storage = storage;
+            _buildingProvider = buildingProvider;
         }
 
         public override void Enter()
@@ -72,7 +74,7 @@ namespace State
         {
             tree.OnTreeOver -= OnTreeOverHandler;
 
-            TreeBuildBase newTree = GlobalBuildsDataHandler.GetBuilds<TreeBuildBase>(tree => !tree.Equals(this.tree) && !tree.IsDone).NearestEntity(tree);
+            TreeBuildBase newTree = _buildingProvider.GetBuilds<TreeBuildBase>(tree => !tree.Equals(this.tree) && !tree.IsDone).NearestEntity(tree);
 
             if (newTree == null)
             {

@@ -5,6 +5,7 @@ using Unit;
 using UnityEngine;
 using Build;
 using GlobalData;
+using System.Collections;
 
 namespace Faction
 {
@@ -15,28 +16,30 @@ namespace Faction
 
         public event Action<InteractionMode> OnInteractionModeChanged;
 
+        public IBuildingProvider BuildingProvider { get; set; }
+
         public void ChangeInteractionMode(InteractionMode interactionMode)
         {
             InteractionMode = interactionMode;
             OnInteractionModeChanged?.Invoke(interactionMode);
         }
 
-        public List<T> GetUnits<T>()
+        public IEnumerable<T> GetUnits<T>()
         {
-            List<T> units = GlobalUnitsDataHandler.GetUnits<T>();
+            IEnumerable<T> units = GlobalUnitsDataHandler.GetUnits<T>();
             return units;
         }
         
-        public List<T> GetBuilds<T>()
+        public IEnumerable<T> GetBuilds<T>()
         {
-            List<T> builds = GlobalBuildsDataHandler.GetBuilds<T>();
+            IEnumerable<T> builds = BuildingProvider.GetBuilds<T>();
             return builds;
         }
 
         public List<T> GetAll<T>()
         {
-            var units = GetUnits<T>().OfType<T>();
-            var builds = GetBuilds<T>().OfType<T>();
+            IEnumerable<T> units = GetUnits<T>().OfType<T>();
+            IEnumerable<T> builds = GetBuilds<T>().OfType<T>();
 
             List<T> result = new List<T>();
 
@@ -45,7 +48,5 @@ namespace Faction
 
             return result;
         }
-
-
     }
 }
