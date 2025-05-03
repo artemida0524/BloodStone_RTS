@@ -16,7 +16,7 @@ namespace Faction
 
         public event Action<InteractionMode> OnInteractionModeChanged;
 
-        public IBuildingProvider _buildingProvider { get; set; }
+        public IBuildingProvider BuildingProvider { get; set; }
 
         public void ChangeInteractionMode(InteractionMode interactionMode)
         {
@@ -32,7 +32,7 @@ namespace Faction
         
         public IEnumerable<T> GetBuilds<T>()
         {
-            IEnumerable<T> builds = _buildingProvider.GetBuilds<T>();
+            IEnumerable<T> builds = BuildingProvider.GetBuilds<T>();
             return builds;
         }
 
