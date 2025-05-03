@@ -153,6 +153,8 @@ namespace Select
                     Rect rect = new Rect(pivotPosition, size);
                     IEnumerable<ISelectable> myEntities = faction.Data.GetAll<ISelectable>().Where(unit => (unit as EntityBase).FactionType == faction.FactionType);
 
+                    //Debug.Log(myEntities.OfType<UnitBase>().Count());
+
                     foreach (var item in myEntities)
                     {
                         if (rect.Contains(GetScreenPoint(item.Position)))

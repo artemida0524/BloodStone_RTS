@@ -48,7 +48,7 @@ namespace Unit
 
             UIBarContainer?.AddBar(new HealthBar(this));
         }
-            
+
         protected virtual void Start()
         {
             Options = InitOption();
@@ -56,10 +56,7 @@ namespace Unit
 
         protected virtual void Update()
         {
-            //Debug.Log(StateInteractable.MoveState.State + "   " + StateInteractable.Behaviour.StateMachine.State + " " + name);
-
             StateInteractable.Update();
-
         }
 
         protected virtual void OnEnable()

@@ -15,21 +15,13 @@ namespace Unit
     {
         [field: SerializeField] public AnimationEventCallBackWoker AnimationEventCallBack { get; protected set; }
 
-
-        private GlobalBuildsDataHandler allBuildData;
+        private IBuildingProvider _buildingProvider;
 
 
         [Inject]
-        private void Construct(GlobalBuildsDataHandler AllBuild)
+        private void Construct(IBuildingProvider buildingProvider)
         {
-            allBuildData = AllBuild;
-        }
-
-        protected override void Update()
-        {
-            base.Update();
-
-            //Debug.Log(StateInteractable.Behaviour.StateMachine.State + " " + name);
+            _buildingProvider = buildingProvider;
         }
 
 
@@ -45,7 +37,7 @@ namespace Unit
 
         public override IOption InitOption()
         {
-            return new OptionWorkerUnit(this, allBuildData);
+            return new OptionWorkerUnit(this, _buildingProvider);
         }
 
         protected override StateBehaviourBase InitializeState()

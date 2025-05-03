@@ -6,64 +6,63 @@ using UnityEngine;
 
 namespace GlobalData
 {
-    public class GlobalBuildsDataHandler
+    public class GlobalBuildsDataHandler : IBuildingProvider, IBuildGridData
     {
-        public  List<BuildBase> AllBuilds { get; } = new List<BuildBase>();
-
-        public  BuildGridData GlobalBuildsGridData { get; private set; } = new BuildGridData();
+        private List<BuildBase> _allBuilds = new List<BuildBase>();
+        public IEnumerable<BuildBase> AllBuilds => _allBuilds;
+        public BuildGridData GlobalBuildsGridData { get; private set; } = new BuildGridData();
 
 
         public GlobalBuildsDataHandler()
         {
-            BuildUtility.OnBuildEnable += BuildUtility_OnBuildEnable;
-            BuildUtility.OnBuildDisableOrDestroy += BuildUtility_OnBuildDisableOrDestroy;
+            BuildUtility.OnBuildEnable += OnBuildEnableHandler;
+            BuildUtility.OnBuildDisableOrDestroy += OnBuildDisableOrDestroyHandler;
         }
 
-        private void BuildUtility_OnBuildDisableOrDestroy(BuildBase @base)
+        private void OnBuildDisableOrDestroyHandler(BuildBase build)
         {
-            RemoveBuild(@base);
+            RemoveBuild(build);
         }
 
-        private void BuildUtility_OnBuildEnable(BuildBase obj)
+        private void OnBuildEnableHandler(BuildBase build)
         {
-            AddBuild(obj);
+            AddBuild(build);
         }
 
-        public  List<T> GetBuilds<T>()
+        public IEnumerable<T> GetBuilds<T>()
         {
-            return AllBuilds.OfType<T>().ToList();
+            return AllBuilds.OfType<T>();
         }
 
-        public  List<T> GetBuilds<T>(Func<T, bool> predicat)
+        public IEnumerable<T> GetBuilds<T>(Func<T, bool> predicat)
         {
-            return AllBuilds.OfType<T>().Where(predicat).ToList();
+            return AllBuilds.OfType<T>().Where(predicat);
         }
 
-        public  void AddBuild(BuildBase build)
+        public void AddBuild(BuildBase build)
         {
             if (AllBuilds.Contains(build))
             {
                 Debug.LogWarning("Already exists" + " " + build.name);
                 return;
             }
-            AllBuilds.Add(build);
+            _allBuilds.Add(build);
             BuildInGrid(build, Vector3Int.FloorToInt(build.transform.position));
         }
 
-        public  void RemoveBuild(BuildBase build)
+        public void RemoveBuild(BuildBase build)
         {
-            AllBuilds.Remove(build);
+            _allBuilds.Remove(build);
 
             RemoveBuildInGrid(build, Vector3Int.FloorToInt(build.transform.position));
-
         }
 
-        public  void BuildInGrid(BuildBase build, Vector3Int point)
+        private void BuildInGrid(BuildBase build, Vector3Int point)
         {
             GlobalBuildsGridData.BuildInGrid(build, point);
         }
 
-        public  void RemoveBuildInGrid(BuildBase build, Vector3Int point)
+        private void RemoveBuildInGrid(BuildBase build, Vector3Int point)
         {
             GlobalBuildsGridData.RemoveInGrid(build, point);
         }

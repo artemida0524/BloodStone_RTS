@@ -1,5 +1,6 @@
 using System;
 using Unit;
+using UnityEngine;
 
 public class UnitUtility
 {
@@ -13,6 +14,7 @@ public class UnitUtility
 
     public static void OnUnitEnableInvoke(UnitBase unit)
     {
+        Debug.Log("OnUnitEnableInvoke");
         OnUnitEnable?.Invoke(unit);
     }
 }

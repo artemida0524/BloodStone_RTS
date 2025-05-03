@@ -1,21 +1,22 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Entity
 {
     public static class EntityExtension
     {
-        public static TSource NearestEntity<TSource>(this List<TSource> entities, IEntity entity) where TSource : class, IEntity
+        public static TSource NearestEntity<TSource>(this IEnumerable<TSource> entities, IEntity entity) where TSource : class, IEntity
         {
 
-            if(entities.Count == 0)
+            if(entities.Count() == 0)
             {
                 Debug.LogWarning("Zero Entities");
                 return null;
             }
 
             float distance = float.PositiveInfinity;
-            TSource nearestEntity = entities[0];
+            TSource nearestEntity = entities.GetEnumerator().Current;
 
             foreach (var item in entities)
             {

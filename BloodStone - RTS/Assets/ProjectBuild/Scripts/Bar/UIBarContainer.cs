@@ -14,18 +14,14 @@ public class UIBarContainer : MonoBehaviour
 
     private List<UIBar> bars;
 
-    public GlobalBuildsDataHandler AllBuildData { get; set; }
-
     private CinemachineVirtualCamera cCamera;
     private float referenceFOV = 60f;
     private Vector2 baseScale = new Vector2(0.015f, 0.015f);
-
 
     private void Start()
     {
         cCamera = FindAnyObjectByType<CinemachineVirtualCamera>();
     }
-
 
     private void Update()
     {
@@ -35,9 +31,6 @@ public class UIBarContainer : MonoBehaviour
         float scaleMultiplier = Mathf.Tan(Mathf.Deg2Rad * currentFOV * 0.5f) / Mathf.Tan(Mathf.Deg2Rad * referenceFOV * 0.5f);
 
         transform.localScale = new Vector3(baseScale.x, baseScale.y, 1f) * scaleMultiplier;
-
-
-
     }
 
 

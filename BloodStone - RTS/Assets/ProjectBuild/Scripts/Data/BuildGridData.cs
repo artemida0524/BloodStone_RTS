@@ -34,8 +34,6 @@ namespace GlobalData
                 for (int width = 0; width < build.Width; width++)
                 {
                     buildGrid[new Vector3Int(width + point.x, 0, height + point.z)] = true;
-
-                    GameObject.CreatePrimitive(PrimitiveType.Cube).transform.position = new Vector3Int(width + point.x, 0, height + point.z);
                 }
             }
 
