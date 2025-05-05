@@ -34,6 +34,7 @@ namespace Faction
         {
             IEnumerable<T> builds = BuildingProvider.GetBuilds<T>();
             return builds;
+
         }
 
         public List<T> GetAll<T>()

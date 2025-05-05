@@ -13,15 +13,15 @@ namespace Build
     {
         [field: SerializeField] private GameObject selectObject;
 
-        public event Action<int> OnTakeDamage;
-        public event Action<int> OnHealthChange;
-
         public bool IsSelection { get; private set; } = false;
         public bool CanSelected { get; private set; } = true;
         public virtual IOption Options { get; protected set; }
 
         public int MaxCountHealth { get; protected set; }
         public int CountHealth { get; protected set; }
+
+        public event Action<int> OnTakeDamage;
+        public event Action<int> OnHealthChange;
 
 
         protected override void Awake()

@@ -12,10 +12,6 @@ public class PutNewBuild : MonoBehaviour
     private void Construct(IBuildingSystemProvider buildingSystemProvider)
     {
         _buildingSystemProvider = buildingSystemProvider;
-
-
-
-
     }
 
     private void Update()

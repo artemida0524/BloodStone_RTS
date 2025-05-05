@@ -16,6 +16,12 @@ namespace Build
 
         protected override void Update()
         {
+            base.Update();
+            if (!CanInteraction)
+            {
+                return;
+            }
+
             time += Time.deltaTime;
             if (time > timeOut)
             {

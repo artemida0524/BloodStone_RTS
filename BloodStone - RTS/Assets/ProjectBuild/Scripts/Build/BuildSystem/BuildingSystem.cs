@@ -8,6 +8,9 @@ namespace Build
 {
     public class BuildingSystem : MonoBehaviour, IBuildingSystemProvider
     {
+
+        [SerializeField] private LayerMask mask;
+
         new private Camera camera;
 
         private Faction _faction;
@@ -31,28 +34,11 @@ namespace Build
 
         private void Update()
         {
-
-            if (Input.GetKeyDown(KeyCode.V))
-            {
-                foreach (var item in _faction.Data.GetAll<IVisualizable>().Where(build => build is not Faction))
-                {
-                    item.Visualize();
-                    item.SetColor(Color.green);
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.U))
-            {
-                foreach (var item in _faction.Data.GetAll<BuildBase>().Where(build => build is not Faction))
-                {
-                    item.Unvisualize();
-                }
-            }
-
             if (_currentBuild)
             {
                 Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 
-                if (Physics.Raycast(ray, out RaycastHit hitInfo))
+                if (Physics.Raycast(ray, out RaycastHit hitInfo, float.MaxValue, mask))
                 {
                     Vector3Int newPos = new Vector3Int((int)hitInfo.point.x, 0, (int)hitInfo.point.z);
 

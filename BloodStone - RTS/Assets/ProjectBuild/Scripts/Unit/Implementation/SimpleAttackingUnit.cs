@@ -6,4 +6,6 @@ namespace Unit
     public class SimpleAttackingUnit : AttackingUnitBase
     {
     }
+
+
 }

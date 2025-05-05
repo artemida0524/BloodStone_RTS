@@ -12,6 +12,7 @@ namespace Build
         [field: SerializeField] public int Height { get; protected set; }
         [field: SerializeField] public int Width { get; protected set; }
         [field: SerializeField] public override Renderer BodyRenderer { get; protected set; }
+        public override bool CanInteraction { get; protected set; } = false;
         public override Vector3 Position => BodyRenderer.transform.position;
         protected CapsuleCollider Collider { get; set; }
 
@@ -61,6 +62,7 @@ namespace Build
         public virtual void Build()
         {
             alreadyInit = true;
+            CanInteraction = true;
         }
 
         public override void InitializationEntity(FactionType type)
