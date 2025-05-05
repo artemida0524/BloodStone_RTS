@@ -25,6 +25,7 @@ namespace GlobalData
                     buildGrid[new Vector3Int(i, 0, j)] = false;
                 }
             }
+
         }
 
         public void BuildInGrid(BuildBase build, Vector3Int point)

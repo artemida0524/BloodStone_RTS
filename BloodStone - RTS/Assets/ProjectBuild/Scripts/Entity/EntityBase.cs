@@ -13,6 +13,9 @@ namespace Entity
         [field: SerializeField] public FactionType FactionType { get; protected set; }
         [field: SerializeField] public EntityInfoSO EntityInfo { get; protected set; }
         
+        public virtual bool CanInteraction { get; protected set; } = true;    
+
+
         public event Action OnFactionChanged;
 
         public void ChangeFaction(FactionType faction)
