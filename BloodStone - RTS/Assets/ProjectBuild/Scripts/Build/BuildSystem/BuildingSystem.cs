@@ -1,0 +1,104 @@
+using Faction;
+using GlobalData;
+using System.Linq;
+using UnityEngine;
+using Zenject;
+
+namespace Build
+{
+    public class BuildingSystem : MonoBehaviour, IBuildingSystemProvider
+    {
+        new private Camera camera;
+
+        private Faction _faction;
+        private BuildBase _currentBuild;
+
+        private GlobalBuildsDataHandler _buildsData;
+        private Vector3Int _lastPosition = new Vector3Int(0, 0, 0);
+
+        [Inject]
+        private void Construct(Faction faction, GlobalBuildsDataHandler globalBuildsDataHandler)
+        {
+            _faction = faction;
+            _buildsData = globalBuildsDataHandler;
+        }
+
+
+        private void Awake()
+        {
+            camera = Camera.main;
+        }
+
+        private void Update()
+        {
+
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                foreach (var item in _faction.Data.GetAll<IVisualizable>().Where(build => build is not Faction))
+                {
+                    item.Visualize();
+                    item.SetColor(Color.green);
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.U))
+            {
+                foreach (var item in _faction.Data.GetAll<BuildBase>().Where(build => build is not Faction))
+                {
+                    item.Unvisualize();
+                }
+            }
+
+            if (_currentBuild)
+            {
+                Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+
+                if (Physics.Raycast(ray, out RaycastHit hitInfo))
+                {
+                    Vector3Int newPos = new Vector3Int((int)hitInfo.point.x, 0, (int)hitInfo.point.z);
+
+                    if(_lastPosition != newPos)
+                    {
+                        _lastPosition = newPos;
+                        _currentBuild.transform.position = newPos;
+
+                        if (_buildsData.GlobalBuildsGridData.CanBuildInGrid(_currentBuild, new Vector3Int((int)hitInfo.point.x, (int)hitInfo.point.y, (int)hitInfo.point.z)))
+                        {
+                            _currentBuild.SetColor(Color.green);
+                        }
+                        else
+                        {
+                            _currentBuild.SetColor(Color.red);
+                        }
+                    }
+
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        if (_buildsData.GlobalBuildsGridData.CanBuildInGrid(_currentBuild, new Vector3Int((int)hitInfo.point.x, (int)hitInfo.point.y, (int)hitInfo.point.z)))
+                        {
+                            _buildsData.AddBuild(_currentBuild);
+                            _faction.Data.ChangeInteractionMode(InteractionMode.None);
+                            _currentBuild.Build();
+                            _currentBuild.Unvisualize();
+                            _currentBuild = null; 
+                        }
+                    }
+                }
+            }
+        }
+
+        private void OnDisable()
+        {
+            _faction.Data.ChangeInteractionMode(InteractionMode.None);
+        }
+
+        public void SetBuild(BuildBase instance)
+        {
+            if (!_currentBuild)
+            {
+                _currentBuild = instance;
+                _faction.Data.ChangeInteractionMode(InteractionMode.Build);
+                _currentBuild.Visualize();
+            }
+        }
+    }
+}
