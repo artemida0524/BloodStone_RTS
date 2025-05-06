@@ -4,10 +4,10 @@ namespace Unit
 {
     public class AnimationEventCallBackWoker : AnimationEventCallBasckBase
     {
-        public event Action OnCall;
-        private void CallBack()
+        public event Action OnChopTree;
+        private void OnChopTreeCallBack()
         {
-            OnCall?.Invoke();
+            OnChopTree?.Invoke();
         }
     }
 

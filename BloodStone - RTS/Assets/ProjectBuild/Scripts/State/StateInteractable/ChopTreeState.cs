@@ -148,8 +148,8 @@ namespace State
 
             public override void Enter()
             {
-                unit.AnimationEventCallBack.OnCall += OnCallHandler;
-                unit.Animator.Play("Chop");
+                unit.AnimationEventCallBack.OnChopTree += OnCallHandler;
+                unit.Animator.Play(AnimationStateNames.CHOP_TREE);
                 Debug.Log("Enter");
             }
 
@@ -189,7 +189,7 @@ namespace State
             }
             public override void Exit()
             {
-                unit.AnimationEventCallBack.OnCall -= OnCallHandler;
+                unit.AnimationEventCallBack.OnChopTree -= OnCallHandler;
             }
         }
 

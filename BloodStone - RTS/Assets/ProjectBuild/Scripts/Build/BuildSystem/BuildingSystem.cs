@@ -63,8 +63,8 @@ namespace Build
                         {
                             _buildsData.AddBuild(_currentBuild);
                             _faction.Data.ChangeInteractionMode(InteractionMode.None);
-                            _currentBuild.Build();
                             _currentBuild.Unvisualize();
+                            _currentBuild.Build(BuildType.NotBuilt);
                             _currentBuild = null; 
                         }
                     }

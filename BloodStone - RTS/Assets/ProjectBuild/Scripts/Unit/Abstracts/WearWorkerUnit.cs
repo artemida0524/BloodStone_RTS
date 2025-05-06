@@ -6,12 +6,7 @@ namespace Unit
 {
     public class WearWorkerUnit : WorkerUnitBase
     {
-        protected override void Update()
-        {
-            base.Update();
 
-
-        }
     }
 
 }

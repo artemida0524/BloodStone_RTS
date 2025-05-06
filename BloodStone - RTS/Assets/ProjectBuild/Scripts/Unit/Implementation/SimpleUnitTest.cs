@@ -5,5 +5,6 @@ namespace Unit
 {
     public class SimpleUnitTest : SimpleUnitBase
     {
+
     }
 }

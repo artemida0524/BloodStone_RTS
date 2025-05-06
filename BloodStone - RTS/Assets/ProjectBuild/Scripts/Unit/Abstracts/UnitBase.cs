@@ -25,6 +25,8 @@ namespace Unit
         [field: SerializeField] public int MaxCountHealth { get; protected set; } = 100;
         [field: SerializeField] public int CountHealth { get; protected set; } = 100;
 
+        public bool IsMaxHealth => CountHealth >= MaxCountHealth;
+
         public virtual string IdleAnimation { get; protected set; } = AnimationStateNames.IDLE;
         public virtual string WalkingAnimation { get; protected set; } = AnimationStateNames.WALKING;
         public virtual string RunningAnimation { get; protected set; } = AnimationStateNames.RUNNING;
@@ -124,10 +126,9 @@ namespace Unit
             selectObject.SetActive(false);
         }
 
-        public virtual void TakeDamage(int amount)
+        public void TakeDamage(int amount)
         {
-            CountHealth -= amount;
-            OnHealthChange?.Invoke(CountHealth);
+            SpendHealth(amount);
             OnTakeDamage?.Invoke(amount);
         }
 
@@ -150,5 +151,20 @@ namespace Unit
         {
             SetState(new MoveState(this, FindObjectOfType<Build.Faction>().Position, FindObjectOfType<Build.Faction>().Radius));
         }
+
+        public void AddHealth(int amount)
+        {
+            CountHealth += amount;
+            CountHealth = Mathf.Clamp(CountHealth, 0, MaxCountHealth);
+            OnHealthChange?.Invoke(CountHealth);
+        }
+
+        public void SpendHealth(int amount)
+        {
+            CountHealth -= amount;
+            CountHealth = Mathf.Clamp(CountHealth, 0, MaxCountHealth);
+            OnHealthChange?.Invoke(CountHealth);
+        }
+
     }
 }

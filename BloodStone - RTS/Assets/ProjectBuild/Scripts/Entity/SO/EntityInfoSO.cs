@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName ="EntityInfo")]
+[CreateAssetMenu(fileName = "EntityInfo")]
 public class EntityInfoSO : ScriptableObject
 {
     [field: SerializeField] public string Name { get; private set; }

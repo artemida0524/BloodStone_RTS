@@ -1325,7 +1325,7 @@ MonoBehaviour:
   <BodyRenderer>k__BackingField: {fileID: 6353904766621675391}
   <UIBarContainer>k__BackingField: {fileID: 7836794981272452832}
   <StateInteractable>k__BackingField:
-    <radius>k__BackingField: 5
+    <Radius>k__BackingField: 5
   selectObject: {fileID: 6928722464574562445}
   <MaxCountHealth>k__BackingField: 100
   <CountHealth>k__BackingField: 100
