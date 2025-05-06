@@ -8,6 +8,10 @@ namespace State
     {
         public StateBase State { get; private set; }
 
+        public StateMachine()
+        {
+            
+        }
 
         public StateMachine(StateBase enterState)
         {

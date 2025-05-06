@@ -17,11 +17,14 @@ namespace Build
         public bool CanSelected { get; private set; } = true;
         public virtual IOption Options { get; protected set; }
 
-        public int MaxCountHealth { get; protected set; }
-        public int CountHealth { get; protected set; }
+        [field: SerializeField] public int MaxCountHealth { get; protected set; } = 100;
+        [field: SerializeField] public int CountHealth { get; protected set; }
+
+        public bool IsMaxHealth => CountHealth >= MaxCountHealth;
 
         public event Action<int> OnTakeDamage;
         public event Action<int> OnHealthChange;
+        public event Action<IReadOnlyList<ISelectable>> OnInteractWithSelectables;
 
 
         protected override void Awake()
@@ -32,12 +35,6 @@ namespace Build
         protected virtual void Start()
         {
             Options = InitOption();
-
-        }
-
-        protected override void Update()
-        {
-
         }
 
         protected virtual IOption InitOption()
@@ -50,6 +47,19 @@ namespace Build
 
         }
 
+        public void AddHealth(int amount)
+        {
+            CountHealth += amount;
+            CountHealth = Mathf.Clamp(CountHealth, 0, MaxCountHealth);
+            OnHealthChange?.Invoke(CountHealth);
+        }
+
+        public void SpendHealth(int amount)
+        {
+            CountHealth -= amount;
+            CountHealth = Mathf.Clamp(CountHealth, 0, MaxCountHealth);
+            OnHealthChange?.Invoke(CountHealth);
+        }
 
         public virtual bool Select()
         {
@@ -77,13 +87,12 @@ namespace Build
 
         public virtual void Interact(IReadOnlyList<ISelectable> selectables)
         {
-            
+            OnInteractWithSelectables?.Invoke(selectables);
         }
 
         public void TakeDamage(int amount)
         {
-            CountHealth -= amount;
-            OnHealthChange?.Invoke(CountHealth);
+            SpendHealth(amount);
             OnTakeDamage?.Invoke(amount);
         }
     }

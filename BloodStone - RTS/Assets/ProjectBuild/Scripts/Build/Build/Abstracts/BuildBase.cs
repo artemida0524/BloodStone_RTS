@@ -1,23 +1,25 @@
 using Entity;
-using Faction;
-using GlobalData;
+using State;
 using System;
 using UnityEngine;
 
 namespace Build
 {
+
     [SelectionBase, RequireComponent(typeof(CapsuleCollider))]
     public abstract class BuildBase : EntityBase, IVisualizable
     {
         [field: SerializeField] public int Height { get; protected set; }
         [field: SerializeField] public int Width { get; protected set; }
         [field: SerializeField] public override Renderer BodyRenderer { get; protected set; }
-        public override bool CanInteraction { get; protected set; } = false;
         public override Vector3 Position => BodyRenderer.transform.position;
         protected CapsuleCollider Collider { get; set; }
+        public BuildType BuildType { get; protected set; }
 
         [NonSerialized] public bool alreadyInit = false;
         [SerializeField] private Renderer visual;
+
+        public StateMachine Machine { get; protected set; } = new StateMachine();
 
         public override float Radius
         {
@@ -38,7 +40,7 @@ namespace Build
 
         protected virtual void Update()
         {
-            
+            Machine.Update();
         }
 
         protected virtual void OnEnable()
@@ -59,18 +61,16 @@ namespace Build
             BuildUtility.OnBuildDisableOrDestroyInvoke(this);
         }
 
-        public virtual void Build()
+        protected virtual void ChangeStateByBuildType(BuildType type)
+        {
+            BuildType = type;
+        }
+
+        public virtual void Build(BuildType type)
         {
             alreadyInit = true;
-            CanInteraction = true;
+            ChangeStateByBuildType(type);
         }
-
-        public override void InitializationEntity(FactionType type)
-        {
-            base.InitializationEntity(type);
-            Build();
-        }
-
         public virtual void Visualize()
         {
             BodyRenderer.gameObject.SetActive(false);

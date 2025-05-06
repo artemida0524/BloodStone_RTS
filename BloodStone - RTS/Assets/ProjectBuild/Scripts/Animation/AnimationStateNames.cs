@@ -9,6 +9,7 @@ public static class AnimationStateNames
 
     public const string DOWNWARD_ATTACK = "DownwardAttack";
     public const string ARROW_ATTACK = "ArrowAttack";
+    public const string CHOP_TREE = "Chop";
 
 
     public const string BOX1 = "Box1";

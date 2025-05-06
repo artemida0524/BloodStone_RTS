@@ -6,40 +6,57 @@ using UnityEngine;
 
 namespace Build
 {
-    public class GenerateNewSimpleUnitTower : BuildInteractableBase
+    public partial class GenerateNewSimpleUnitTower : BuildInteractableBase
     {
         [SerializeField] private Transform pointSpawn;
         [SerializeField] private SimpleUnitBase unitPrefab;
 
-        private const float timeOut = 10f;
-        private float time = 0f;
-
         protected override void Update()
         {
             base.Update();
-            if (!CanInteraction)
+
+
+            if(Machine.State == null)
             {
                 return;
             }
 
-            time += Time.deltaTime;
-            if (time > timeOut)
+            if (Machine.State.IsFinished)
             {
-                time = 0f;
-
-                SimpleUnitBase unit = Instantiate(unitPrefab, pointSpawn.position + new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5)), Quaternion.identity);
-                unit.InitializationEntity(FactionType);
+                switch (Machine.State)
+                {
+                    case NotBuildState:
+                        Machine.ChangeState(new BuildWorkingState(this, unitPrefab, pointSpawn));
+                        BuildType = BuildType.Built;
+                        break;
+                }
             }
+        }
+
+        protected override void ChangeStateByBuildType(BuildType type)
+        {
+            base.ChangeStateByBuildType(type);
+
+            switch (type)
+            {
+                case BuildType.NotBuilt:
+                    Machine.ChangeState(new NotBuildState(this));
+                    break;
+
+                case BuildType.Built:
+                    Machine.ChangeState(new BuildWorkingState(this, unitPrefab, pointSpawn));
+                    break;
+
+                case BuildType.Broken:
+
+                    break;
+            }
+
         }
 
         public override void Interact()
         {
             Debug.Log("Just");
-        }
-
-        public override void Interact(IReadOnlyList<ISelectable> units)
-        { 
-            Debug.Log(units.Count);
         }
     }
 }

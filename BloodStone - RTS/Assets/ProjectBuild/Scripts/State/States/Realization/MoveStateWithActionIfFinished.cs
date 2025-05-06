@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace State
 {
-    public class MoveStateWithActionIfFinished : StateBase
+    public class MoveStateWithActionIfFinished<T> : StateBase where T: UnitBase
     {
-        private readonly UnitBase unit;
+        private readonly T unit;
         private readonly Vector3 target;
         private readonly float radius;
-        private readonly Action<UnitBase> action;
+        private readonly Action<T> action;
 
-        public MoveStateWithActionIfFinished(UnitBase unit, Vector3 target, float radius, Action<UnitBase> action)
+        public MoveStateWithActionIfFinished(T unit, Vector3 target, float radius, Action<T> action)
         {
             this.unit = unit;
             this.target = target;
