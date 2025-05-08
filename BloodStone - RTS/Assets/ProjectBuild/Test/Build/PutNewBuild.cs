@@ -7,18 +7,22 @@ public class PutNewBuild : MonoBehaviour
     [SerializeField] private BuildInteractableBase build;
 
     private IBuildingSystemProvider _buildingSystemProvider;
+    private PoolProviderTest _poolProvider;
 
     [Inject]
-    private void Construct(IBuildingSystemProvider buildingSystemProvider)
+    private void Construct(IBuildingSystemProvider buildingSystemProvider, PoolProviderTest provider)
     {
         _buildingSystemProvider = buildingSystemProvider;
+        _poolProvider = provider;
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.N))
         {
-            _buildingSystemProvider.SetBuild(Instantiate(build));
+            BuildBase build = _poolProvider.Pull("GenerateNewSimpleUnit").GetOwner<BuildBase>();
+            build.gameObject.SetActive(true);
+            _buildingSystemProvider.SetBuild(build);
         }
     }
 }
