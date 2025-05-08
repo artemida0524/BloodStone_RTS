@@ -3,13 +3,21 @@ using State;
 using System.Collections.Generic;
 using Unit;
 using UnityEngine;
+using Zenject;
 
 namespace Build
 {
     public partial class GenerateNewSimpleUnitTower : BuildInteractableBase
     {
         [SerializeField] private Transform pointSpawn;
-        [SerializeField] private SimpleUnitBase unitPrefab;
+
+        private PoolProviderTest _poolProvider;
+
+        [Inject]
+        private void Construct(PoolProviderTest poolProvider)
+        {
+            _poolProvider = poolProvider;
+        }
 
         protected override void Update()
         {
@@ -26,7 +34,7 @@ namespace Build
                 switch (Machine.State)
                 {
                     case NotBuildState:
-                        Machine.ChangeState(new BuildWorkingState(this, unitPrefab, pointSpawn));
+                        Machine.ChangeState(new BuildWorkingState(this, _poolProvider, pointSpawn));
                         BuildType = BuildType.Built;
                         break;
                 }
@@ -44,7 +52,7 @@ namespace Build
                     break;
 
                 case BuildType.Built:
-                    Machine.ChangeState(new BuildWorkingState(this, unitPrefab, pointSpawn));
+                    Machine.ChangeState(new BuildWorkingState(this, _poolProvider, pointSpawn));
                     break;
 
                 case BuildType.Broken:

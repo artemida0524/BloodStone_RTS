@@ -2527,13 +2527,14 @@ GameObject:
   - component: {fileID: 7625776499297874538}
   - component: {fileID: 7941688124854246978}
   - component: {fileID: 5484802230087031642}
+  - component: {fileID: 3378906735233336254}
   m_Layer: 0
   m_Name: ChopTreeWorkerUnit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6711969067809979058
 Transform:
   m_ObjectHideFlags: 0
@@ -2680,6 +2681,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d87d3bd4c86704ea9479db9db26450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3378906735233336254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4228637863580610753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae76a4148fd303b4f8166b93734ef5aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _owner: {fileID: 4228637863580610753}
 --- !u!1 &4355412219322876367
 GameObject:
   m_ObjectHideFlags: 0

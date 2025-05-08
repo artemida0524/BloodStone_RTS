@@ -1,12 +1,9 @@
-﻿using Palmmedia.ReportGenerator.Core.Reporting.Builders;
-using State;
-using UnityEngine;
-
-namespace Unit
+﻿namespace Unit
 {
+
     public class WearWorkerUnit : WorkerUnitBase
     {
-
+        
     }
 
 }

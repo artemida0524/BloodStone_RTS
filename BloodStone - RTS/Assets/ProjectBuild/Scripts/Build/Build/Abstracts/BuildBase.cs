@@ -1,4 +1,5 @@
 using Entity;
+using Pool;
 using State;
 using System;
 using UnityEngine;
@@ -6,12 +7,15 @@ using UnityEngine;
 namespace Build
 {
 
-    [SelectionBase, RequireComponent(typeof(CapsuleCollider))]
-    public abstract class BuildBase : EntityBase, IVisualizable
+    [SelectionBase]
+    [RequireComponent(typeof(CapsuleCollider))]
+    [RequireComponent(typeof(PoolObjectEntity))]
+    public abstract class BuildBase : EntityBase, IVisualizable, IPooledObject
     {
         [field: SerializeField] public int Height { get; protected set; }
         [field: SerializeField] public int Width { get; protected set; }
         [field: SerializeField] public override Renderer BodyRenderer { get; protected set; }
+        [SerializeField] protected PoolObjectEntity poolObjectEntity;
         public override Vector3 Position => BodyRenderer.transform.position;
         protected CapsuleCollider Collider { get; set; }
         public BuildType BuildType { get; protected set; }
@@ -33,9 +37,11 @@ namespace Build
             }
         }
 
+        public IPoolObject PoolObject => poolObjectEntity;
+
         protected virtual void Awake()
         {
-            
+            poolObjectEntity.OnInitialize += OnInitializePoolObjectHandler;
         }
 
         protected virtual void Update()
@@ -87,5 +93,11 @@ namespace Build
         {
             visual.material.color = color;
         }
+
+        protected virtual void OnInitializePoolObjectHandler()
+        {
+            
+        }
+
     }
 }

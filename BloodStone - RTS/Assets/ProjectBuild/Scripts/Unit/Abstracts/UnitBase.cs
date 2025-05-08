@@ -6,24 +6,29 @@ using System;
 using Bar;
 using Select;
 using Option;
+using Pool;
 
 namespace Unit
 {
-    [SelectionBase, RequireComponent(typeof(NavMeshAgent), typeof(CapsuleCollider), typeof(Rigidbody))]
-    public abstract class UnitBase : EntityBase, IUnit, IMovable, ISelectable, IHealth, IDamageable, IHoverable
+    [SelectionBase] 
+    [RequireComponent(typeof(NavMeshAgent))]
+    [RequireComponent(typeof(CapsuleCollider))]
+    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(PoolObjectEntity))]
+    public abstract class UnitBase : EntityBase, IUnit, IMovable, ISelectable, IHealth, IDamageable, IHoverable, IPooledObject
     {
         [field: SerializeField] public override Renderer BodyRenderer { get; protected set; }
         [field: SerializeField] public UIBarContainer UIBarContainer { get; private set; }
-
-        public override Vector3 Position => transform.position;
-        public override float Radius => 0;
-
         [field: SerializeField] public InteractableUnits StateInteractable { get; protected set; } = new InteractableUnits();
 
         [SerializeField] protected GameObject selectObject;
+        [SerializeField] protected PoolObjectEntity poolObjectEntity;
 
         [field: SerializeField] public int MaxCountHealth { get; protected set; } = 100;
         [field: SerializeField] public int CountHealth { get; protected set; } = 100;
+
+        public override Vector3 Position => transform.position;
+        public override float Radius => 0;
 
         public bool IsMaxHealth => CountHealth >= MaxCountHealth;
 
@@ -39,6 +44,8 @@ namespace Unit
 
         public IOption Options { get; protected set; }
 
+        public IPoolObject PoolObject => poolObjectEntity;
+
         public event Action<int> OnHealthChange;
         public event Action<int> OnTakeDamage;
         public event Action<StateBase> OnStateChange;
@@ -48,8 +55,12 @@ namespace Unit
             Initialization();
             StateInteractable.Init(InitializeState());
 
+            poolObjectEntity.OnInitialize += OnInitializePoolObjectHandler;
+
             UIBarContainer?.AddBar(new HealthBar(this));
         }
+
+        
 
         protected virtual void Start()
         {
@@ -165,6 +176,9 @@ namespace Unit
             CountHealth = Mathf.Clamp(CountHealth, 0, MaxCountHealth);
             OnHealthChange?.Invoke(CountHealth);
         }
-
+        protected virtual void OnInitializePoolObjectHandler()
+        {
+            
+        }
     }
 }

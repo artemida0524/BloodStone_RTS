@@ -1189,6 +1189,7 @@ GameObject:
   - component: {fileID: 4053616795651620048}
   - component: {fileID: 9215094925778390380}
   - component: {fileID: 6071637269635847689}
+  - component: {fileID: 1205591806549758993}
   m_Layer: 0
   m_Name: SimpleUnitTest
   m_TagString: Untagged
@@ -1320,15 +1321,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0f01078ae473b446adf617cebabd102, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <FactionType>k__BackingField: 0
+  <FactionType>k__BackingField: 1
   <EntityInfo>k__BackingField: {fileID: 11400000, guid: 6ef60cc34b8478e4e930b900af25a8bf, type: 2}
   <BodyRenderer>k__BackingField: {fileID: 6353904766621675391}
   <UIBarContainer>k__BackingField: {fileID: 7836794981272452832}
   <StateInteractable>k__BackingField:
     <Radius>k__BackingField: 5
   selectObject: {fileID: 6928722464574562445}
+  poolObjectEntity: {fileID: 1205591806549758993}
   <MaxCountHealth>k__BackingField: 100
-  <CountHealth>k__BackingField: 100
+  <CountHealth>k__BackingField: 45
+--- !u!114 &1205591806549758993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6183366573487080283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf17c8281e796b4991a95da59f1e029, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _owner: {fileID: 6183366573487080283}
 --- !u!1 &6273862810115828400
 GameObject:
   m_ObjectHideFlags: 0
