@@ -385,7 +385,7 @@ MonoBehaviour:
       y: 21
       width: 922
       height: 566
-    m_Scale: {x: 0.48020834, y: 0.48020837}
+    m_Scale: {x: 0.48020837, y: 0.48020837}
     m_Translation: {x: 461, y: 283}
     m_MarginLeft: 0
     m_MarginRight: 0
@@ -393,9 +393,9 @@ MonoBehaviour:
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -960
+      x: -959.99994
       y: -589.3275
-      width: 1920
+      width: 1919.9999
       height: 1178.655
     m_MinimalGUI: 1
   m_defaultScale: 0.48020834
@@ -826,9 +826,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 12.641161, y: -3.5047975, z: 15.042646}
+    m_Target: {x: 19.408155, y: -0.0018830148, z: 13.431198}
     speed: 2
-    m_Value: {x: 12.641161, y: -3.5047975, z: 15.042646}
+    m_Value: {x: 19.408155, y: -0.0018830148, z: 13.431198}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -874,13 +874,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.506
   m_Rotation:
-    m_Target: {x: 0.51103085, y: -0.008998477, z: 0.0054029226, w: 0.8595353}
+    m_Target: {x: 0.41794896, y: 0.02863279, z: -0.013131093, w: 0.90796113}
     speed: 2
-    m_Value: {x: 0.5110146, y: -0.00899819, z: 0.005402751, w: 0.8595079}
+    m_Value: {x: 0.41793495, y: 0.02863183, z: -0.013130654, w: 0.90793073}
   m_Size:
-    m_Target: 12.46451
+    m_Target: 13.26853
     speed: 2
-    m_Value: 12.46451
+    m_Value: 13.26853
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -1014,7 +1014,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 6ed4ffff8ae3ffff0cfbffff
+      m_ExpandedIDs: 0cfbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1083,7 +1083,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/ProjectBuild/Scripts/Unit/Implementation
+    - Assets/Plugins/Demigiant/DOTween/Modules
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -1091,16 +1091,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/ProjectBuild/Scripts/Unit/Implementation
+  - Assets/Plugins/Demigiant/DOTween/Modules
   m_LastFoldersGridSize: 16
   m_LastProjectPath: D:\GitHub\BloodStone_RTS\BloodStone - RTS
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 741}
-    m_SelectedIDs: f68e0000
-    m_LastClickedID: 36598
-    m_ExpandedIDs: 00000000328c0000348c0000368c0000388c00003a8c00003c8c00003e8c0000408c0000428c0000448c0000468c0000488c00004a8c00004c8c00004e8c0000508c0000528c0000548c0000568c0000588c00005a8c00005c8c00005e8c0000608c0000628c0000648c0000668c0000688c00006a8c00006c8c00006e8c0000708c0000728c0000748c0000768c0000788c00007a8c00007c8c00007e8c0000808c0000828c0000848c0000868c0000888c00008a8c00008c8c00008e8c0000908c0000928c000000ca9a3b
+    scrollPos: {x: 0, y: 0}
+    m_SelectedIDs: e48f0000
+    m_LastClickedID: 36836
+    m_ExpandedIDs: 00000000328c0000348c0000368c0000388c00003a8c00003c8c00003e8c0000408c0000428c0000448c0000468c0000488c00004a8c00004c8c00004e8c0000508c0000528c0000548c0000568c0000588c00005a8c00005c8c00005e8c0000608c0000628c0000648c0000668c0000688c00006a8c00006c8c00006e8c0000708c0000728c0000748c0000768c0000788c00007a8c00007c8c00007e8c0000808c0000828c0000848c0000868c0000888c00008a8c00008c8c00008e8c0000908c0000928c0000b28e0000d88f0000dc8f000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1183,7 +1183,7 @@ MonoBehaviour:
     m_ScrollPosition: {x: 0, y: 0}
     m_GridSize: 16
   m_SkipHiddenPackages: 0
-  m_DirectoriesAreaWidth: 164
+  m_DirectoriesAreaWidth: 165
 --- !u!114 &18
 MonoBehaviour:
   m_ObjectHideFlags: 52

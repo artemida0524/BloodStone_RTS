@@ -11,6 +11,7 @@ namespace GameCamera
         [SerializeField] private float moveSpeed;
 
         private ICameraMover _cameraMover;
+        private ICameraZoom _cameraZoom;
 
         [Header("Scrool Settings")]
         [SerializeField] private float scroolSpeed;
@@ -18,38 +19,21 @@ namespace GameCamera
         [SerializeField] private int minFOW = 40;
         [SerializeField] private int maxFOW = 70;
 
-        private float _destinationZoom;
-
         private void Awake()
         {
             _cameraMover = new MouseMove(transform, () => cinemachineCamera.m_Lens.FieldOfView, () => moveSpeed / 10);
 
             // Uncomment the following line to use keyboard movement instead of mouse movement
             //_cameraMover = new KeyMove(transform, () => cinemachineCamera.m_Lens.FieldOfView, () => moveSpeed);
-        }
 
-        private void Start()
-        {
-            _destinationZoom = cinemachineCamera.m_Lens.FieldOfView;
+
+            _cameraZoom = new CameraScroolZoom(cinemachineCamera, () => scroolSpeed, () => smoothSpeed);
         }
 
         private void LateUpdate()
         {
-            HandleZoomInput();
-
+            _cameraZoom.Zoom();
             _cameraMover.Move();
-        }
-
-        private void HandleZoomInput()
-        {
-            float aa = Input.GetAxis("Mouse ScrollWheel") * scroolSpeed;
-
-            if (aa != 0)
-            {
-                _destinationZoom -= aa;
-                _destinationZoom = Mathf.Clamp(_destinationZoom, minFOW, maxFOW);
-            }
-            cinemachineCamera.m_Lens.FieldOfView = Mathf.Lerp(cinemachineCamera.m_Lens.FieldOfView, _destinationZoom, Time.deltaTime * smoothSpeed);
         }
     }
 }
