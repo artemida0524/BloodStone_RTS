@@ -1,12 +1,8 @@
-﻿using Unity.VisualScripting;
-
-namespace GameCamera
+﻿namespace GameCamera
 {
     public interface ICameraMover
     {
+        bool IsMoving { get; }
         void Move();
     }
-
-
-
 }

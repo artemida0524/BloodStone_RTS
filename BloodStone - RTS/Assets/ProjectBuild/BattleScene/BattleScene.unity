@@ -948,7 +948,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cinemachineCamera: {fileID: 1314311784}
-  moveSpeed: 10
+  moveSpeed: 8
+  clickMoveSpeed: 0.4
+  ease: 1
+  mask:
+    serializedVersion: 2
+    m_Bits: 64
   scroolSpeed: 30
   smoothSpeed: 10
   minFOW: 40
