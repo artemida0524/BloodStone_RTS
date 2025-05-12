@@ -17,6 +17,7 @@ namespace GameCamera
         private float _doubleClickThreshold = 0.2f;
         private float _lastClickTime = -1f;
 
+        private float _maxDistance = 100f;
         private Tween _moveTween;
         public bool IsMoving
         {
@@ -47,7 +48,7 @@ namespace GameCamera
                 {
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-                    if (Physics.Raycast(ray, out RaycastHit hit, float.PositiveInfinity, _mask))
+                    if (Physics.Raycast(ray, out RaycastHit hit, _maxDistance, _mask))
                     {
                         Vector3 newPos = hit.point;
 
