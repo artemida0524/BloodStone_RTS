@@ -5,41 +5,35 @@ using UnityEngine.UI;
 
 namespace Bar
 {
-    public class UIBar : MonoBehaviour, IDisposable
+    public class UIBar : UIBarBase, IDisposable
     {
         [SerializeField] private Image icon;
         [SerializeField] private Slider slider;
         [SerializeField] private TextMeshProUGUI countText;
 
-        public IBar ResourceBar { get; private set; }
-
-
-        public void Init(IBar resourceBar, UIBarDataSO rowBarAsset)
+        public override void Init(IStats resourceBar, UIBarDataAsset rowBarAsset)
         {
-            this.ResourceBar = resourceBar;
+            this.ResourceStat = resourceBar;
             icon.sprite = rowBarAsset.Icon;
-
 
             OnDataChange();
 
-
-            resourceBar.OnDataChange = OnDataChange;
+            resourceBar.OnDataChange += OnDataChange;
         }
-
-
 
         private void OnDataChange()
         {
-            slider.maxValue = ResourceBar.MaxCount;
-            slider.value = ResourceBar.Count;
+            slider.maxValue = ResourceStat.MaxCount;
+            slider.value = ResourceStat.Count;
 
 
-            countText.text = ResourceBar.Count.ToString();
+            countText.text = ResourceStat.Count.ToString();
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
-            ResourceBar.Dispose();
+            ResourceStat.Dispose();
         }
-    } 
+    }
+
 }

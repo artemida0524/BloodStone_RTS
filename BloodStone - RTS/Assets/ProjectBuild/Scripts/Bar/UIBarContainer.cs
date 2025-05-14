@@ -4,80 +4,76 @@ using GlobalData;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class UIBarContainer : MonoBehaviour
+namespace Bar
 {
-    [SerializeField] private RectTransform container;
-    [SerializeField] private UIBar uiBarPrefab;
 
-    [SerializeField] private UIBarDataSOList uiBarDataSOList;
-
-    private List<UIBar> bars;
-
-    private CinemachineVirtualCamera cCamera;
-    private float referenceFOV = 60f;
-    private Vector2 baseScale = new Vector2(0.015f, 0.015f);
-
-    private void Start()
+    public class UIBarContainer : UIBarContainerBase
     {
-        cCamera = FindAnyObjectByType<CinemachineVirtualCamera>();
-    }
+        [SerializeField] private RectTransform container;
+        [SerializeField] private UIBarBase uiBarPrefab;
 
-    private void Update()
-    {
-        transform.LookAt(transform.position + Camera.main.transform.forward);
+        private List<UIBarBase> bars;
 
-        float currentFOV = cCamera.m_Lens.FieldOfView;
-        float scaleMultiplier = Mathf.Tan(Mathf.Deg2Rad * currentFOV * 0.5f) / Mathf.Tan(Mathf.Deg2Rad * referenceFOV * 0.5f);
+        private CinemachineVirtualCamera _cinemachineCamera;
+        private float referenceFOV = 60f;
+        private Vector2 baseScale;
 
-        transform.localScale = new Vector3(baseScale.x, baseScale.y, 1f) * scaleMultiplier;
-    }
-
-
-    public void AddBar(IBar bar)
-    {
-        if (bars == null)
+        private void Start()
         {
-            bars = new();   
+            _cinemachineCamera = Camera.main.GetComponent<CinemachineBrain>().ActiveVirtualCamera as CinemachineVirtualCamera;
+            baseScale = transform.localScale;
+        }
+
+        private void Update()
+        {
+            // generate with chatgpt))
+            // Calculate the position based on the camera's position and rotation
+            transform.LookAt(transform.position + _cinemachineCamera.transform.forward);
+
+
+            // this also
+            // Calculate the scale based on the camera's field of view
+            float currentFOV = _cinemachineCamera.m_Lens.FieldOfView;
+            float scaleMultiplier = Mathf.Tan(Mathf.Deg2Rad * currentFOV * 0.5f) / Mathf.Tan(Mathf.Deg2Rad * referenceFOV * 0.5f);
+
+            transform.localScale = new Vector3(baseScale.x, baseScale.y, 1f) * scaleMultiplier;
         }
 
 
-        foreach (var item in uiBarDataSOList.BarDataList)
+        public override void AddBar(IStats bar)
         {
-
-            if (bar.Name == item.Name)
+            if (bars == null)
             {
-                UIBar barInstance = Instantiate(uiBarPrefab, container);
-                barInstance.Init(bar, item);
-
-                bars.Add(barInstance);
-
-                return;
+                bars = new();
             }
 
+            var item = GetBarDataAssetByName(bar.Name);
+
+
+            UIBarBase barInstance = Instantiate(uiBarPrefab, container);
+            barInstance.Init(bar, item);
+
+            bars.Add(barInstance);
         }
 
-
-        Debug.LogError("NotFound");
-
-    }
-
-    public void RemoveBar(string name)
-    {
-        foreach (var item in bars)
+        public override void RemoveBar(string nameBar)
         {
-            if (item.ResourceBar.Name == name)
+            foreach (var item in bars)
             {
-                item.Dispose();
-                bars.Remove(item);
+                if (item.ResourceStat.Name == name)
+                {
+                    item.Dispose();
+                    bars.Remove(item);
 
-                Destroy(item.gameObject);
+                    Destroy(item.gameObject);
 
-                return;
+                    return;
+                }
             }
+
+            throw new Exception("NotFound");
         }
 
-        throw new Exception("NotFound");
     }
 
 }

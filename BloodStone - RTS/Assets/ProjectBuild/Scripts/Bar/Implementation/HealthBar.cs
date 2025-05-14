@@ -4,13 +4,13 @@ using Unit;
 
 namespace Bar
 {
-    public class HealthBar : IBar
+    public class HealthBar : IStats
     {
         public string Name { get; private set; } = "Health";
         public int MaxCount { get; private set; }
         public int Count { get; private set; }
 
-        public Action OnDataChange { get; set; }
+        public event Action OnDataChange;
 
         private IHealth health;
 
