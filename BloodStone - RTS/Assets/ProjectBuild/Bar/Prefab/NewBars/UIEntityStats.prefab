@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 291853403028257319}
   - component: {fileID: 3101860598494202031}
   - component: {fileID: 5661532806991722528}
-  - component: {fileID: 5701336422159027320}
+  - component: {fileID: 1978120486044983642}
   m_Layer: 5
   m_Name: UIEntityStats
   m_TagString: Untagged
@@ -218,7 +218,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &5701336422159027320
+--- !u!114 &1978120486044983642
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -227,7 +227,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3231627076746302661}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c2d0835c07fb0749893f4905183c7d8, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f9366cb225c3804fa4189199875dc9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   uiBarDataAssetList: {fileID: 8075090483131450208, guid: b380ad38397e0fa4c9133f990c9cb468, type: 3}

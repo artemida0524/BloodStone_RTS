@@ -1324,7 +1324,7 @@ MonoBehaviour:
   <FactionType>k__BackingField: 1
   <EntityInfo>k__BackingField: {fileID: 11400000, guid: 6ef60cc34b8478e4e930b900af25a8bf, type: 2}
   <BodyRenderer>k__BackingField: {fileID: 6353904766621675391}
-  <UIBarContainer>k__BackingField: {fileID: 288620969355431083}
+  <UIBarContainer>k__BackingField: {fileID: 5795541609299026313}
   <StateInteractable>k__BackingField:
     <Radius>k__BackingField: 5
   selectObject: {fileID: 6928722464574562445}
@@ -2389,6 +2389,10 @@ PrefabInstance:
       value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 2797865955939384349, guid: f9c0855578645b64197fe3771606db0c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.0017
+      objectReference: {fileID: 0}
+    - target: {fileID: 2797865955939384349, guid: f9c0855578645b64197fe3771606db0c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -2422,7 +2426,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2797865955939384349, guid: f9c0855578645b64197fe3771606db0c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 3.86
+      value: 3.39
       objectReference: {fileID: 0}
     - target: {fileID: 2797865955939384349, guid: f9c0855578645b64197fe3771606db0c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2453,15 +2457,15 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9c0855578645b64197fe3771606db0c, type: 3}
---- !u!114 &288620969355431083 stripped
+--- !u!114 &5795541609299026313 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5701336422159027320, guid: f9c0855578645b64197fe3771606db0c, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1978120486044983642, guid: f9c0855578645b64197fe3771606db0c, type: 3}
   m_PrefabInstance: {fileID: 5412856688512450771}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c2d0835c07fb0749893f4905183c7d8, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f9366cb225c3804fa4189199875dc9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &7911223904026049742 stripped
