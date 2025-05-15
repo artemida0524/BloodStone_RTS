@@ -58,7 +58,7 @@ namespace BLINK.Tools
             
             EditorGUI.BeginChangeCheck();
             GUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("Color", GUILayout.MaxWidth(50));
+            EditorGUILayout.LabelField("RowColor", GUILayout.MaxWidth(50));
             sliderValue = EditorGUILayout.IntSlider(sliderValue, 0, 64);
             GUILayout.EndHorizontal();
 

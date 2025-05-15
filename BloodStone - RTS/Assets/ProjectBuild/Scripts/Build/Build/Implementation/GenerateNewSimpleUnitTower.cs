@@ -10,6 +10,9 @@ namespace Build
     public partial class GenerateNewSimpleUnitTower : BuildInteractableBase
     {
         [SerializeField] private Transform pointSpawn;
+        [SerializeField] private MeshFilter meshFilter;
+        [SerializeField] private Mesh breakBuild;
+        [SerializeField] private Mesh buildMesh;
 
         private PoolProviderTest _poolProvider;
 
@@ -34,6 +37,7 @@ namespace Build
                 switch (Machine.State)
                 {
                     case NotBuildState:
+                        meshFilter.mesh = buildMesh;
                         Machine.ChangeState(new BuildWorkingState(this, _poolProvider, pointSpawn));
                         BuildType = BuildType.Built;
                         break;
@@ -48,10 +52,13 @@ namespace Build
             switch (type)
             {
                 case BuildType.NotBuilt:
+                    Debug.Log("Build");
+                    meshFilter.mesh = breakBuild;
                     Machine.ChangeState(new NotBuildState(this));
                     break;
 
                 case BuildType.Built:
+                    meshFilter.mesh = buildMesh;
                     Machine.ChangeState(new BuildWorkingState(this, _poolProvider, pointSpawn));
                     break;
 
@@ -60,11 +67,6 @@ namespace Build
                     break;
             }
 
-        }
-
-        public override void Interact()
-        {
-            Debug.Log("Just");
         }
     }
 }

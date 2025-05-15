@@ -6,11 +6,5 @@ namespace Unit
 {
     public class SimpleUnitTest : SimpleUnitBase
     {
-        [Inject]
-        private void Construct()
-        {
-
-            Debug.Log("Construct");
-        }
     }
 }

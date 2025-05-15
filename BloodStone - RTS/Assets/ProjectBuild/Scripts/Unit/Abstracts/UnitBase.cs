@@ -7,6 +7,7 @@ using Bar;
 using Select;
 using Option;
 using Pool;
+using System.Collections.Generic;
 
 namespace Unit
 {
@@ -15,10 +16,10 @@ namespace Unit
     [RequireComponent(typeof(CapsuleCollider))]
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(PoolObjectEntity))]
-    public abstract class UnitBase : EntityBase, IUnit, IMovable, ISelectable, IHealth, IDamageable, IHoverable, IPooledObject
+    public abstract class UnitBase : EntityBase, IUnit, IMovable, ISelectable, IHealth, IDamageable, IHoverable, IPooledObject, IEntityStats
     {
         [field: SerializeField] public override Renderer BodyRenderer { get; protected set; }
-        [field: SerializeField] public UIBarContainer UIBarContainer { get; private set; }
+        [field: SerializeField] public UIBarContainerView UIBarContainer { get; protected set; }
         [field: SerializeField] public InteractableUnits StateInteractable { get; protected set; } = new InteractableUnits();
 
         [SerializeField] protected GameObject selectObject;
@@ -46,6 +47,10 @@ namespace Unit
 
         public IPoolObject PoolObject => poolObjectEntity;
 
+
+        protected List<IStats> _entityStats = new List<IStats>();
+        public IEnumerable<IStats> EntityStats => _entityStats;
+
         public event Action<int> OnHealthChange;
         public event Action<int> OnTakeDamage;
         public event Action<StateBase> OnStateChange;
@@ -57,7 +62,8 @@ namespace Unit
 
             poolObjectEntity.OnInitialize += OnInitializePoolObjectHandler;
 
-            UIBarContainer?.AddBar(new HealthBar(this));
+            SetStats();
+            SetStatsView();
         }
 
         
@@ -99,6 +105,17 @@ namespace Unit
             Agent = GetComponent<NavMeshAgent>();
             Animator = GetComponent<Animator>();
         }
+
+        protected virtual void SetStats()
+        {
+            _entityStats.Add(new HealthBar(this));
+        }
+
+        protected virtual void SetStatsView()
+        {
+            UIBarContainer?.AddBar(_entityStats[0]);
+        }
+
 
         public void SetState(StateBase state)
         {

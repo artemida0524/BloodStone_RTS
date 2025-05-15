@@ -9,7 +9,7 @@ namespace Currency
 
         public virtual int MaxCount { get; protected set; } = 10000;
 
-        public bool IsFull => MaxCount == Count;
+        public bool IsFull => Count >= MaxCount;
 
         public event Action<int> OnValueChange;
 
