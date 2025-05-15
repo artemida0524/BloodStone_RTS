@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Bar
 {
-    public abstract class UIBarContainerBase : MonoBehaviour
+    public abstract class UIBarContainerViewBase : MonoBehaviour
     {
         [SerializeField] protected UIBarDataAssetList uiBarDataAssetList;
 

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Bar
 {
-    public class UIBar : UIBarBase, IDisposable
+    public class UIBar : UIBarViewBase, IDisposable
     {
         [SerializeField] private Image icon;
         [SerializeField] private Slider slider;

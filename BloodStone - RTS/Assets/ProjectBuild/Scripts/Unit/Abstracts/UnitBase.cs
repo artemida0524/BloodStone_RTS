@@ -19,7 +19,7 @@ namespace Unit
     public abstract class UnitBase : EntityBase, IUnit, IMovable, ISelectable, IHealth, IDamageable, IHoverable, IPooledObject, IEntityStats
     {
         [field: SerializeField] public override Renderer BodyRenderer { get; protected set; }
-        [field: SerializeField] public UIBarContainer UIBarContainer { get; protected set; }
+        [field: SerializeField] public UIBarContainerView UIBarContainer { get; protected set; }
         [field: SerializeField] public InteractableUnits StateInteractable { get; protected set; } = new InteractableUnits();
 
         [SerializeField] protected GameObject selectObject;

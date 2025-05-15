@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Bar
 {
-    public abstract class UIBarBase : MonoBehaviour, IDisposable
+    public abstract class UIBarViewBase : MonoBehaviour, IDisposable
     {
         public IStats ResourceStat { get; protected set; }
 

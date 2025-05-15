@@ -7,12 +7,12 @@ using UnityEngine;
 namespace Bar
 {
 
-    public class UIBarContainer : UIBarContainerBase
+    public class UIBarContainerView : UIBarContainerViewBase
     {
         [SerializeField] private RectTransform container;
-        [SerializeField] private UIBarBase uiBarPrefab;
+        [SerializeField] private UIBarViewBase uiBarPrefab;
 
-        private List<UIBarBase> bars;
+        private List<UIBarViewBase> bars;
 
         private CinemachineVirtualCamera _cinemachineCamera;
         private float referenceFOV = 60f;
@@ -50,7 +50,7 @@ namespace Bar
             var item = GetBarDataAssetByName(bar.Name);
 
 
-            UIBarBase barInstance = Instantiate(uiBarPrefab, container);
+            UIBarViewBase barInstance = Instantiate(uiBarPrefab, container);
             barInstance.Init(bar, item);
 
             bars.Add(barInstance);

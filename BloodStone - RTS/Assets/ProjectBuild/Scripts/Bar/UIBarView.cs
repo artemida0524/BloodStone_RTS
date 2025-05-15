@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Bar
 {
-    public class MyBar : UIBarBase
+    public class UIBarView : UIBarViewBase
     {
         [SerializeField] private Slider slider;
         [SerializeField] private Image rowImage;
