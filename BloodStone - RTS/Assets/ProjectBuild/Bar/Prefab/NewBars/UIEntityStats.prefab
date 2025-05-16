@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1763506199615004208
 RectTransform:
   m_ObjectHideFlags: 0
@@ -200,7 +200,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &5661532806991722528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,5 +231,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiBarDataAssetList: {fileID: 8075090483131450208, guid: b380ad38397e0fa4c9133f990c9cb468, type: 3}
+  panel: {fileID: 1974969589333400597}
   container: {fileID: 1763506199615004208}
   uiBarPrefab: {fileID: 5599317702300852349, guid: 2d8bd4a9c98005f44b01532d44e22718, type: 3}

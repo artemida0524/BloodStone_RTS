@@ -8,6 +8,7 @@ namespace Bar
     public abstract class UIBarContainerViewBase : MonoBehaviour
     {
         [SerializeField] protected UIBarDataAssetList uiBarDataAssetList;
+        [SerializeField] protected GameObject panel;
 
         protected Dictionary<string, UIBarDataAsset> uiBarDataAssetDictionary = new();
         private bool _isInitialized = false;
@@ -23,6 +24,15 @@ namespace Bar
         public abstract void AddBar(IStats bar);
         public abstract void RemoveBar(string nameBar);
 
+        public virtual void Show()
+        {
+            panel?.SetActive(true);
+        }
+
+        public virtual void Hide()
+        {
+            panel?.SetActive(false);
+        }
 
         protected virtual void Initialization()
         {

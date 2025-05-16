@@ -14,7 +14,6 @@ public class UnitUtility
 
     public static void OnUnitEnableInvoke(UnitBase unit)
     {
-        Debug.Log("OnUnitEnableInvoke");
         OnUnitEnable?.Invoke(unit);
     }
 }

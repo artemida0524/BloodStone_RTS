@@ -76,7 +76,6 @@ namespace Select
                 if (!EventSystem.current.IsPointerOverGameObject())
                 {
                     HandleClickSelection();
-                    
                 }
                 HandleDragSelection();
             }
@@ -186,11 +185,16 @@ namespace Select
             {
                 if (hitInfo.collider.TryGetComponent(out IHoverable newHover))
                 {
-                    if (currentHover != newHover)
+                    FactionType type = (newHover as IEntity).FactionType;
+
+                    if (type == faction.FactionType || type == FactionType.Systems)
                     {
-                        currentHover?.Unhover();
-                        currentHover = newHover;
-                        currentHover.Hover();
+                        if (currentHover != newHover)
+                        {
+                            currentHover?.Unhover();
+                            currentHover = newHover;
+                            currentHover.Hover();
+                        } 
                     }
                 }
                 else

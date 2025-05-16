@@ -39,6 +39,7 @@ namespace Unit
 
         public NavMeshAgent Agent { get; private set; }
         public Animator Animator { get; private set; }
+
         public bool CanMove { get; protected set; } = true;
         public bool IsSelection { get; protected set; } = false;
         public bool CanSelected { get; protected set; } = true;
@@ -65,8 +66,6 @@ namespace Unit
             SetStats();
             SetStatsView();
         }
-
-        
 
         protected virtual void Start()
         {
@@ -162,12 +161,14 @@ namespace Unit
 
         public virtual void Hover()
         {
-            UIBarContainer?.gameObject.SetActive(true);
+            UIBarContainer?.Show();
+            BodyRenderer.material.color = Color.magenta;
         }
 
         public void Unhover()
         {
-            UIBarContainer?.gameObject.SetActive(false);
+            UIBarContainer?.Hide();
+            BodyRenderer.material.color = Color.white;
         }
 
         public virtual IOption InitOption()

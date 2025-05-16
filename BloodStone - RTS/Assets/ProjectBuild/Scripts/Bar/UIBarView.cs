@@ -6,26 +6,30 @@ namespace Bar
     public class UIBarView : UIBarViewBase
     {
         [SerializeField] private Slider slider;
-        [SerializeField] private Image rowImage;
+        [SerializeField] private Image background;
+        [SerializeField] private Image row;
 
-        public override void Init(IStats resourceBar, UIBarDataAsset rowBarAsset)
+        public override void Init(IStats stats, UIBarDataAsset rowBarAsset)
         {
-            this.ResourceStat = resourceBar;
+            this.Stat = stats;
 
             OnDataChange();
-            rowImage.color = rowBarAsset.RowColor;
-            resourceBar.OnDataChange += OnDataChange;
+
+            background.sprite = rowBarAsset.Background;
+            row.sprite = rowBarAsset.Row;
+            
+            Stat.OnDataChange += OnDataChange;
         }
 
         private void OnDataChange()
         {
-            slider.maxValue = ResourceStat.MaxCount;
-            slider.value = ResourceStat.Count;
+            slider.maxValue = Stat.MaxCount;
+            slider.value = Stat.Count;
         }
 
         public override void Dispose()
         {
-            ResourceStat.Dispose();
+            Stat.Dispose();
         }
     }
 

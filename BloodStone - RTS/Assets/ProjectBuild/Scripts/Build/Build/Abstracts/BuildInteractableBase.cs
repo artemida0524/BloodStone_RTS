@@ -12,13 +12,13 @@ namespace Build
     public abstract class BuildInteractableBase : BuildBase, IInteractable, ISelectable, IHoverable, IInteractableSelectables, IDamageable, IHealth
     {
         [field: SerializeField] private GameObject selectObject;
+        [SerializeField] protected Color colorHover = new Color(0.8f, 0.8f, 0.8f);
+        [field: SerializeField] public int MaxCountHealth { get; protected set; } = 100;
+        [field: SerializeField] public int CountHealth { get; protected set; }
 
         public bool IsSelection { get; private set; } = false;
         public bool CanSelected { get; private set; } = true;
         public virtual IOption Options { get; protected set; }
-
-        [field: SerializeField] public int MaxCountHealth { get; protected set; } = 100;
-        [field: SerializeField] public int CountHealth { get; protected set; }
 
         public bool IsMaxHealth => CountHealth >= MaxCountHealth;
 
@@ -79,10 +79,12 @@ namespace Build
         }
         public virtual void Hover()
         {
+            BodyRenderer.material.color = colorHover; 
         }
 
         public virtual void Unhover()
         {
+            BodyRenderer.material.color = Color.white;
         }
 
         public virtual void Interact(IReadOnlyList<ISelectable> selectables)

@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.Rendering;
 
 namespace Bar
 {
@@ -8,6 +8,7 @@ namespace Bar
 	{
 		[field: SerializeField] public string Name { get; private set; }
 		[field: SerializeField] public Sprite Icon { get; private set; }
-		[field: SerializeField] public Color RowColor { get; private set; }
+		[field: SerializeField] public Sprite Background { get; private set; }
+		[field: SerializeField] public Sprite Row { get; private set; }
 	}
 }
