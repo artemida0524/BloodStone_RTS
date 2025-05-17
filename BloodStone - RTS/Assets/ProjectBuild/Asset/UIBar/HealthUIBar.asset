@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Health
   <Icon>k__BackingField: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  <RowColor>k__BackingField: {r: 1, g: 0, b: 0, a: 1}
+  <Background>k__BackingField: {fileID: 21300000, guid: 8d08461bbf25d0e40b797cac02f4f0f5, type: 3}
+  <Row>k__BackingField: {fileID: 21300000, guid: ba6164fb9bca8164f9caee93ff6d5ae4, type: 3}

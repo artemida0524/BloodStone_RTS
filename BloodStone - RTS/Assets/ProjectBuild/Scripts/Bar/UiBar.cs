@@ -13,7 +13,7 @@ namespace Bar
 
         public override void Init(IStats resourceBar, UIBarDataAsset rowBarAsset)
         {
-            this.ResourceStat = resourceBar;
+            this.Stat = resourceBar;
             icon.sprite = rowBarAsset.Icon;
 
             OnDataChange();
@@ -23,16 +23,16 @@ namespace Bar
 
         private void OnDataChange()
         {
-            slider.maxValue = ResourceStat.MaxCount;
-            slider.value = ResourceStat.Count;
+            slider.maxValue = Stat.MaxCount;
+            slider.value = Stat.Count;
 
 
-            countText.text = ResourceStat.Count.ToString();
+            countText.text = Stat.Count.ToString();
         }
 
         public override void Dispose()
         {
-            ResourceStat.Dispose();
+            Stat.Dispose();
         }
     }
 

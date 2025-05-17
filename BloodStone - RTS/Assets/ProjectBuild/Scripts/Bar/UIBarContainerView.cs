@@ -14,6 +14,8 @@ namespace Bar
 
         private List<UIBarViewBase> bars;
 
+        private bool isShow = false;
+
         private CinemachineVirtualCamera _cinemachineCamera;
         private float referenceFOV = 60f;
         private Vector2 baseScale;
@@ -25,6 +27,14 @@ namespace Bar
         }
 
         private void Update()
+        {
+            if (isShow)
+            {
+                UpdateLookAndScaleToCamera();
+            }
+        }
+
+        private void UpdateLookAndScaleToCamera()
         {
             // generate with chatgpt))
             // Calculate the position based on the camera's position and rotation
@@ -39,6 +49,19 @@ namespace Bar
             transform.localScale = new Vector3(baseScale.x, baseScale.y, 1f) * scaleMultiplier;
         }
 
+        public override void Show()
+        {
+            // I'm facing an issue where, when the panel is enabled, it first becomes visible and then scales, which causes a slight jitter before the image appears correctly and added an update
+            UpdateLookAndScaleToCamera();
+            base.Show();
+            isShow = true;
+        }
+
+        public override void Hide()
+        {
+            base.Hide();
+            isShow = false;
+        }
 
         public override void AddBar(IStats bar)
         {
@@ -60,7 +83,7 @@ namespace Bar
         {
             foreach (var item in bars)
             {
-                if (item.ResourceStat.Name == name)
+                if (item.Stat.Name == name)
                 {
                     item.Dispose();
                     bars.Remove(item);

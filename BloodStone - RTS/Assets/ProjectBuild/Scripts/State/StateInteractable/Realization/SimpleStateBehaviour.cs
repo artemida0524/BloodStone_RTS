@@ -20,7 +20,6 @@ namespace State
 
         public override void SetState(StateBase state)
         {
-            Debug.Log("change");
 
             StateMachine.ChangeState(state);
         }
