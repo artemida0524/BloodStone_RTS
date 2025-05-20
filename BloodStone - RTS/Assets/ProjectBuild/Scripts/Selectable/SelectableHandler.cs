@@ -41,12 +41,23 @@ namespace Select
             this.faction = faction;
         }
 
-        private void Awake()
+        public void Init()
         {
             camera = Camera.main;
 
             UnitUtility.OnUnitDisableOrDestroy += OnUnitDisableOrDestroyHandler;
             BuildUtility.OnBuildDisableOrDestroy += OnBuildDisableOrDestroyHandler;
+            faction.OnFactionTypeChanged += OnFactionTypeChangedHandler;
+        }
+
+        private void OnFactionTypeChangedHandler(FactionType type)
+        {
+
+            //if (false)
+            //{
+            //    currentHover?.Unhover(); 
+            //}
+
         }
 
         private void OnBuildDisableOrDestroyHandler(BuildBase build)
@@ -61,7 +72,7 @@ namespace Select
 
         private void OnUnitDisableOrDestroyHandler(UnitBase unit)
         {
-            if(selectables.Contains(unit))
+            if (selectables.Contains(unit))
             {
                 selectables.Remove(unit);
 
@@ -78,8 +89,8 @@ namespace Select
                     HandleClickSelection();
                 }
                 HandleDragSelection();
+                HandleHoverEffect();
             }
-            HandleHoverEffect();
         }
 
         private void HandleClickSelection()
@@ -194,7 +205,7 @@ namespace Select
                             currentHover?.Unhover();
                             currentHover = newHover;
                             currentHover.Hover();
-                        } 
+                        }
                     }
                 }
                 else

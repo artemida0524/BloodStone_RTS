@@ -8,7 +8,7 @@ public class GlobalDataInjection : MonoInstaller
     public override void InstallBindings()
     {
         Container
-            .Bind<GlobalUnitsDataHandler>()
+            .BindInterfacesAndSelfTo<GlobalUnitsDataHandler>()
             .AsSingle()
             .NonLazy()
             ;
@@ -18,7 +18,5 @@ public class GlobalDataInjection : MonoInstaller
             .AsSingle()
             .NonLazy()
             ;
-
-
     }
 }

@@ -37,7 +37,6 @@ namespace GlobalData
                     buildGrid[new Vector3Int(width + point.x, 0, height + point.z)] = true;
                 }
             }
-
             OnBuildGridChanged?.Invoke();
         }
 

@@ -20,7 +20,7 @@ namespace Build
         protected CapsuleCollider Collider { get; set; }
         public BuildType BuildType { get; protected set; }
 
-        [NonSerialized] public bool alreadyInit = false;
+        private bool _alreadyInit = false;
         [SerializeField] private Renderer visual;
 
         public StateMachine Machine { get; protected set; } = new StateMachine();
@@ -42,6 +42,7 @@ namespace Build
         protected virtual void Awake()
         {
             poolObjectEntity.OnInitialize += OnInitializePoolObjectHandler;
+            poolObjectEntity.OnPushed += OnPushedHandler;
         }
 
         protected virtual void Update()
@@ -51,7 +52,7 @@ namespace Build
 
         protected virtual void OnEnable()
         {
-            if (alreadyInit)
+            if (_alreadyInit)
             {
                 BuildUtility.OnBuildEnableInvoke(this); 
             }
@@ -59,12 +60,18 @@ namespace Build
 
         protected virtual void OnDisable()
         {
-            BuildUtility.OnBuildDisableOrDestroyInvoke(this);
+            if (_alreadyInit)
+            {
+                BuildUtility.OnBuildDisableOrDestroyInvoke(this); 
+            }
         }
 
         protected virtual void OnDestroy()
         {
-            BuildUtility.OnBuildDisableOrDestroyInvoke(this);
+            if (_alreadyInit)
+            {
+                BuildUtility.OnBuildDisableOrDestroyInvoke(this); 
+            }
         }
 
         protected virtual void ChangeStateByBuildType(BuildType type)
@@ -74,9 +81,10 @@ namespace Build
 
         public virtual void Build(BuildType type)
         {
-            alreadyInit = true;
+            _alreadyInit = true;
             ChangeStateByBuildType(type);
         }
+
         public virtual void Visualize()
         {
             BodyRenderer.gameObject.SetActive(false);
@@ -92,6 +100,12 @@ namespace Build
         public virtual void SetColor(Color color)
         {
             visual.material.color = color;
+        }
+
+        protected virtual void OnPushedHandler(object sender, IPoolObject e)
+        {
+            _alreadyInit = false;
+            Machine.ChangeState(null);
         }
 
         protected virtual void OnInitializePoolObjectHandler()

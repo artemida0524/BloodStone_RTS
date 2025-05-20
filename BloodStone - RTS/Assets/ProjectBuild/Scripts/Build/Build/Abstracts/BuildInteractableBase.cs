@@ -27,10 +27,7 @@ namespace Build
         public event Action<IReadOnlyList<ISelectable>> OnInteractWithSelectables;
 
 
-        protected override void Awake()
-        {
-            base.Awake();
-        }
+        
 
         protected virtual void Start()
         {

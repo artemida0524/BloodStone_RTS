@@ -30,7 +30,7 @@ namespace Select
             this.faction = faction;
         }
 
-        private void Awake()
+        public void Init()
         {
             selectableHandler.OnSelectedUnits += OnSelectedUnit;
             camera = Camera.main;

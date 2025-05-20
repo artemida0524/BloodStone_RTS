@@ -52,16 +52,21 @@ namespace Unit
         protected List<IStats> _entityStats = new List<IStats>();
         public IEnumerable<IStats> EntityStats => _entityStats;
 
+
+        private bool _alreadyInit = false;
+
+
         public event Action<int> OnHealthChange;
         public event Action<int> OnTakeDamage;
         public event Action<StateBase> OnStateChange;
 
         protected virtual void Awake()
         {
-            Initialization();
+            InitComponent();
             StateInteractable.Init(InitializeState());
 
             poolObjectEntity.OnInitialize += OnInitializePoolObjectHandler;
+            poolObjectEntity.OnPushed += OnPushedHandler;
 
             SetStats();
             SetStatsView();
@@ -79,17 +84,27 @@ namespace Unit
 
         protected virtual void OnEnable()
         {
-            UnitUtility.OnUnitEnableInvoke(this);
+            if (_alreadyInit)
+            {
+                UnitUtility.OnUnitEnableInvoke(this);
+
+            }
         }
 
         protected virtual void OnDisable()
         {
-            UnitUtility.OnUnitDisableOrDestroyInvoke(this);
+            if (_alreadyInit)
+            {
+                UnitUtility.OnUnitDisableOrDestroyInvoke(this); 
+            }
         }
 
         protected virtual void OnDestroy()
         {
-            UnitUtility.OnUnitDisableOrDestroyInvoke(this);
+            if (_alreadyInit)
+            {
+                UnitUtility.OnUnitDisableOrDestroyInvoke(this); 
+            }
         }
 
         //private void OnCollisionEnter(Collision collision)
@@ -99,7 +114,12 @@ namespace Unit
 
         protected abstract StateBehaviourBase InitializeState();
 
-        protected virtual void Initialization()
+        public virtual void Init()
+        {
+            _alreadyInit = true;
+        }
+
+        protected virtual void InitComponent()
         {
             Agent = GetComponent<NavMeshAgent>();
             Animator = GetComponent<Animator>();
@@ -197,6 +217,12 @@ namespace Unit
         protected virtual void OnInitializePoolObjectHandler()
         {
             
+        }
+
+        protected virtual void OnPushedHandler(object sender, IPoolObject pool)
+        {
+            _alreadyInit = false;
+            SetState(null);
         }
     }
 }

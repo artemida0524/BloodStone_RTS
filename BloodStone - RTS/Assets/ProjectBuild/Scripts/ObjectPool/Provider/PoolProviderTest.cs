@@ -8,7 +8,7 @@ public class PoolProviderTest : MonoBehaviour
 
     private Dictionary<string, BasePoolObjects> _poolDictionary;
 
-    private void Awake()
+    public void Init()
     {
         _poolDictionary = new Dictionary<string, BasePoolObjects>();
 

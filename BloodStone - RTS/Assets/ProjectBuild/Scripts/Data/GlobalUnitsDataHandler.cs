@@ -5,12 +5,17 @@ using UnityEngine;
 
 namespace GlobalData
 {
-    public class GlobalUnitsDataHandler
-    {
-        private static List<UnitBase> AllUnits { get; } = new List<UnitBase>();
 
-        public GlobalUnitsDataHandler()
+    public class GlobalUnitsDataHandler : IUnitProvider
+    {
+        private List<UnitBase> _allUnits = new List<UnitBase>();
+
+        public IEnumerable<UnitBase> AllUnits => _allUnits;
+
+
+        public void Init()
         {
+            Debug.Log("Init");
             UnitUtility.OnUnitEnable += OnUnitEnableHandler;
             UnitUtility.OnUnitDisableOrDestroy += OnUnitDisableOrDestroyHadler;
         }
@@ -25,27 +30,32 @@ namespace GlobalData
             RemoveUnit(unit);
         }
 
-        public static List<T> GetUnits<T>()
+        public IEnumerable<T> GetUnits<T>()
         {
-            return AllUnits.OfType<T>().ToList();
+            return _allUnits.OfType<T>();
         }
 
-        public static void AddUnit(UnitBase unit)
+        public void AddUnit(UnitBase unit)
         {
 
-            if (AllUnits.Contains(unit))
+            if (_allUnits.Contains(unit))
             {
                 Debug.LogWarning("Already exists");
                 return;
             }
-            AllUnits.Add(unit);
+            _allUnits.Add(unit);
         }
 
-        public static void RemoveUnit(UnitBase unit)
+        public void PlaceUnit(UnitBase unit, Vector3 position)
         {
-            AllUnits.Remove(unit);
+            unit.transform.position = position;
+            AddUnit(unit);
+            unit.Init();
         }
 
-
+        public void RemoveUnit(UnitBase unit)
+        {
+            _allUnits.Remove(unit);
+        }
     } 
 }

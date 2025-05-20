@@ -1,6 +1,5 @@
 using Faction;
 using GlobalData;
-using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -27,7 +26,9 @@ namespace Build
         }
 
 
-        private void Awake()
+        
+
+        public void Init()
         {
             camera = Camera.main;
         }
@@ -85,6 +86,13 @@ namespace Build
                 _faction.Data.ChangeInteractionMode(InteractionMode.Build);
                 _currentBuild.Visualize();
             }
+        }
+
+        public void PlaceBuilding(BuildBase instance, BuildType type, Vector3 position)
+        {
+            instance.transform.position = position;
+            _buildsData.AddBuild(instance);
+            instance.Build(type);
         }
     }
 }

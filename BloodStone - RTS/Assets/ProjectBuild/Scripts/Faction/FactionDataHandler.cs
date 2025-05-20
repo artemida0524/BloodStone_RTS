@@ -9,14 +9,22 @@ using System.Collections;
 
 namespace Faction
 {
-    [Serializable]
+    //[Serializable]
     public class FactionDataHandler
     {
         public InteractionMode InteractionMode { get; private set; }
 
         public event Action<InteractionMode> OnInteractionModeChanged;
 
-        public IBuildingProvider BuildingProvider { get; set; }
+        private IUnitProvider _unitsProvider;
+        private IBuildingProvider _buildingProvider;
+
+        public FactionDataHandler(IBuildingProvider buildingProvider, IUnitProvider unitsProvider)
+        {
+
+            _buildingProvider = buildingProvider;
+            _unitsProvider = unitsProvider;
+        }
 
         public void ChangeInteractionMode(InteractionMode interactionMode)
         {
@@ -26,13 +34,13 @@ namespace Faction
 
         public IEnumerable<T> GetUnits<T>()
         {
-            IEnumerable<T> units = GlobalUnitsDataHandler.GetUnits<T>();
+            IEnumerable<T> units = _unitsProvider.GetUnits<T>();
             return units;
         }
         
         public IEnumerable<T> GetBuilds<T>()
         {
-            IEnumerable<T> builds = BuildingProvider.GetBuilds<T>();
+            IEnumerable<T> builds = _buildingProvider.GetBuilds<T>();
             return builds;
 
         }

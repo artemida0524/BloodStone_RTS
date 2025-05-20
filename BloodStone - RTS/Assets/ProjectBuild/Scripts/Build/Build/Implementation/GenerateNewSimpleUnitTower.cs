@@ -26,7 +26,6 @@ namespace Build
         {
             base.Update();
 
-
             if(Machine.State == null)
             {
                 return;

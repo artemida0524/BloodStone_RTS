@@ -13,7 +13,7 @@ namespace GlobalData
         public BuildGridData GlobalBuildsGridData { get; private set; } = new BuildGridData();
 
 
-        public GlobalBuildsDataHandler()
+        public void Init()
         {
             BuildUtility.OnBuildEnable += OnBuildEnableHandler;
             BuildUtility.OnBuildDisableOrDestroy += OnBuildDisableOrDestroyHandler;
