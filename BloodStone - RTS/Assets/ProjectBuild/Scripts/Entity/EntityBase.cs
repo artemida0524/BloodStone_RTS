@@ -2,7 +2,7 @@ using Faction;
 using System;
 using UnityEngine;
 
-namespace Entity
+namespace BloodStone.Gameplay.Entity
 {
     [DisallowMultipleComponent]
     public abstract class EntityBase : MonoBehaviour, IEntity

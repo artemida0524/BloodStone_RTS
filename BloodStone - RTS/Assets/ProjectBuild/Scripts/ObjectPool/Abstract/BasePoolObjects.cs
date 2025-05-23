@@ -1,9 +1,11 @@
+using Scripts.ObjectPool.Implementation;
+using Scripts.ObjectPool.Interface;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Pool
+namespace Scripts.ObjectPool.Abstract
 {
     public abstract class BasePoolObjects : MonoBehaviour, IPool
     {

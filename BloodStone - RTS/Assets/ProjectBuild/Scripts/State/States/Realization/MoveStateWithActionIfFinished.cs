@@ -1,10 +1,11 @@
-﻿using System;
+﻿using BloodStone.Gameplay.Units;
+using System;
 using Unit;
 using UnityEngine;
 
 namespace State
 {
-    public class MoveStateWithActionIfFinished<T> : StateBase where T: UnitBase
+    public class MoveStateWithActionIfFinished<T> : StateBase where T : UnitBase
     {
         private readonly T unit;
         private readonly Vector3 target;

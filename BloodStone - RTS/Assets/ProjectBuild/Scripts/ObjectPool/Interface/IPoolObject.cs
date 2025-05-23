@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-namespace Pool
+namespace Scripts.ObjectPool.Interface
 {
     public interface IPoolObject
     {

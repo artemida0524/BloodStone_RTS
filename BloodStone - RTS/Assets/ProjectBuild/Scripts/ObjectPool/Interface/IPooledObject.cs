@@ -1,4 +1,4 @@
-﻿namespace Pool
+﻿namespace Scripts.ObjectPool.Interface
 {
     public interface IPooledObject
     {

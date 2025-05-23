@@ -2,6 +2,8 @@ using Zenject;
 using GlobalData;
 using Build;
 using UnityEngine;
+using Scripts.ObjectPool.Provider;
+
 public class GlobalDataInjection : MonoInstaller
 {
     [SerializeField] private PoolProviderTest _poolProviderTest;

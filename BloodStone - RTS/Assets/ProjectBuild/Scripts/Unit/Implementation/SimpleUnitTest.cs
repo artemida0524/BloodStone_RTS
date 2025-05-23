@@ -1,7 +1,4 @@
-﻿using Bar;
-using Unity.VisualScripting;
-using UnityEngine;
-using Zenject;
+﻿using BloodStone.Gameplay.Units;
 
 namespace Unit
 {

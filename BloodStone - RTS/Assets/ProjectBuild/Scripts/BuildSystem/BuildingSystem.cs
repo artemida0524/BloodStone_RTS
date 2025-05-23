@@ -1,9 +1,11 @@
+using BloodStone.Gameplay.Build;
+using BloodStone.Gameplay.Build.Providers;
 using Faction;
 using GlobalData;
 using UnityEngine;
 using Zenject;
 
-namespace Build
+namespace BloodStone.Gameplay.Construction
 {
     public class BuildingSystem : MonoBehaviour, IBuildingSystemProvider
     {
@@ -12,14 +14,14 @@ namespace Build
 
         new private Camera camera;
 
-        private Faction _faction;
+        private Headquarters _faction;
         private BuildBase _currentBuild;
 
         private GlobalBuildsDataHandler _buildsData;
         private Vector3Int _lastPosition = new Vector3Int(0, 0, 0);
 
         [Inject]
-        private void Construct(Faction faction, GlobalBuildsDataHandler globalBuildsDataHandler)
+        private void Construct(Headquarters faction, GlobalBuildsDataHandler globalBuildsDataHandler)
         {
             _faction = faction;
             _buildsData = globalBuildsDataHandler;

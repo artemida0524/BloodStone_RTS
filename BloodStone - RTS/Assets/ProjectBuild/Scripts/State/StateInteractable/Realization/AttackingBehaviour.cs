@@ -1,5 +1,4 @@
-﻿using Unit;
-using UnityEngine;
+﻿using BloodStone.Gameplay.Units;
 
 namespace State
 {

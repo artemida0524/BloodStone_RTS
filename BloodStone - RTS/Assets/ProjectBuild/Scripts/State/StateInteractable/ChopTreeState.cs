@@ -1,8 +1,8 @@
-﻿using Build;
+﻿using BloodStone.Gameplay.Build;
+using BloodStone.Gameplay.Entity;
+using BloodStone.Gameplay.Units;
 using Currency;
-using Entity;
 using GlobalData;
-using Unit;
 using UnityEngine;
 
 namespace State

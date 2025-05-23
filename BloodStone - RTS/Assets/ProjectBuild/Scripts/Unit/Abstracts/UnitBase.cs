@@ -1,15 +1,18 @@
 using UnityEngine;
-using Entity;
 using UnityEngine.AI;
 using State;
 using System;
 using Bar;
-using Select;
-using Option;
-using Pool;
 using System.Collections.Generic;
+using Scripts.ObjectPool.Interface;
+using Scripts.ObjectPool.Implementation;
+using BloodStone.Gameplay.Build;
+using BloodStone.Gameplay.Entity;
+using BloodStone.Gameplay.Selection;
+using BloodStone.Gameplay.Units.Utils;
+using BloodStone.Gameplay.Options;
 
-namespace Unit
+namespace BloodStone.Gameplay.Units
 {
     [SelectionBase] 
     [RequireComponent(typeof(NavMeshAgent))]
@@ -198,7 +201,7 @@ namespace Unit
 
         public void DoSomething()
         {
-            SetState(new MoveState(this, FindObjectOfType<Build.Faction>().Position, FindObjectOfType<Build.Faction>().Radius));
+            SetState(new MoveState(this, FindObjectOfType<Headquarters>().Position, FindObjectOfType<Headquarters>().Radius));
         }
 
         public void AddHealth(int amount)

@@ -1,4 +1,4 @@
-﻿namespace Option
+﻿namespace BloodStone.Gameplay.Options
 {
     public enum ActionType
     {

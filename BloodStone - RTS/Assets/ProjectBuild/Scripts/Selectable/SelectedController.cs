@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Unit;
 using Faction;
-using System.Linq;
 using State;
-using Entity;
-using Build;
 using Zenject;
 using UnityEngine.AI;
 using Interaction;
+using BloodStone.Gameplay.Build;
+using BloodStone.Gameplay.Units;
+using BloodStone.Gameplay.Selection;
+using BloodStone.Gameplay.Entity;
 
 namespace Select
 {
@@ -17,14 +17,14 @@ namespace Select
         [SerializeField] private LayerMask ground;
         [SerializeField] private MeshRenderer pointPositionerMeshRenderer;
 
-        private Build.Faction faction;
+        private Headquarters faction;
         private SelectableHandler selectableHandler;
 
         private IReadOnlyList<ISelectable> selectedEntities = new List<ISelectable>();
         new private Camera camera;
 
         [Inject]
-        private void Construct(SelectableHandler selectableHandler, Build.Faction faction)
+        private void Construct(SelectableHandler selectableHandler, Headquarters faction)
         {
             this.selectableHandler = selectableHandler;
             this.faction = faction;

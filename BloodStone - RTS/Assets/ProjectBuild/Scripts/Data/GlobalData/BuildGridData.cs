@@ -1,4 +1,4 @@
-using Build;
+using BloodStone.Gameplay.Build;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +7,7 @@ namespace GlobalData
 {
     public class BuildGridData
     {
-        private Dictionary<Vector3Int, bool> buildGrid { get; } = new Dictionary<Vector3Int, bool>();
+        private Dictionary<Vector3Int, bool> buildGrid = new Dictionary<Vector3Int, bool>();
 
         public event Action OnBuildGridChanged;
 

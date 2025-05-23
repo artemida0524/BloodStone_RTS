@@ -6,10 +6,10 @@ using UnityEngine;
 using Build;
 using GlobalData;
 using System.Collections;
+using BloodStone.Gameplay.Units.Providers;
 
 namespace Faction
 {
-    //[Serializable]
     public class FactionDataHandler
     {
         public InteractionMode InteractionMode { get; private set; }

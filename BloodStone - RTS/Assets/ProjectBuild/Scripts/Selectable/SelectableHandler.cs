@@ -1,6 +1,8 @@
-﻿using Build;
-using Currency;
-using Entity;
+﻿using BloodStone.Gameplay.Build;
+using BloodStone.Gameplay.Selection;
+using BloodStone.Gameplay.Units;
+using BloodStone.Gameplay.Units.Utils;
+using BloodStone.Gameplay.Entity;
 using Faction;
 using System;
 using System.Collections.Generic;
@@ -15,7 +17,7 @@ namespace Select
     public class SelectableHandler : MonoBehaviour
     {
         [SerializeField] private RectTransform selectRect;
-        private Build.Faction faction;
+        private Headquarters faction;
 
         private Vector3 startPosition;
         private Vector3 endPosition;
@@ -36,7 +38,7 @@ namespace Select
         public event Action<IReadOnlyList<ISelectable>> OnSelectedUnits;
 
         [Inject]
-        private void Construct(Build.Faction faction)
+        private void Construct(Headquarters faction)
         {
             this.faction = faction;
         }

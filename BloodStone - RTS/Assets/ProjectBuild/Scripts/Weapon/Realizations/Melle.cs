@@ -1,4 +1,4 @@
-﻿using Entity;
+﻿using BloodStone.Gameplay.Entity;
 using System.Collections.Generic;
 using UnityEngine;
 

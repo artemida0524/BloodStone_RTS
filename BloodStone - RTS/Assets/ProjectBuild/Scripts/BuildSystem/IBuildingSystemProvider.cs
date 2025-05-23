@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using BloodStone.Gameplay.Build;
+using UnityEngine;
 
-namespace Build
+namespace BloodStone.Gameplay.Build.Providers
 {
     public interface IBuildingSystemProvider
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Option
+namespace BloodStone.Gameplay.Options
 {
     public interface IOption
     {

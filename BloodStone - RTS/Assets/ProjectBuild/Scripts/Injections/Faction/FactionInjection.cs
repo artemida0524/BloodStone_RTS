@@ -1,13 +1,10 @@
-using Build;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks.Sources;
+using BloodStone.Gameplay.Build;
 using UnityEngine;
 using Zenject;
 
 public class FactionInjection : MonoInstaller
 {
-    [SerializeField] private Build.Faction faction;
+    [SerializeField] private Headquarters faction;
     public override void InstallBindings()
     {
         Container

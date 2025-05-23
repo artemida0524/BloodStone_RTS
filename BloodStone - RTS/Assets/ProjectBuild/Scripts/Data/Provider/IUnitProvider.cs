@@ -2,7 +2,7 @@
 using Unit;
 using UnityEngine;
 
-namespace GlobalData
+namespace BloodStone.Gameplay.Units.Providers
 {
     public interface IUnitProvider
     {
