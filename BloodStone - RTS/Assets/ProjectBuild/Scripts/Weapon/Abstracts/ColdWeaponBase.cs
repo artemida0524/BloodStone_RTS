@@ -1,4 +1,5 @@
-﻿using Unit;
+﻿using BloodStone.Gameplay.Units;
+using Unit;
 
 namespace Weapon
 {

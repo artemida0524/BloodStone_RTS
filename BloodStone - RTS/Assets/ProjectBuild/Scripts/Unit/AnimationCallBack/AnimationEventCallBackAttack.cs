@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Unit
+namespace BloodStone.Gameplay.Units.Animation
 {
 
 

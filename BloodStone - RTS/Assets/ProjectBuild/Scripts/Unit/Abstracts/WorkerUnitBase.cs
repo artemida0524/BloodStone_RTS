@@ -1,14 +1,10 @@
 ﻿using UnityEngine;
-using Option;
 using State;
-using Interaction;
-using System.Collections.Generic;
-using Select;
-using UnityEngine.XR;
 using Zenject;
 using GlobalData;
+using BloodStone.Gameplay.Options;
 
-namespace Unit
+namespace BloodStone.Gameplay.Units
 {
     [RequireComponent(typeof(AnimationEventCallBackWoker))]
     public abstract class WorkerUnitBase : UnitBase

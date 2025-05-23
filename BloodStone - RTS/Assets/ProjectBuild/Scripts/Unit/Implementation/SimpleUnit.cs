@@ -1,4 +1,4 @@
-using UnityEngine;
+using BloodStone.Gameplay.Units;
 
 namespace Unit
 {

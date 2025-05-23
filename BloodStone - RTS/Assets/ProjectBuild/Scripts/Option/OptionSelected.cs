@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Option
+namespace BloodStone.Gameplay.Options
 {
     public class OptionSelected : MonoBehaviour
     {

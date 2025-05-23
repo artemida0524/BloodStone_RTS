@@ -1,9 +1,11 @@
+using Scripts.ObjectPool.Abstract;
+using Scripts.ObjectPool.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Zenject;
-namespace Pool
+namespace Scripts.ObjectPool.Implementation
 {
 
     public class PoolObjectsTest : BasePoolObjects

@@ -1,5 +1,6 @@
 ﻿using Zenject;
 using UnityEngine;
+using Scripts.ObjectPool.Provider;
 
 public class PoolInjection : MonoInstaller
 {

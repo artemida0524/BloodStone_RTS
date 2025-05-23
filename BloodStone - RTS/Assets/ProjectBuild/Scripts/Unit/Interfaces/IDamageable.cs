@@ -1,7 +1,7 @@
-﻿using Entity;
+﻿using BloodStone.Gameplay.Entity;
 using System;
 
-namespace Unit
+namespace BloodStone.Gameplay
 {
     public interface IDamageable : IEntity
     {

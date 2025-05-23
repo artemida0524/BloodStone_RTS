@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Scripts.ObjectPool.Interface;
+using System;
 
-namespace Pool
+namespace Scripts.ObjectPool.Implementation
 {
+
     public class PoolObjectEntity : PoolObject
     {
         public event Action OnInitialize;

@@ -1,15 +1,15 @@
-﻿using Build;
-using GlobalData;
+﻿using GlobalData;
 using System.Collections.Generic;
 using System.Linq;
 using Unit;
 using UnityEngine;
-using Entity;
-using Zenject;
+using BloodStone.Gameplay.Entity;
+using BloodStone.Gameplay.Build;
+using BloodStone.Gameplay.Units;
 
-namespace Option
+namespace BloodStone.Gameplay.Options
 {
-
+    
     public class OptionWorkerUnit : OptionUnitBase
     {
         private TreasureBuild treasureBuild;
@@ -18,7 +18,7 @@ namespace Option
         public OptionWorkerUnit(WorkerUnitBase unit, IBuildingProvider buildingProvider) : base(unit)
         {
             this.workerUnit = unit;
-            Build.Faction faction = buildingProvider.GetBuilds<Build.Faction>().First(a => a.FactionType == unit.FactionType);
+            Headquarters faction = buildingProvider.GetBuilds<Headquarters>().First(a => a.FactionType == unit.FactionType);
             treasureBuild = buildingProvider.GetBuilds<TreasureBuild>().NearestEntity(unit);
 
             options.Add(new DoActionOption() { Action =  TestFunction, myEnum = ActionType.Once, Name = "Work1" });

@@ -1,5 +1,5 @@
-﻿using Entity;
-using Unit;
+﻿using BloodStone.Gameplay.Entity;
+using BloodStone.Gameplay.Units;
 
 namespace State
 {

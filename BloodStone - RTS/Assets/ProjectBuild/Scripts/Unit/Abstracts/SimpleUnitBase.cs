@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Unit
+namespace BloodStone.Gameplay.Units
 {
     public abstract class SimpleUnitBase : UnitBase
     {

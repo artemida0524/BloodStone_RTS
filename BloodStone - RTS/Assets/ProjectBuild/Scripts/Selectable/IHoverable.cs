@@ -1,4 +1,4 @@
-﻿namespace Select
+﻿namespace BloodStone.Gameplay.Selection
 {
     public interface IHoverable
     {

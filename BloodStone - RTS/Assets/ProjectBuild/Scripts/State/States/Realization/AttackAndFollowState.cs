@@ -1,6 +1,8 @@
-﻿using Entity;
+﻿using BloodStone.Gameplay;
+using BloodStone.Gameplay.Entity;
+using BloodStone.Gameplay.Units;
+using BloodStone.Gameplay.Units.Utils;
 using System;
-using Unit;
 using UnityEngine;
 
 namespace State

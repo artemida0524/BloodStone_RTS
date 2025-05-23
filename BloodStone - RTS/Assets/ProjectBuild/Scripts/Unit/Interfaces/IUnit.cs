@@ -1,4 +1,4 @@
-namespace Unit
+namespace BloodStone.Gameplay.Units
 {
 
     public interface IUnit 

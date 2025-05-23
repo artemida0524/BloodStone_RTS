@@ -1,4 +1,6 @@
-﻿using Entity;
+﻿using BloodStone.Gameplay;
+using BloodStone.Gameplay.Units;
+using BloodStone.Gameplay.Entity;
 using Unit;
 using UnityEngine;
 

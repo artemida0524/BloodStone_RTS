@@ -1,40 +1,44 @@
-using Pool;
+using Scripts.ObjectPool.Abstract;
+using Scripts.ObjectPool.Interface;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PoolProviderTest : MonoBehaviour
+namespace Scripts.ObjectPool.Provider
 {
-    [SerializeField] private List<BasePoolObjects> _pools;
-
-    private Dictionary<string, BasePoolObjects> _poolDictionary;
-
-    private void Awake()
+    public class PoolProviderTest : MonoBehaviour
     {
-        _poolDictionary = new Dictionary<string, BasePoolObjects>();
+        [SerializeField] private List<BasePoolObjects> _pools;
 
-        foreach (var pool in _pools)
+        private Dictionary<string, BasePoolObjects> _poolDictionary;
+
+        public void Init()
         {
-            pool.Initialize();
+            _poolDictionary = new Dictionary<string, BasePoolObjects>();
 
-            if (!_poolDictionary.ContainsKey(pool.Key))
+            foreach (var pool in _pools)
             {
-                _poolDictionary.Add(pool.Key, pool);
-            }
-            else
-            {
-                Debug.Log($"Pool exists with the same key: {pool.Key}");
+                pool.Initialize();
+
+                if (!_poolDictionary.ContainsKey(pool.Key))
+                {
+                    _poolDictionary.Add(pool.Key, pool);
+                }
+                else
+                {
+                    Debug.Log($"Pool exists with the same key: {pool.Key}");
+                }
             }
         }
-    }
 
-    public IPoolObject Pull(string key)
-    {
-        if (_poolDictionary.TryGetValue(key, out var pool))
+        public IPoolObject Pull(string key)
         {
-            return pool.Pull();
-        }
+            if (_poolDictionary.TryGetValue(key, out var pool))
+            {
+                return pool.Pull();
+            }
 
-        Debug.LogError($"Pool not found with key: {key}");
-        return null;
-    }
+            Debug.LogError($"Pool not found with key: {key}");
+            return null;
+        }
+    } 
 }

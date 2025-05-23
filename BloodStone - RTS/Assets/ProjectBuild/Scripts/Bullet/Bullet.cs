@@ -1,4 +1,4 @@
-using Entity;
+using BloodStone.Gameplay.Entity;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour

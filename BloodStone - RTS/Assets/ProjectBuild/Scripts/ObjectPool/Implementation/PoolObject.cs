@@ -1,7 +1,8 @@
+using Scripts.ObjectPool.Interface;
 using System;
 using UnityEngine;
 
-namespace Pool
+namespace Scripts.ObjectPool.Implementation
 {
 
     public class PoolObject : MonoBehaviour, IPoolObject
@@ -36,6 +37,4 @@ namespace Pool
             return _owner;
         }
     }
-
-
 }
