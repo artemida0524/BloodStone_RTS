@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Bar
@@ -9,11 +10,11 @@ namespace Bar
         [SerializeField] private Image background;
         [SerializeField] private Image row;
 
-        public override void Init(IStats stats, UIBarDataAsset rowBarAsset)
+        public override void Init(IBar stats, UIBarDataAsset rowBarAsset)
         {
             this.Stat = stats;
 
-            OnDataChange();
+            OnDataChange(this, EventArgs.Empty);
 
             background.sprite = rowBarAsset.Background;
             row.sprite = rowBarAsset.Row;
@@ -21,7 +22,7 @@ namespace Bar
             Stat.OnDataChange += OnDataChange;
         }
 
-        private void OnDataChange()
+        private void OnDataChange(object sender, EventArgs args)
         {
             slider.maxValue = Stat.MaxCount;
             slider.value = Stat.Count;

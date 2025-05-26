@@ -63,7 +63,7 @@ namespace Bar
             isShow = false;
         }
 
-        public override void AddBar(IStats bar)
+        public override void AddBar(IBar bar)
         {
             if (bars == null)
             {

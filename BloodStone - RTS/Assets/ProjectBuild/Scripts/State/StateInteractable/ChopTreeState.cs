@@ -213,7 +213,7 @@ namespace State
             {
                 if (unit.StateInteractable.MoveState.State.IsFinished)
                 {
-                    storage.AddCurrencyByType(unit.TreeCurrency, unit.TreeCurrency.SpendAll());
+                    storage.AddCurrencyByName(unit.TreeCurrency.Name, unit.TreeCurrency.SpendAll());
                     IsFinished = true;
                 }
             }
@@ -240,7 +240,7 @@ namespace State
             {
                 if (unit.StateInteractable.MoveState.State.IsFinished)
                 {
-                    storage.AddCurrencyByType(unit.TreeCurrency, unit.TreeCurrency.SpendAll());
+                    storage.AddCurrencyByName(StatsNames.TREE, unit.TreeCurrency.SpendAll());
                     IsFinished = true;
                 }
             }

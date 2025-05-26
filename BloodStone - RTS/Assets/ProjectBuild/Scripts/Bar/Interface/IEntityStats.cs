@@ -4,7 +4,7 @@ namespace Bar
 {
     public interface IEntityStats
     {
-        IEnumerable<IStats> EntityStats { get; }
+        IEnumerable<IBar> EntityStats { get; }
     }
 
 }

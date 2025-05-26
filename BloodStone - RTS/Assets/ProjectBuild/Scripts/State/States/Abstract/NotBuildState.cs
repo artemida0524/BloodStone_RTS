@@ -5,6 +5,7 @@ using Select;
 using Game.Gameplay.Build;
 using Game.Gameplay.Selection;
 using Game.Gameplay.Units;
+using System;
 
 namespace State
 {
@@ -21,7 +22,7 @@ namespace State
             base.Enter();
             _build.CanInteraction = false;
             _build.OnInteractWithSelectables += OnInteractWithSelectablesHandler;
-            _build.OnHealthChange += OnHealthChangeHandler;
+            _build.Health.OnDataChange += OnHealthChangeHandler;
         }
 
         public override void Exit()
@@ -29,7 +30,7 @@ namespace State
             base.Exit();
             _build.CanInteraction = true;
             _build.OnInteractWithSelectables -= OnInteractWithSelectablesHandler;
-            _build.OnHealthChange -= OnHealthChangeHandler;
+            _build.Health.OnDataChange -= OnHealthChangeHandler;
         }
 
         private void OnInteractWithSelectablesHandler(IReadOnlyList<ISelectable> selectables)
@@ -43,9 +44,9 @@ namespace State
             unit.SetState(new BuildWorkerState(unit, _build));
         }
 
-        private void OnHealthChangeHandler(int health)
+        private void OnHealthChangeHandler(object sender, EventArgs e)
         {
-            if(_build.IsMaxHealth)
+            if(_build.Health.IsMaxHealth)
             {
                 IsFinished = true;
             }

@@ -1,15 +1,12 @@
-﻿using System;
+﻿using Game.Gameplay.Stats;
+using System;
 
 namespace Currency
 {
-    public interface ICurrency
+    public interface ICurrency : IStat
     {
-        int Count { get; }
-        int MaxCount { get; }
-
+        string Name { get; }
         bool IsFull { get; }
-
-        event Action<int> OnValueChange;
 
         void Add(int amount);
         bool Spend(int amount);

@@ -21,7 +21,7 @@ namespace Bar
             }
         }
 
-        public abstract void AddBar(IStats bar);
+        public abstract void AddBar(IBar bar);
         public abstract void RemoveBar(string nameBar);
 
         public virtual void Show()

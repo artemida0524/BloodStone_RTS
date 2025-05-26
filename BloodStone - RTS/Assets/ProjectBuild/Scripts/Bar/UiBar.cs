@@ -11,17 +11,17 @@ namespace Bar
         [SerializeField] private Slider slider;
         [SerializeField] private TextMeshProUGUI countText;
 
-        public override void Init(IStats resourceBar, UIBarDataAsset rowBarAsset)
+        public override void Init(IBar resourceBar, UIBarDataAsset rowBarAsset)
         {
             this.Stat = resourceBar;
             icon.sprite = rowBarAsset.Icon;
 
-            OnDataChange();
+            OnDataChange(this, EventArgs.Empty);
 
             resourceBar.OnDataChange += OnDataChange;
         }
 
-        private void OnDataChange()
+        private void OnDataChange(object sender, EventArgs args)
         {
             slider.maxValue = Stat.MaxCount;
             slider.value = Stat.Count;

@@ -53,7 +53,7 @@ namespace State
 
             if(unit.StateInteractable.MoveState.State.IsFinished  && !takeCurrency)
             {
-                if (fromStorage.GetCurrencyByType(currentCurrencyType).Spend(30))
+                if (fromStorage.GetCurrencyByName(currentCurrencyType.Name).Spend(30))
                 {
                     amount = 30;
                     unit.MoveTo(toStorage.Position, toStorage.Radius);
@@ -63,7 +63,7 @@ namespace State
             }
             else if(unit.StateInteractable.MoveState.State.IsFinished && takeCurrency)
             {
-                toStorage.AddCurrencyByType(currentCurrencyType, amount);
+                toStorage.AddCurrencyByName(currentCurrencyType.Name, amount);
                 amount = 0;
                 unit.MoveTo(fromStorage.Position, fromStorage.Radius);
 

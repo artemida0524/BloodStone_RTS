@@ -1,5 +1,4 @@
 ﻿using Game.Gameplay.Units;
-using Game.Gameplay.Units;
 using UnityEngine;
 
 namespace State
