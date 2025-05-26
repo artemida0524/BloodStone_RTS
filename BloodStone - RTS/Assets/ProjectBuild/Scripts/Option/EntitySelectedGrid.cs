@@ -1,9 +1,10 @@
-﻿using Select;
+﻿using Game.Gameplay.Selection;
+using Select;
 using System.Collections.Generic;
 using Unit;
 using UnityEngine;
 
-namespace Option
+namespace Game.Gameplay.Options
 {
     public class EntitySelectedGrid : MonoBehaviour
     {

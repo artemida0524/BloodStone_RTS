@@ -1,7 +1,7 @@
-﻿using Entity;
+﻿using Game.Gameplay.Entity;
 using System;
 
-namespace Unit
+namespace Game.Gameplay
 {
     public interface IDamageable : IEntity
     {

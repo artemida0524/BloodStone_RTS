@@ -1,6 +1,8 @@
-﻿using Build;
-using Currency;
-using Entity;
+﻿using Game.Gameplay.Build;
+using Game.Gameplay.Selection;
+using Game.Gameplay.Units;
+using Game.Gameplay.Units.Utils;
+using Game.Gameplay.Entity;
 using Faction;
 using System;
 using System.Collections.Generic;
@@ -15,7 +17,7 @@ namespace Select
     public class SelectableHandler : MonoBehaviour
     {
         [SerializeField] private RectTransform selectRect;
-        private Build.Faction faction;
+        private Headquarters faction;
 
         private Vector3 startPosition;
         private Vector3 endPosition;
@@ -36,17 +38,28 @@ namespace Select
         public event Action<IReadOnlyList<ISelectable>> OnSelectedUnits;
 
         [Inject]
-        private void Construct(Build.Faction faction)
+        private void Construct(Headquarters faction)
         {
             this.faction = faction;
         }
 
-        private void Awake()
+        public void Init()
         {
             camera = Camera.main;
 
             UnitUtility.OnUnitDisableOrDestroy += OnUnitDisableOrDestroyHandler;
             BuildUtility.OnBuildDisableOrDestroy += OnBuildDisableOrDestroyHandler;
+            faction.OnFactionTypeChanged += OnFactionTypeChangedHandler;
+        }
+
+        private void OnFactionTypeChangedHandler(FactionType type)
+        {
+
+            //if (false)
+            //{
+            //    currentHover?.Unhover(); 
+            //}
+
         }
 
         private void OnBuildDisableOrDestroyHandler(BuildBase build)
@@ -61,7 +74,7 @@ namespace Select
 
         private void OnUnitDisableOrDestroyHandler(UnitBase unit)
         {
-            if(selectables.Contains(unit))
+            if (selectables.Contains(unit))
             {
                 selectables.Remove(unit);
 
@@ -78,8 +91,8 @@ namespace Select
                     HandleClickSelection();
                 }
                 HandleDragSelection();
+                HandleHoverEffect();
             }
-            HandleHoverEffect();
         }
 
         private void HandleClickSelection()
@@ -194,7 +207,7 @@ namespace Select
                             currentHover?.Unhover();
                             currentHover = newHover;
                             currentHover.Hover();
-                        } 
+                        }
                     }
                 }
                 else

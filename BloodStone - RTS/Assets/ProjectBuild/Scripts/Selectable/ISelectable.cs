@@ -1,7 +1,7 @@
-﻿using Option;
-using Entity;
+﻿using Game.Gameplay.Entity;
+using Game.Gameplay.Options;
 
-namespace Select
+namespace Game.Gameplay.Selection
 {
     public interface ISelectable : IEntity
     {

@@ -1,5 +1,5 @@
-﻿using Entity;
-using Unit;
+﻿using Game.Gameplay.Entity;
+using Game.Gameplay.Units;
 
 namespace State
 {

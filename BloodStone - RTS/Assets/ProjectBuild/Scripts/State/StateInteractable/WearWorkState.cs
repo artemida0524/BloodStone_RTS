@@ -1,4 +1,6 @@
-﻿using Currency;
+﻿using Game.Gameplay.Build;
+using Game.Gameplay.Units;
+using Currency;
 using Unit;
 using UnityEngine;
 
@@ -16,6 +18,10 @@ namespace State
         private int amount;
 
         private bool takeCurrency = false;
+        private WearWorkerUnit unit1;
+        private TreasureBuild treasureBuild;
+        private Headquarters faction;
+        private ICurrency currency;
 
         public WearWorkState(WearWorkerUnit unit, ICurrencyStorage fromStorage, ICurrencyStorage toStorage, ICurrency currentCurrency)
         {
@@ -23,6 +29,14 @@ namespace State
             this.fromStorage = fromStorage;
             this.toStorage = toStorage;
             this.currentCurrencyType = currentCurrency;
+        }
+
+        public WearWorkState(WearWorkerUnit unit1, TreasureBuild treasureBuild, Headquarters faction, ICurrency currency)
+        {
+            this.unit1 = unit1;
+            this.treasureBuild = treasureBuild;
+            this.faction = faction;
+            this.currency = currency;
         }
 
         public override void Enter()

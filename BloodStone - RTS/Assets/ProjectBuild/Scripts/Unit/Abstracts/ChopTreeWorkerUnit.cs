@@ -1,7 +1,7 @@
 ﻿using Currency;
 using UnityEngine;
 
-namespace Unit
+namespace Game.Gameplay.Units
 {
     public class ChopTreeWorkerUnit : WorkerUnitBase
     {

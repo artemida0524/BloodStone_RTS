@@ -1,17 +1,8 @@
-﻿using Bar;
-using UnityEngine;
-using Zenject;
+﻿using Game.Gameplay.Units;
 
 namespace Unit
 {
     public class SimpleUnitTest : SimpleUnitBase
     {
-        protected override void Update()
-        {
-            base.Update();
-
-            Debug.Log(IsSelection); 
-
-        }
     }
 }

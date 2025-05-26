@@ -1,6 +1,8 @@
-using Build;
+using Game.Gameplay.Build;
+using Scripts.ObjectPool.Provider;
 using UnityEngine;
 using Zenject;
+using Game.Gameplay.Build.Providers;
 
 public class PutNewBuild : MonoBehaviour
 {

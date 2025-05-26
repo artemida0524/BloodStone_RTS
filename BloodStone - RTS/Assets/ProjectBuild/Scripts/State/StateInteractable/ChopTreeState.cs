@@ -1,8 +1,8 @@
-﻿using Build;
+﻿using Game.Gameplay.Build;
+using Game.Gameplay.Entity;
+using Game.Gameplay.Units;
 using Currency;
-using Entity;
 using GlobalData;
-using Unit;
 using UnityEngine;
 
 namespace State

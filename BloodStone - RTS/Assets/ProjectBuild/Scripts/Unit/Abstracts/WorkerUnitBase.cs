@@ -1,14 +1,10 @@
 ﻿using UnityEngine;
-using Option;
 using State;
-using Interaction;
-using System.Collections.Generic;
-using Select;
-using UnityEngine.XR;
 using Zenject;
 using GlobalData;
+using Game.Gameplay.Options;
 
-namespace Unit
+namespace Game.Gameplay.Units
 {
     [RequireComponent(typeof(AnimationEventCallBackWoker))]
     public abstract class WorkerUnitBase : UnitBase

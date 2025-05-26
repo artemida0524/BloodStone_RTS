@@ -1,11 +1,9 @@
-using Select;
+using Game.Gameplay.Selection;
 using System;
-using Unit;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Option
+namespace Game.Gameplay.Options
 {
     public class EntitySelected : MonoBehaviour
     {

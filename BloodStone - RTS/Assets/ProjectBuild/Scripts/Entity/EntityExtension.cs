@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Game.Gameplay.Entity;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Entity
+namespace Game.Gameplay.Entity
 {
     public static class EntityExtension
     {

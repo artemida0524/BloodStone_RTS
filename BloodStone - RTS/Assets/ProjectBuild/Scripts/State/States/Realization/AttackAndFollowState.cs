@@ -1,6 +1,9 @@
-﻿using Entity;
+﻿using Game.Gameplay;
+using Game.Gameplay.Entity;
+using Game.Gameplay.Units;
+using Game.Gameplay.Units;
+using Game.Gameplay.Units.Utils;
 using System;
-using Unit;
 using UnityEngine;
 
 namespace State

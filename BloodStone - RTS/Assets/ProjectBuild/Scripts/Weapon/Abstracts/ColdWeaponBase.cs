@@ -1,4 +1,5 @@
-﻿using Unit;
+﻿using Game.Gameplay.Units;
+using Unit;
 
 namespace Weapon
 {

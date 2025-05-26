@@ -2,13 +2,15 @@ using Zenject;
 using GlobalData;
 using Build;
 using UnityEngine;
+using Scripts.ObjectPool.Provider;
+
 public class GlobalDataInjection : MonoInstaller
 {
     [SerializeField] private PoolProviderTest _poolProviderTest;
     public override void InstallBindings()
     {
         Container
-            .Bind<GlobalUnitsDataHandler>()
+            .BindInterfacesAndSelfTo<GlobalUnitsDataHandler>()
             .AsSingle()
             .NonLazy()
             ;
@@ -18,7 +20,5 @@ public class GlobalDataInjection : MonoInstaller
             .AsSingle()
             .NonLazy()
             ;
-
-
     }
 }

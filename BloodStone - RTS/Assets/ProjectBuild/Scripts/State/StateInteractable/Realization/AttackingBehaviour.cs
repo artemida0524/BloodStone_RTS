@@ -1,5 +1,4 @@
-﻿using Unit;
-using UnityEngine;
+﻿using Game.Gameplay.Units;
 
 namespace State
 {

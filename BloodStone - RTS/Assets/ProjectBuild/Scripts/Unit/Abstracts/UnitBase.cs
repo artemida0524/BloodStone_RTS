@@ -1,15 +1,18 @@
 using UnityEngine;
-using Entity;
 using UnityEngine.AI;
 using State;
 using System;
 using Bar;
-using Select;
-using Option;
-using Pool;
 using System.Collections.Generic;
+using Scripts.ObjectPool.Interface;
+using Scripts.ObjectPool.Implementation;
+using Game.Gameplay.Build;
+using Game.Gameplay.Entity;
+using Game.Gameplay.Selection;
+using Game.Gameplay.Units.Utils;
+using Game.Gameplay.Options;
 
-namespace Unit
+namespace Game.Gameplay.Units
 {
     [SelectionBase] 
     [RequireComponent(typeof(NavMeshAgent))]
@@ -52,16 +55,21 @@ namespace Unit
         protected List<IStats> _entityStats = new List<IStats>();
         public IEnumerable<IStats> EntityStats => _entityStats;
 
+
+        private bool _alreadyInit = false;
+
+
         public event Action<int> OnHealthChange;
         public event Action<int> OnTakeDamage;
         public event Action<StateBase> OnStateChange;
 
         protected virtual void Awake()
         {
-            Initialization();
+            InitComponent();
             StateInteractable.Init(InitializeState());
 
             poolObjectEntity.OnInitialize += OnInitializePoolObjectHandler;
+            poolObjectEntity.OnPushed += OnPushedHandler;
 
             SetStats();
             SetStatsView();
@@ -79,17 +87,27 @@ namespace Unit
 
         protected virtual void OnEnable()
         {
-            UnitUtility.OnUnitEnableInvoke(this);
+            if (_alreadyInit)
+            {
+                UnitUtility.OnUnitEnableInvoke(this);
+
+            }
         }
 
         protected virtual void OnDisable()
         {
-            UnitUtility.OnUnitDisableOrDestroyInvoke(this);
+            if (_alreadyInit)
+            {
+                UnitUtility.OnUnitDisableOrDestroyInvoke(this); 
+            }
         }
 
         protected virtual void OnDestroy()
         {
-            UnitUtility.OnUnitDisableOrDestroyInvoke(this);
+            if (_alreadyInit)
+            {
+                UnitUtility.OnUnitDisableOrDestroyInvoke(this); 
+            }
         }
 
         //private void OnCollisionEnter(Collision collision)
@@ -99,7 +117,12 @@ namespace Unit
 
         protected abstract StateBehaviourBase InitializeState();
 
-        protected virtual void Initialization()
+        public virtual void Init()
+        {
+            _alreadyInit = true;
+        }
+
+        protected virtual void InitComponent()
         {
             Agent = GetComponent<NavMeshAgent>();
             Animator = GetComponent<Animator>();
@@ -178,7 +201,7 @@ namespace Unit
 
         public void DoSomething()
         {
-            SetState(new MoveState(this, FindObjectOfType<Build.Faction>().Position, FindObjectOfType<Build.Faction>().Radius));
+            SetState(new MoveState(this, FindObjectOfType<Headquarters>().Position, FindObjectOfType<Headquarters>().Radius));
         }
 
         public void AddHealth(int amount)
@@ -197,6 +220,12 @@ namespace Unit
         protected virtual void OnInitializePoolObjectHandler()
         {
             
+        }
+
+        protected virtual void OnPushedHandler(object sender, IPoolObject pool)
+        {
+            _alreadyInit = false;
+            SetState(null);
         }
     }
 }

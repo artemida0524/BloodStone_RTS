@@ -1,10 +1,11 @@
-using Entity;
+using Game.Gameplay.Entity;
+using Game.Gameplay.Units.Animation;
 using State;
 using System;
 using UnityEngine;
 using Weapon;
 
-namespace Unit
+namespace Game.Gameplay.Units
 {
     [RequireComponent(typeof(AnimationEventCallBackAttack))]
     public abstract class AttackingUnitBase : UnitBase

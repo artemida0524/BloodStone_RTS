@@ -1,9 +1,8 @@
-﻿using Build;
+﻿using Game.Gameplay.Build;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
-namespace Option
+namespace Game.Gameplay.Options
 {
     public class TestOption : OptionBase
     {

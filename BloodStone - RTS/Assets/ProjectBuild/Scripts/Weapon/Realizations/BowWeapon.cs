@@ -1,4 +1,4 @@
-﻿using Entity;
+﻿using Game.Gameplay.Entity;
 using Unity.VisualScripting;
 using UnityEngine;
 

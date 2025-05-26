@@ -1,7 +1,7 @@
-﻿using Entity;
+﻿using Game.Gameplay.Entity;
 using System.Collections.Generic;
 
-namespace Option
+namespace Game.Gameplay.Options
 {
     public class OptionBase : IOption
     {

@@ -1,4 +1,4 @@
-﻿namespace Option
+﻿namespace Game.Gameplay.Options
 {
     public enum ActionType
     {

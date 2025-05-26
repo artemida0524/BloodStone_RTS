@@ -2,7 +2,7 @@ using Faction;
 using System;
 using UnityEngine;
 
-namespace Entity
+namespace Game.Gameplay.Entity
 {
     [DisallowMultipleComponent]
     public abstract class EntityBase : MonoBehaviour, IEntity
@@ -15,17 +15,15 @@ namespace Entity
         
         public virtual bool CanInteraction { get; set; } = true;    
 
+        public event Action<FactionType> OnFactionTypeChanged;
 
-
-        public event Action OnFactionChanged;
-
-        public void ChangeFaction(FactionType faction)
+        public void ChangeFactiontype(FactionType faction)
         {
             FactionType = faction;
-            OnFactionChanged?.Invoke();
+            OnFactionTypeChanged?.Invoke(FactionType);
         }
 
-        public virtual void InitializationEntity(FactionType type)
+        public virtual void SetFactionType(FactionType type)
         {
             this.FactionType = type;
         }

@@ -1,4 +1,6 @@
-﻿using Entity;
+﻿using Game.Gameplay;
+using Game.Gameplay.Units;
+using Game.Gameplay.Entity;
 using Unit;
 using UnityEngine;
 

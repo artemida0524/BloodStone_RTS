@@ -1,4 +1,4 @@
-﻿namespace Select
+﻿namespace Game.Gameplay.Selection
 {
     public interface IHoverable
     {

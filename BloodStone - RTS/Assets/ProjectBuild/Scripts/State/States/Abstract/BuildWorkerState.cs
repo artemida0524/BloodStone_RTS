@@ -1,5 +1,5 @@
-﻿using Build;
-using Unit;
+﻿using Game.Gameplay.Build;
+using Game.Gameplay.Units;
 using UnityEngine;
 
 namespace State

@@ -1,4 +1,4 @@
-using Entity;
+using Game.Gameplay.Entity;
 using System.Collections.Generic;
 namespace Currency
 {
