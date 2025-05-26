@@ -1,5 +1,5 @@
-﻿using BloodStone.Gameplay.Units;
-using BloodStone.Gameplay.Units.Providers;
+﻿using Game.Gameplay.Units;
+using Game.Gameplay.Units.Providers;
 using GlobalData;
 using Unit;
 using UnityEngine;

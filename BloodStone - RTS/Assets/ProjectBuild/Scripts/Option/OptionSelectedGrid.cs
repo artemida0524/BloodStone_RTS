@@ -1,9 +1,9 @@
-﻿using static BloodStone.Gameplay.Options.OptionUnitBase.Option;
+﻿using static Game.Gameplay.Options.OptionUnitBase.Option;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace BloodStone.Gameplay.Options
+namespace Game.Gameplay.Options
 {
     public class OptionSelectedGrid : MonoBehaviour
     {

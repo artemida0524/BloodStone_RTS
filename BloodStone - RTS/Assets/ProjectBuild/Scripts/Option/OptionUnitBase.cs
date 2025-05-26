@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Unit;
 using UnityEngine;
-using BloodStone.Gameplay.Entity;
-using BloodStone.Gameplay.Build;
-using BloodStone.Gameplay.Units;
+using Game.Gameplay.Entity;
+using Game.Gameplay.Build;
+using Game.Gameplay.Units;
 
-namespace BloodStone.Gameplay.Options
+namespace Game.Gameplay.Options
 {
     
     public class OptionWorkerUnit : OptionUnitBase

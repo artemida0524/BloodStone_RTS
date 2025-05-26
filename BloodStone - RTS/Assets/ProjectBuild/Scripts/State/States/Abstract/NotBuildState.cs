@@ -2,9 +2,9 @@
 using System.Linq;
 using Unit;
 using Select;
-using BloodStone.Gameplay.Build;
-using BloodStone.Gameplay.Selection;
-using BloodStone.Gameplay.Units;
+using Game.Gameplay.Build;
+using Game.Gameplay.Selection;
+using Game.Gameplay.Units;
 
 namespace State
 {

@@ -1,5 +1,5 @@
-using BloodStone.Gameplay.Build.Providers;
-using BloodStone.Gameplay.Units.Providers;
+using Game.Gameplay.Build.Providers;
+using Game.Gameplay.Units.Providers;
 using GlobalData;
 using Scripts.ObjectPool.Provider;
 using Select;

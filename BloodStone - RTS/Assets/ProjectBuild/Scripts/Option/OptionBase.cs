@@ -1,7 +1,7 @@
-﻿using BloodStone.Gameplay.Entity;
+﻿using Game.Gameplay.Entity;
 using System.Collections.Generic;
 
-namespace BloodStone.Gameplay.Options
+namespace Game.Gameplay.Options
 {
     public class OptionBase : IOption
     {

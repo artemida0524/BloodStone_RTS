@@ -1,5 +1,5 @@
-﻿using BloodStone.Gameplay.Build;
-using BloodStone.Gameplay.Units;
+﻿using Game.Gameplay.Build;
+using Game.Gameplay.Units;
 using Currency;
 using Unit;
 using UnityEngine;

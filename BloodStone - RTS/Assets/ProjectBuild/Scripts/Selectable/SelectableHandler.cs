@@ -1,8 +1,8 @@
-﻿using BloodStone.Gameplay.Build;
-using BloodStone.Gameplay.Selection;
-using BloodStone.Gameplay.Units;
-using BloodStone.Gameplay.Units.Utils;
-using BloodStone.Gameplay.Entity;
+﻿using Game.Gameplay.Build;
+using Game.Gameplay.Selection;
+using Game.Gameplay.Units;
+using Game.Gameplay.Units.Utils;
+using Game.Gameplay.Entity;
 using Faction;
 using System;
 using System.Collections.Generic;

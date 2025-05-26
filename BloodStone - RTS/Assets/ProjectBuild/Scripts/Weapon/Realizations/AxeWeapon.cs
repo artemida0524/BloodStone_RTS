@@ -1,4 +1,4 @@
-using BloodStone.Gameplay.Entity;
+using Game.Gameplay.Entity;
 using UnityEngine;
 
 namespace Weapon

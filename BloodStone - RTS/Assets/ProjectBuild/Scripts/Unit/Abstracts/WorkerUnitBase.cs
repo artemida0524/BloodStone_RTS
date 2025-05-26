@@ -2,9 +2,9 @@
 using State;
 using Zenject;
 using GlobalData;
-using BloodStone.Gameplay.Options;
+using Game.Gameplay.Options;
 
-namespace BloodStone.Gameplay.Units
+namespace Game.Gameplay.Units
 {
     [RequireComponent(typeof(AnimationEventCallBackWoker))]
     public abstract class WorkerUnitBase : UnitBase

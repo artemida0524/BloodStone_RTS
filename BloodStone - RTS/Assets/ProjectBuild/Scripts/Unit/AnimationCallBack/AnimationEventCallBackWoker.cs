@@ -1,7 +1,7 @@
-﻿using BloodStone.Gameplay.Units.Animation;
+﻿using Game.Gameplay.Units.Animation;
 using System;
 
-namespace BloodStone.Gameplay.Units
+namespace Game.Gameplay.Units
 {
     public class AnimationEventCallBackWoker : AnimationEventCallBasckBase
     {

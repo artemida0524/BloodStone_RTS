@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BloodStone.Gameplay
+namespace Game.Gameplay
 {
     public interface IHealth
     {

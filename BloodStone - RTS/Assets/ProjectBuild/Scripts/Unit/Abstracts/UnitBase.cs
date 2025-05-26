@@ -6,13 +6,13 @@ using Bar;
 using System.Collections.Generic;
 using Scripts.ObjectPool.Interface;
 using Scripts.ObjectPool.Implementation;
-using BloodStone.Gameplay.Build;
-using BloodStone.Gameplay.Entity;
-using BloodStone.Gameplay.Selection;
-using BloodStone.Gameplay.Units.Utils;
-using BloodStone.Gameplay.Options;
+using Game.Gameplay.Build;
+using Game.Gameplay.Entity;
+using Game.Gameplay.Selection;
+using Game.Gameplay.Units.Utils;
+using Game.Gameplay.Options;
 
-namespace BloodStone.Gameplay.Units
+namespace Game.Gameplay.Units
 {
     [SelectionBase] 
     [RequireComponent(typeof(NavMeshAgent))]

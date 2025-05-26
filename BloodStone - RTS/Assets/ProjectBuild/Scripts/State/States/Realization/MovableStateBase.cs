@@ -1,5 +1,5 @@
-﻿using BloodStone.Gameplay.Entity;
-using BloodStone.Gameplay.Units;
+﻿using Game.Gameplay.Entity;
+using Game.Gameplay.Units;
 using System.Threading.Tasks;
 using UnityEngine;
 

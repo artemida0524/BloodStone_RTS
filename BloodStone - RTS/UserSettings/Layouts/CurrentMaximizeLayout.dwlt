@@ -75,7 +75,7 @@ MonoBehaviour:
   m_UseMipMap: 0
   m_VSyncEnabled: 1
   m_Gizmos: 0
-  m_Stats: 1
+  m_Stats: 0
   m_SelectedSizes: 03000000000000000000000000000000000000000000000000000000000000000000000000000000
   m_ZoomArea:
     m_HRangeLocked: 0
@@ -625,9 +625,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 25.41065, y: -0.06060791, z: 19.332117}
+    m_Target: {x: 15.189835, y: 4.7559643, z: 17.3451}
     speed: 2
-    m_Value: {x: 25.41065, y: -0.06060791, z: 19.332117}
+    m_Value: {x: 15.189835, y: 4.7559643, z: 17.3451}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -673,13 +673,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.506
   m_Rotation:
-    m_Target: {x: 0.35731825, y: 0.005599863, z: -0.0021561729, w: 0.93397593}
+    m_Target: {x: 0.40205792, y: -0.06584073, z: 0.028984139, w: 0.91279787}
     speed: 2
-    m_Value: {x: 0.35731408, y: 0.0055997977, z: -0.0021561477, w: 0.933965}
+    m_Value: {x: 0.4020528, y: -0.06583989, z: 0.02898377, w: 0.91278625}
   m_Size:
-    m_Target: 19.341825
+    m_Target: 12.398798
     speed: 2
-    m_Value: 19.341825
+    m_Value: 12.398798
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -793,8 +793,8 @@ MonoBehaviour:
     y: 0
     width: 204
     height: 595
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 9}
   m_Panes:
   - {fileID: 9}
@@ -839,7 +839,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 4cfaffff
+      m_ExpandedIDs: 0cfbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -934,7 +934,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/ProjectBuild/Scripts/Faction
+    - Assets/ProjectBuild/Scripts/Option
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -942,16 +942,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/ProjectBuild/Scripts/Faction
+  - Assets/ProjectBuild/Scripts/Option
   m_LastFoldersGridSize: 16
   m_LastProjectPath: D:\GitHub\BloodStone_RTS\BloodStone - RTS
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 270}
-    m_SelectedIDs: 868a0000
-    m_LastClickedID: 35462
-    m_ExpandedIDs: 00000000f6870000f8870000fa870000fc870000fe87000000880000028800000488000006880000088800000a8800000c8800000e88000010880000128800001488000016880000188800001a8800001c8800001e88000020880000228800002488000026880000288800002a8800002c8800002e88000030880000328800003488000036880000388800003a8800003c8800003e88000040880000428800004488000000ca9a3b
+    scrollPos: {x: 0, y: 240}
+    m_SelectedIDs: 20880000
+    m_LastClickedID: 34848
+    m_ExpandedIDs: 00000000d6870000d8870000da870000dc870000de870000e0870000e2870000e4870000e6870000e8870000ea870000ec870000ee870000f0870000f2870000f4870000f6870000f8870000fa870000fc870000fe87000000880000028800000488000006880000088800000a8800000c8800000e88000010880000128800001488000016880000188800001a8800001c8800001e880000208800002288000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -979,7 +979,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000f6870000f8870000fa870000fc870000fe87000000880000028800000488000006880000088800000a8800000c8800000e88000010880000128800001488000016880000188800001a8800001c8800001e88000020880000228800002488000026880000288800002a8800002c8800002e88000030880000328800003488000036880000388800003a8800003c8800003e880000408800004288000044880000
+    m_ExpandedIDs: 00000000d6870000d8870000da870000dc870000de870000e0870000e2870000e4870000e6870000e8870000ea870000ec870000ee870000f0870000f2870000f4870000f6870000f8870000fa870000fc870000fe87000000880000028800000488000006880000088800000a8800000c8800000e88000010880000128800001488000016880000188800001a8800001c8800001e8800002088000022880000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

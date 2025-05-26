@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace BloodStone.Gameplay.Units.Utils
+namespace Game.Gameplay.Units.Utils
 {
     public class UnitUtility
     {

@@ -1,10 +1,10 @@
-using BloodStone.Gameplay.Selection;
+using Game.Gameplay.Selection;
 using Select;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-namespace BloodStone.Gameplay.Options
+namespace Game.Gameplay.Options
 {
     public class GridSelectedHandler : MonoBehaviour
     {

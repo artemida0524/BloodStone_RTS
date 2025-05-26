@@ -6,7 +6,7 @@ using UnityEngine;
 using Build;
 using GlobalData;
 using System.Collections;
-using BloodStone.Gameplay.Units.Providers;
+using Game.Gameplay.Units.Providers;
 
 namespace Faction
 {

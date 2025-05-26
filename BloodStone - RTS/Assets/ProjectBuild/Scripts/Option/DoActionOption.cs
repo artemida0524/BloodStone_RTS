@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BloodStone.Gameplay.Options
+namespace Game.Gameplay.Options
 {
     public struct DoActionOption
     {

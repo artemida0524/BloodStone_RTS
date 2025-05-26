@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace BloodStone.Gameplay.Options
+namespace Game.Gameplay.Options
 {
 	public class ItemSelection : MonoBehaviour
 	{

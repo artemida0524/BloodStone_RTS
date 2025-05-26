@@ -1,7 +1,7 @@
-﻿using BloodStone.Gameplay.Entity;
-using BloodStone.Gameplay.Options;
+﻿using Game.Gameplay.Entity;
+using Game.Gameplay.Options;
 
-namespace BloodStone.Gameplay.Selection
+namespace Game.Gameplay.Selection
 {
     public interface ISelectable : IEntity
     {

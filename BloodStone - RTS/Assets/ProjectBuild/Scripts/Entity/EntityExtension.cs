@@ -1,9 +1,9 @@
-﻿using BloodStone.Gameplay.Entity;
+﻿using Game.Gameplay.Entity;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace BloodStone.Gameplay.Entity
+namespace Game.Gameplay.Entity
 {
     public static class EntityExtension
     {

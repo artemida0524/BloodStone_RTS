@@ -1,11 +1,11 @@
-using BloodStone.Gameplay.Entity;
-using BloodStone.Gameplay.Units.Animation;
+using Game.Gameplay.Entity;
+using Game.Gameplay.Units.Animation;
 using State;
 using System;
 using UnityEngine;
 using Weapon;
 
-namespace BloodStone.Gameplay.Units
+namespace Game.Gameplay.Units
 {
     [RequireComponent(typeof(AnimationEventCallBackAttack))]
     public abstract class AttackingUnitBase : UnitBase

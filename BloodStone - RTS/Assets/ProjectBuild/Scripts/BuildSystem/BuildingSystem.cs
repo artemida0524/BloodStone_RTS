@@ -1,11 +1,11 @@
-using BloodStone.Gameplay.Build;
-using BloodStone.Gameplay.Build.Providers;
+using Game.Gameplay.Build;
+using Game.Gameplay.Build.Providers;
 using Faction;
 using GlobalData;
 using UnityEngine;
 using Zenject;
 
-namespace BloodStone.Gameplay.Construction
+namespace Game.Gameplay.Construction
 {
     public class BuildingSystem : MonoBehaviour, IBuildingSystemProvider
     {

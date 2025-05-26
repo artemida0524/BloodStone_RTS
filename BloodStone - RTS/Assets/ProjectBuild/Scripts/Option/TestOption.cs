@@ -1,8 +1,8 @@
-﻿using BloodStone.Gameplay.Build;
+﻿using Game.Gameplay.Build;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BloodStone.Gameplay.Options
+namespace Game.Gameplay.Options
 {
     public class TestOption : OptionBase
     {

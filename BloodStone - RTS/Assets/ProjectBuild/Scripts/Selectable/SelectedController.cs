@@ -5,10 +5,10 @@ using State;
 using Zenject;
 using UnityEngine.AI;
 using Interaction;
-using BloodStone.Gameplay.Build;
-using BloodStone.Gameplay.Units;
-using BloodStone.Gameplay.Selection;
-using BloodStone.Gameplay.Entity;
+using Game.Gameplay.Build;
+using Game.Gameplay.Units;
+using Game.Gameplay.Selection;
+using Game.Gameplay.Entity;
 
 namespace Select
 {

@@ -1,9 +1,9 @@
-using BloodStone.Gameplay.Selection;
+using Game.Gameplay.Selection;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace BloodStone.Gameplay.Options
+namespace Game.Gameplay.Options
 {
     public class EntitySelected : MonoBehaviour
     {

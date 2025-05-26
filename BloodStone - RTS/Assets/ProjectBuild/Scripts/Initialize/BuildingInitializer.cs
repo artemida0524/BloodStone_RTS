@@ -1,5 +1,5 @@
-using BloodStone.Gameplay.Build;
-using BloodStone.Gameplay.Build.Providers;
+using Game.Gameplay.Build;
+using Game.Gameplay.Build.Providers;
 using UnityEngine;
 
 public class BuildingInitializer

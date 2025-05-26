@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace BloodStone.Gameplay
+namespace Game.Gameplay
 {
     public interface IMovable
     {

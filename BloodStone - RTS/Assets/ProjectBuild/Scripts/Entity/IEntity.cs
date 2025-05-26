@@ -1,7 +1,7 @@
 ﻿using Faction;
 using UnityEngine;
 
-namespace BloodStone.Gameplay.Entity
+namespace Game.Gameplay.Entity
 {
     public interface IEntity
     {

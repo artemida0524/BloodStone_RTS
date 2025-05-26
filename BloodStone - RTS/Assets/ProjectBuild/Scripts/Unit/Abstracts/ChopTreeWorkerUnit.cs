@@ -1,7 +1,7 @@
 ﻿using Currency;
 using UnityEngine;
 
-namespace BloodStone.Gameplay.Units
+namespace Game.Gameplay.Units
 {
     public class ChopTreeWorkerUnit : WorkerUnitBase
     {
