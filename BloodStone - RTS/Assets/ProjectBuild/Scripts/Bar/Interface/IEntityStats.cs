@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Game.Gameplay.Stats;
+using System.Collections.Generic;
 
 namespace Bar
 {
     public interface IEntityStats
     {
-        IEnumerable<IStats> EntityStats { get; }
+        IEnumerable<IStat> EntityStats { get; }
     }
 
 }

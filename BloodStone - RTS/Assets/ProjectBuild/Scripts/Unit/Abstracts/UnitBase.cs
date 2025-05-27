@@ -11,6 +11,7 @@ using Game.Gameplay.Entity;
 using Game.Gameplay.Selection;
 using Game.Gameplay.Units.Utils;
 using Game.Gameplay.Options;
+using Game.Gameplay.Stats;
 
 namespace Game.Gameplay.Units
 {
@@ -19,22 +20,18 @@ namespace Game.Gameplay.Units
     [RequireComponent(typeof(CapsuleCollider))]
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(PoolObjectEntity))]
-    public abstract class UnitBase : EntityBase, IUnit, IMovable, ISelectable, IHealth, IDamageable, IHoverable, IPooledObject, IEntityStats
+    public abstract class UnitBase : EntityBase, IUnit, IMovable, ISelectable, IHealthable, IDamageable, IHoverable, IPooledObject, IEntityStats
     {
         [field: SerializeField] public override Renderer BodyRenderer { get; protected set; }
-        [field: SerializeField] public UIBarContainerView UIBarContainer { get; protected set; }
+        [field: SerializeField] public UIStatsContainerViewBase UIStatsContainer { get; protected set; }
         [field: SerializeField] public InteractableUnits StateInteractable { get; protected set; } = new InteractableUnits();
 
         [SerializeField] protected GameObject selectObject;
         [SerializeField] protected PoolObjectEntity poolObjectEntity;
 
-        [field: SerializeField] public int MaxCountHealth { get; protected set; } = 100;
-        [field: SerializeField] public int CountHealth { get; protected set; } = 100;
-
         public override Vector3 Position => transform.position;
         public override float Radius => 0;
 
-        public bool IsMaxHealth => CountHealth >= MaxCountHealth;
 
         public virtual string IdleAnimation { get; protected set; } = AnimationStateNames.IDLE;
         public virtual string WalkingAnimation { get; protected set; } = AnimationStateNames.WALKING;
@@ -52,14 +49,15 @@ namespace Game.Gameplay.Units
         public IPoolObject PoolObject => poolObjectEntity;
 
 
-        protected List<IStats> _entityStats = new List<IStats>();
-        public IEnumerable<IStats> EntityStats => _entityStats;
+        protected List<IStat> _entityStats = new List<IStat>();
+        public IEnumerable<IStat> EntityStats => _entityStats;
 
+        protected Health health = new Health(100, 100);
+        public IHealth Health => health;
 
         private bool _alreadyInit = false;
 
 
-        public event Action<int> OnHealthChange;
         public event Action<int> OnTakeDamage;
         public event Action<StateBase> OnStateChange;
 
@@ -130,12 +128,12 @@ namespace Game.Gameplay.Units
 
         protected virtual void SetStats()
         {
-            _entityStats.Add(new HealthBar(this));
+            _entityStats.Add(Health);
         }
 
         protected virtual void SetStatsView()
         {
-            UIBarContainer?.AddBar(_entityStats[0]);
+            UIStatsContainer?.AddBar(_entityStats[0]);
         }
 
 
@@ -184,13 +182,13 @@ namespace Game.Gameplay.Units
 
         public virtual void Hover()
         {
-            UIBarContainer?.Show();
+            UIStatsContainer?.Show();
             BodyRenderer.material.color = Color.magenta;
         }
 
         public void Unhover()
         {
-            UIBarContainer?.Hide();
+            UIStatsContainer?.Hide();
             BodyRenderer.material.color = Color.white;
         }
 
@@ -206,16 +204,12 @@ namespace Game.Gameplay.Units
 
         public void AddHealth(int amount)
         {
-            CountHealth += amount;
-            CountHealth = Mathf.Clamp(CountHealth, 0, MaxCountHealth);
-            OnHealthChange?.Invoke(CountHealth);
+            Health.AddHealth(amount);
         }
 
         public void SpendHealth(int amount)
         {
-            CountHealth -= amount;
-            CountHealth = Mathf.Clamp(CountHealth, 0, MaxCountHealth);
-            OnHealthChange?.Invoke(CountHealth);
+            Health.SpendHealth(amount);
         }
         protected virtual void OnInitializePoolObjectHandler()
         {

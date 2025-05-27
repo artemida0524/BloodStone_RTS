@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using Game.Gameplay.Stats;
+using System.Collections.Generic;
 using UnityEngine;
 
 
 
 namespace Bar
 {
-    public abstract class UIBarContainerViewBase : MonoBehaviour
+    public abstract class UIStatsContainerViewBase : MonoBehaviour
     {
         [SerializeField] protected UIBarDataAssetList uiBarDataAssetList;
         [SerializeField] protected GameObject panel;
@@ -21,7 +22,7 @@ namespace Bar
             }
         }
 
-        public abstract void AddBar(IStats bar);
+        public abstract void AddBar(IStat bar);
         public abstract void RemoveBar(string nameBar);
 
         public virtual void Show()

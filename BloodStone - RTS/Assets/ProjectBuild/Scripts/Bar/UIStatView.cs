@@ -1,19 +1,21 @@
-﻿using UnityEngine;
+﻿using Game.Gameplay.Stats;
+using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Bar
 {
-    public class UIBarView : UIBarViewBase
+    public class UIStatView : UIStatsViewBase
     {
         [SerializeField] private Slider slider;
         [SerializeField] private Image background;
         [SerializeField] private Image row;
 
-        public override void Init(IStats stats, UIBarDataAsset rowBarAsset)
+        public override void Init(IStat stat, UIBarDataAsset rowBarAsset)
         {
-            this.Stat = stats;
+            this.Stat = stat;
 
-            OnDataChange();
+            OnDataChange(this, EventArgs.Empty);
 
             background.sprite = rowBarAsset.Background;
             row.sprite = rowBarAsset.Row;
@@ -21,7 +23,7 @@ namespace Bar
             Stat.OnDataChange += OnDataChange;
         }
 
-        private void OnDataChange()
+        private void OnDataChange(object sender, EventArgs args)
         {
             slider.maxValue = Stat.MaxCount;
             slider.value = Stat.Count;
@@ -29,7 +31,7 @@ namespace Bar
 
         public override void Dispose()
         {
-            Stat.Dispose();
+            Stat.OnDataChange -= OnDataChange;
         }
     }
 

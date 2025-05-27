@@ -1,5 +1,6 @@
 ﻿using Game.Gameplay.Build;
 using Game.Gameplay.Units;
+using System;
 using UnityEngine;
 
 namespace State
@@ -24,12 +25,12 @@ namespace State
         {
             base.Enter();
             _machine.ChangeState(new WorkState(_unit, _build));
-            _build.OnHealthChange += OnHealthChangeHandler;
+            _build.Health.OnDataChange += OnHealthChangeHandler;
         }
 
-        private void OnHealthChangeHandler(int amount)
+        private void OnHealthChangeHandler(object sender, EventArgs e)
         {
-            if (_build.IsMaxHealth)
+            if (_build.Health.IsMaxHealth)
             {
                 IsFinished = true;
             }
@@ -99,7 +100,7 @@ namespace State
             {
                 base.Enter();
 
-                Vector2 point = Random.insideUnitCircle * _build.Radius;
+                Vector2 point = UnityEngine.Random.insideUnitCircle * _build.Radius;
                 _unit.MoveTo(new Vector3(_build.Position.x + point.x, _build.Position.y, _build.Position.z + point.y), 1);
             }
 

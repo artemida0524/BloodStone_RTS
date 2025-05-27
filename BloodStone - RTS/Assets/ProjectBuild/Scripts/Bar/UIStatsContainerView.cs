@@ -1,5 +1,6 @@
 using Bar;
 using Cinemachine;
+using Game.Gameplay.Stats;
 using GlobalData;
 using System;
 using System.Collections.Generic;
@@ -7,12 +8,12 @@ using UnityEngine;
 namespace Bar
 {
 
-    public class UIBarContainerView : UIBarContainerViewBase
+    public class UIStatsContainerView : UIStatsContainerViewBase
     {
         [SerializeField] private RectTransform container;
-        [SerializeField] private UIBarViewBase uiBarPrefab;
+        [SerializeField] private UIStatsViewBase uiBarPrefab;
 
-        private List<UIBarViewBase> bars;
+        private List<UIStatsViewBase> bars;
 
         private bool isShow = false;
 
@@ -63,18 +64,18 @@ namespace Bar
             isShow = false;
         }
 
-        public override void AddBar(IStats bar)
+        public override void AddBar(IStat stat)
         {
             if (bars == null)
             {
                 bars = new();
             }
 
-            var item = GetBarDataAssetByName(bar.Name);
+            var item = GetBarDataAssetByName(stat.Name);
 
 
-            UIBarViewBase barInstance = Instantiate(uiBarPrefab, container);
-            barInstance.Init(bar, item);
+            UIStatsViewBase barInstance = Instantiate(uiBarPrefab, container);
+            barInstance.Init(stat, item);
 
             bars.Add(barInstance);
         }

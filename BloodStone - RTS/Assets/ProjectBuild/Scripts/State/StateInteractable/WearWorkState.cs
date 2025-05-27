@@ -7,7 +7,7 @@ using UnityEngine;
 namespace State
 {
 
-    // MUST BE CHANGED
+    // MUST BE CHANGED!!!
     public class WearWorkState : StateBase
     {
         private readonly WearWorkerUnit unit;
@@ -46,16 +46,16 @@ namespace State
 
         public override void Update()
         {
-            if(fromStorage.GetFirstCurrency().Count < 30)
+            if(fromStorage.GetFirstCurrency().Count < unit.Amount)
             {
                 IsFinished = true;
             }
 
             if(unit.StateInteractable.MoveState.State.IsFinished  && !takeCurrency)
             {
-                if (fromStorage.GetCurrencyByType(currentCurrencyType).Spend(30))
+                if (fromStorage.SpendCurrencyByName(currentCurrencyType.Name, unit.Amount))
                 {
-                    amount = 30;
+                    amount = unit.Amount;
                     unit.MoveTo(toStorage.Position, toStorage.Radius);
 
                     takeCurrency = true;
@@ -63,7 +63,7 @@ namespace State
             }
             else if(unit.StateInteractable.MoveState.State.IsFinished && takeCurrency)
             {
-                toStorage.AddCurrencyByType(currentCurrencyType, amount);
+                toStorage.AddCurrencyByName(currentCurrencyType.Name, amount);
                 amount = 0;
                 unit.MoveTo(fromStorage.Position, fromStorage.Radius);
 

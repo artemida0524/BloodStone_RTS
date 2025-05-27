@@ -3,7 +3,7 @@ using UnityEngine.Rendering;
 
 namespace Bar
 {
-    [CreateAssetMenu(fileName = "UIBar", menuName = "UIBar")]
+    [CreateAssetMenu(fileName = "SomeUIStatView", menuName = "SomeUIStatView")]
 	public class UIBarDataAsset : ScriptableObject
 	{
 		[field: SerializeField] public string Name { get; private set; }
