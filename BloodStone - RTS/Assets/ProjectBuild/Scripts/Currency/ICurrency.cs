@@ -5,7 +5,6 @@ namespace Currency
 {
     public interface ICurrency : IStat
     {
-        string Name { get; }
         bool IsFull { get; }
 
         void Add(int amount);

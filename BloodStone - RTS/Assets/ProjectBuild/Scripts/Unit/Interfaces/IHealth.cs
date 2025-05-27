@@ -15,6 +15,7 @@ namespace Game.Gameplay
 
     public class Health : IHealth
     {
+        public string Name { get; set; } = ResourceNames.HEALTH;
         public bool IsMaxHealth => Count >= MaxCount;
 
         public int MaxCount { get; protected set; }

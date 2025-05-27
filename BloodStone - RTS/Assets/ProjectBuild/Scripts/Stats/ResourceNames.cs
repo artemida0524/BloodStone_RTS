@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public static class StatsNames
+public static class ResourceNames
 {
     public const string HEALTH = "Health";
     public const string GOLD = "Gold";

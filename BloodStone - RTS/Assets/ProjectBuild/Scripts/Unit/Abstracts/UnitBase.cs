@@ -11,6 +11,7 @@ using Game.Gameplay.Entity;
 using Game.Gameplay.Selection;
 using Game.Gameplay.Units.Utils;
 using Game.Gameplay.Options;
+using Game.Gameplay.Stats;
 
 namespace Game.Gameplay.Units
 {
@@ -22,7 +23,7 @@ namespace Game.Gameplay.Units
     public abstract class UnitBase : EntityBase, IUnit, IMovable, ISelectable, IHealthable, IDamageable, IHoverable, IPooledObject, IEntityStats
     {
         [field: SerializeField] public override Renderer BodyRenderer { get; protected set; }
-        [field: SerializeField] public UIBarContainerView UIBarContainer { get; protected set; }
+        [field: SerializeField] public UIStatsContainerViewBase UIStatsContainer { get; protected set; }
         [field: SerializeField] public InteractableUnits StateInteractable { get; protected set; } = new InteractableUnits();
 
         [SerializeField] protected GameObject selectObject;
@@ -48,8 +49,8 @@ namespace Game.Gameplay.Units
         public IPoolObject PoolObject => poolObjectEntity;
 
 
-        protected List<IBar> _entityStats = new List<IBar>();
-        public IEnumerable<IBar> EntityStats => _entityStats;
+        protected List<IStat> _entityStats = new List<IStat>();
+        public IEnumerable<IStat> EntityStats => _entityStats;
 
         protected Health health = new Health(100, 100);
         public IHealth Health => health;
@@ -127,12 +128,12 @@ namespace Game.Gameplay.Units
 
         protected virtual void SetStats()
         {
-            _entityStats.Add(new BarBase(Health, "Health"));
+            _entityStats.Add(Health);
         }
 
         protected virtual void SetStatsView()
         {
-            UIBarContainer?.AddBar(_entityStats[0]);
+            UIStatsContainer?.AddBar(_entityStats[0]);
         }
 
 
@@ -181,13 +182,13 @@ namespace Game.Gameplay.Units
 
         public virtual void Hover()
         {
-            UIBarContainer?.Show();
+            UIStatsContainer?.Show();
             BodyRenderer.material.color = Color.magenta;
         }
 
         public void Unhover()
         {
-            UIBarContainer?.Hide();
+            UIStatsContainer?.Hide();
             BodyRenderer.material.color = Color.white;
         }
 
