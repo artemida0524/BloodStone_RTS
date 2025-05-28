@@ -167,8 +167,6 @@ MonoBehaviour:
   visual: {fileID: 0}
   selectObject: {fileID: 134091918}
   colorHover: {r: 0.8, g: 0.8, b: 0.8, a: 1}
-  <MaxCountHealth>k__BackingField: 100
-  <CountHealth>k__BackingField: 0
   entryPoint: {fileID: 694858666}
   exitPoint: {fileID: 784664731}
 --- !u!136 &16853278
@@ -4034,6 +4032,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 767fd529b04e35b4fa7ea840a8706122, type: 3}
+--- !u!114 &1795099371 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3574692618936524617, guid: d8c0d1945d8dca0469048ecdfbdd0954, type: 3}
+  m_PrefabInstance: {fileID: 6854869527294661748}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f9366cb225c3804fa4189199875dc9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1816551766
 GameObject:
   m_ObjectHideFlags: 3
@@ -4544,6 +4553,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecf17c8281e796b4991a95da59f1e029, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2074595240 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5795541609299026313, guid: e30c358f41b877643a7544d7326085db, type: 3}
+  m_PrefabInstance: {fileID: 382916157875275796}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f9366cb225c3804fa4189199875dc9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &2079098888 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5119581553326655956, guid: aa8486fd8b6d47b4693f6d115858a368, type: 3}
@@ -4729,6 +4749,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6071637269635847689, guid: e30c358f41b877643a7544d7326085db, type: 3}
+      propertyPath: <UIStatsContainer>k__BackingField
+      value: 
+      objectReference: {fileID: 2074595240}
     - target: {fileID: 6183366573487080283, guid: e30c358f41b877643a7544d7326085db, type: 3}
       propertyPath: m_Name
       value: SimpleUnitTest (2)
@@ -5947,6 +5971,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6688919317443714028, guid: d8c0d1945d8dca0469048ecdfbdd0954, type: 3}
+      propertyPath: uiStatsContainer
+      value: 
+      objectReference: {fileID: 1795099371}
     - target: {fileID: 6688919317443714028, guid: d8c0d1945d8dca0469048ecdfbdd0954, type: 3}
       propertyPath: <CountHealth>k__BackingField
       value: 10
