@@ -1,6 +1,7 @@
 using Game.Gameplay.Units;
 using Game.Gameplay.Units.Providers;
 using Game.Gameplay.Units.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -20,6 +21,20 @@ namespace GlobalData
             Debug.Log("Init");
             UnitUtility.OnUnitEnable += OnUnitEnableHandler;
             UnitUtility.OnUnitDisableOrDestroy += OnUnitDisableOrDestroyHadler;
+
+            UnitUtility.OnUnitAdd += AddUnitHandler;
+            UnitUtility.OnUnitRemove += RemoveUnitHandler;
+        }
+
+        private void RemoveUnitHandler(UnitBase unit)
+        {
+            RemoveUnit(unit);
+        }
+
+        private void AddUnitHandler(UnitBase unit)
+        {
+            
+            AddUnit(unit);
         }
 
         private void OnUnitEnableHandler(UnitBase unit)
