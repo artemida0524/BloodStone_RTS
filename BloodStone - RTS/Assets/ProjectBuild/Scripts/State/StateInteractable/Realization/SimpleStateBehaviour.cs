@@ -27,7 +27,7 @@ namespace State
 
         public override void SetStateIfFinished()
         {
-            StateMachine.ChangeState(new IdleState(unit));
+            unit.SetState(new IdleState(unit));
         }
     }
 

@@ -59,7 +59,7 @@ namespace Game.Gameplay.Units
 
 
         public event Action<int> OnTakeDamage;
-        public event Action<StateBase> OnStateChange;
+        public event Action<StateBase> OnStateChanged;
 
         protected virtual void Awake()
         {
@@ -140,7 +140,7 @@ namespace Game.Gameplay.Units
         public void SetState(StateBase state)
         {
             StateInteractable.SetState(state);
-            OnStateChange?.Invoke(state);
+            OnStateChanged?.Invoke(state);
         }
 
         public virtual bool MoveTo(Vector3 point, float radius)
