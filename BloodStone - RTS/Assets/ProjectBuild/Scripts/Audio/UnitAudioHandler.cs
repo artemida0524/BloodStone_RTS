@@ -5,11 +5,12 @@ using Zenject;
 
 namespace Game.Gameplay.Audio
 {
+
     // EXAMPLE
     public class UnitAudioHandler : MonoBehaviour
     {
         [SerializeField] private SimpleUnitTest unit;
-        [SerializeField] private AudioClip clip;
+        [SerializeField] private AudioDataAsset exampleData;
 
         private IAudioService _audioService;
 
@@ -26,12 +27,12 @@ namespace Game.Gameplay.Audio
 
         private void OnStateChangeHandler(StateBase state)
         {
-            Play(clip);
+            Play(exampleData);
         }
 
-        private void Play(AudioClip clip)
+        private void Play(AudioDataAsset exampleData)
         {
-            _audioService.PlaySound(clip, unit.transform);
+            _audioService.PlaySound(exampleData, unit.transform);
         }
     }
 }

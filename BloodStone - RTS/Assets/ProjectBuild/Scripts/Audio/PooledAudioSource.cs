@@ -2,6 +2,7 @@
 using Scripts.ObjectPool.Interface;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Game.Gameplay.Audio
 {
@@ -10,18 +11,30 @@ namespace Game.Gameplay.Audio
         [SerializeField] private PoolObject poolObject;
         [SerializeField] private AudioSource source;
 
-        //public bool IsPlaying => source.isPlaying;
+        
+        [field: SerializeField] public AudioGroupType GroupType { get; protected set; } = AudioGroupType.SFX;
 
         public IPoolObject PoolObject => poolObject;
+
+        public void SetAudioGroup(AudioGroupType type, AudioMixerGroup group)
+        {
+            GroupType = type;
+            source.outputAudioMixerGroup = group;
+        }
+
+        public void SetVolume(float range)
+        {
+            source.volume = range;
+        }
 
         public void PlayOneShot(AudioClip clip)
         {
             source.PlayOneShot(clip);
-            StartCoroutine(coroutine(clip.length));
+            StartCoroutine(ReturnToPoolAfterDelay(clip.length));
         }
 
 
-        private IEnumerator coroutine(float length)
+        private IEnumerator ReturnToPoolAfterDelay(float length)
         {
             yield return new WaitForSeconds(length);
             poolObject.Push();

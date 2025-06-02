@@ -21,7 +21,7 @@ namespace Game.Gameplay.Audio
         {
             if (Input.GetKeyDown(KeyCode.P))
             {
-                _audioService.PlaySound(clip, Vector3.one);
+                //_audioService.PlaySound(clip, Vector3.one);
             }
         }
     }
