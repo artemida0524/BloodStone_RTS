@@ -12,10 +12,6 @@ namespace Faction
 {
     public class FactionDataHandler
     {
-        public InteractionMode InteractionMode { get; private set; }
-
-        public event Action<InteractionMode> OnInteractionModeChanged;
-
         private IUnitProvider _unitsProvider;
         private IBuildingProvider _buildingProvider;
 
@@ -26,11 +22,6 @@ namespace Faction
             _unitsProvider = unitsProvider;
         }
 
-        public void ChangeInteractionMode(InteractionMode interactionMode)
-        {
-            InteractionMode = interactionMode;
-            OnInteractionModeChanged?.Invoke(interactionMode);
-        }
 
         public IEnumerable<T> GetUnits<T>()
         {

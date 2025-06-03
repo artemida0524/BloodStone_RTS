@@ -84,7 +84,7 @@ namespace Select
 
         private void Update()
         {
-            if (faction.Data.InteractionMode != InteractionMode.Build)
+            if (faction.InteractionMode != InteractionMode.Build)
             {
                 if (!EventSystem.current.IsPointerOverGameObject())
                 {
@@ -121,7 +121,7 @@ namespace Select
 
         private void HandleDragSelection()
         {
-            if (Input.GetMouseButtonDown(0) && (faction.Data.InteractionMode == InteractionMode.None || faction.Data.InteractionMode == InteractionMode.Setable))
+            if (Input.GetMouseButtonDown(0) && (faction.InteractionMode == InteractionMode.None || faction.InteractionMode == InteractionMode.Setable))
             {
                 if (!EventSystem.current.IsPointerOverGameObject())
                 {
@@ -139,7 +139,7 @@ namespace Select
                     isDragging = true;
                     selectRect.gameObject.SetActive(true);
                     selectRect.sizeDelta = Vector2.zero;
-                    faction.Data.ChangeInteractionMode(InteractionMode.Selectable);
+                    faction.ChangeInteractionMode(InteractionMode.Selectable);
                     Unselect();
                 }
             }
@@ -261,7 +261,7 @@ namespace Select
         private void UpdateInteractionMode()
         {
             var mode = selectables.Count > 0 ? InteractionMode.Setable : InteractionMode.None;
-            faction.Data.ChangeInteractionMode(mode);
+            faction.ChangeInteractionMode(mode);
         }
     }
 }
