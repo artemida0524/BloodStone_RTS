@@ -2,7 +2,7 @@ using Game.Gameplay.Construction;
 using Zenject;
 using UnityEngine;
 
-public class BuildSystemInject : MonoInstaller
+public class BuildSystemInjection : MonoInstaller
 {
     [SerializeField] private BuildingSystem _buildSystem;
     public override void InstallBindings()

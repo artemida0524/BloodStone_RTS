@@ -8,6 +8,12 @@ namespace Game.Gameplay.Units.Utils
         public static event Action<UnitBase> OnUnitEnable;
         public static event Action<UnitBase> OnUnitDisableOrDestroy;
 
+        public static event Action<UnitBase> OnUnitAdd;
+        public static event Action<UnitBase> OnUnitRemove;
+
+
+
+
         public static void OnUnitDisableOrDestroyInvoke(UnitBase unit)
         {
             OnUnitDisableOrDestroy?.Invoke(unit);
@@ -17,6 +23,18 @@ namespace Game.Gameplay.Units.Utils
         {
             Debug.Log("OnUnitEnable");
             OnUnitEnable?.Invoke(unit);
+        }
+
+        public static void OnUnitAddInvoke(UnitBase unit)
+        {
+            Debug.Log("OnUnitAdd");
+            OnUnitAdd?.Invoke(unit);
+        }
+
+        public static void OnUnitRemoveInvoke(UnitBase unit)
+        {
+            Debug.Log("OnUnitRemove");
+            OnUnitRemove?.Invoke(unit);
         }
     } 
 }

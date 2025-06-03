@@ -40,5 +40,11 @@ namespace Scripts.ObjectPool.Provider
             Debug.LogError($"Pool not found with key: {key}");
             return null;
         }
+
+
+        public BasePoolObjects GetPullByKey(string key)
+        {
+            return _poolDictionary.TryGetValue(key, out var pool) ? pool : null;
+        }
     } 
 }

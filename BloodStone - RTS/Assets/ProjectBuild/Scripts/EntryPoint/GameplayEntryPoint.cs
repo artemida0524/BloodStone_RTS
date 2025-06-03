@@ -1,3 +1,4 @@
+using Game.Gameplay.Audio;
 using Game.Gameplay.Build.Providers;
 using Game.Gameplay.Units.Providers;
 using GlobalData;
@@ -16,14 +17,14 @@ namespace Scripts.EntryPoint
         private IBuildingSystemProvider _buildingSystemProvider;
         private IUnitProvider _unitProvider;
         private PoolProviderTest _poolProviderTest;
-
+        private IAudioService _audioService;
 
         private BuildingInitializer _buildingInitializer;
         private UnitInitializer _unitInitializer;
 
 
         [Inject]
-        private void Construct(SelectableHandler selectableHandler, SelectedController selectedController, IBuildingProvider buildingProvider, IBuildingSystemProvider buildingSystemProvider, IUnitProvider unitProvider, PoolProviderTest poolProvider)
+        private void Construct(SelectableHandler selectableHandler, SelectedController selectedController, IBuildingProvider buildingProvider, IBuildingSystemProvider buildingSystemProvider, IUnitProvider unitProvider, PoolProviderTest poolProvider, IAudioService audioService)
         {
             _selectableHandler = selectableHandler;
             _selectedController = selectedController;
@@ -31,6 +32,7 @@ namespace Scripts.EntryPoint
             _buildingSystemProvider = buildingSystemProvider;
             _unitProvider = unitProvider;
             _poolProviderTest = poolProvider;
+            _audioService = audioService;
         }
 
 
@@ -40,6 +42,8 @@ namespace Scripts.EntryPoint
             _selectedController.Init();
 
             _poolProviderTest.Init();
+
+            _audioService.Init();
 
             _buildingProvider.Init();
             _buildingSystemProvider.Init();
