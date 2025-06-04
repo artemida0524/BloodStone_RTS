@@ -7,7 +7,6 @@ using Faction;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unit;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
@@ -55,11 +54,6 @@ namespace Select
         private void OnFactionTypeChangedHandler(FactionType type)
         {
 
-            //if (false)
-            //{
-            //    currentHover?.Unhover(); 
-            //}
-
         }
 
         private void OnBuildDisableOrDestroyHandler(BuildBase build)
@@ -102,12 +96,21 @@ namespace Select
                 Ray ray = camera.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out RaycastHit hitInfo))
                 {
-                    if (hitInfo.collider.TryGetComponent(out ISelectable unit))
+                    if (hitInfo.collider.TryGetComponent(out ISelectable selectable))
                     {
-                        EntityBase entity = unit as EntityBase;
-                        if (entity.FactionType == faction.FactionType)
+                        if (selectable.FactionType == faction.FactionType)
                         {
-                            ToggleUnitSelection(unit);
+
+                            if (selectable is BuildBase build)
+                            {
+                                ToggleBuildSelection(selectable);
+                            }
+                            else
+                            {
+                                ToggleUnitSelection(selectable);
+
+                            }
+
                         }
                     }
                     else
@@ -163,9 +166,7 @@ namespace Select
                     selectRect.gameObject.SetActive(false);
 
                     Rect rect = new Rect(pivotPosition, size);
-                    IEnumerable<ISelectable> myEntities = faction.Data.GetAll<ISelectable>().Where(unit => (unit as EntityBase).FactionType == faction.FactionType);
-
-                    //Debug.Log(myEntities.OfType<UnitBase>().Count());
+                    IEnumerable<ISelectable> myEntities = faction.Data.GetAll<ISelectable>().Where(select => select is UnitBase unit && unit.FactionType == faction.FactionType);
 
                     foreach (var item in myEntities)
                     {
@@ -218,6 +219,12 @@ namespace Select
             }
         }
 
+        private void UnselectEntity(ISelectable select)
+        {
+            select.Unselect();
+            selectables.Remove(select);
+        }
+
         private void UnselectUnits()
         {
             foreach (var item in selectables)
@@ -246,13 +253,40 @@ namespace Select
 
         private void ToggleUnitSelection(ISelectable select)
         {
-            if (select.IsSelection)
+            List<ISelectable> copy = new List<ISelectable>(selectables);
+            
+            foreach (var item in copy)
+            {
+                if(item is BuildBase)
+                {
+                    UnselectEntity(item);
+                }
+            }
+
+            selectables = copy;
+
+            if (select.IsSelected)
             {
                 select.Unselect();
                 selectables.Remove(select);
             }
             else if (select.Select())
             {
+                selectables.Add(select);
+            }
+            OnSelectedUnits?.Invoke(selectables);
+        }
+
+        private void ToggleBuildSelection(ISelectable select)
+        {
+            if (select.IsSelected)
+            {
+                select.Unselect();
+                selectables.Remove(select);
+            }
+            else if (select.Select())
+            {
+                Unselect();
                 selectables.Add(select);
             }
             OnSelectedUnits?.Invoke(selectables);
