@@ -4,26 +4,25 @@ using System.Collections.Generic;
 using System.Linq;
 using Bar;
 using Currency;
-using Select;
 using Zenject;
 using GlobalData;
 using Game.Gameplay.Units.Providers;
 using Game.Gameplay.Selection;
-using Unity.PlasticSCM.Editor.WebApi;
 using System;
 
 namespace Game.Gameplay.Build
 {
     // Main Building of the game
-    public class Headquarters : BuildInteractableBase, ICurrencyStorage
+    public class Headquarters : BuildInteractableBase, ICurrencyStorage, IHut
     {
+
         public FactionDataHandler Data
         {
             get
             {
                 if(_factionDataHandler == null)
                 {
-                    _factionDataHandler = new FactionDataHandler(_buildingProvider, _unitProvider);
+                    _factionDataHandler = new FactionDataHandler(_buildingProvider, _unitProvider, FactionType);
                 }
                 
                 return _factionDataHandler;
@@ -40,6 +39,8 @@ namespace Game.Gameplay.Build
 
         private List<ICurrency> currencies = new List<ICurrency>();
         public IReadOnlyList<ICurrency> Currencies => currencies;
+
+        [field: SerializeField] public int MaxUnitCount { get; protected set; }
 
         private IUnitProvider _unitProvider;
         private IBuildingProvider _buildingProvider;

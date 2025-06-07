@@ -1,8 +1,9 @@
-using Game.Gameplay.Entity;
-
-public interface IHut : IEntity
+using Game.Gameplay.Build;
+namespace Game.Gameplay.Build
 {
-    int MaxUnitCount { get; }
-    
 
+	public interface IHut : IBuild
+	{
+		int MaxUnitCount { get; }
+	} 
 }

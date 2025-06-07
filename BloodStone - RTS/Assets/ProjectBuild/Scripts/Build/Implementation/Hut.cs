@@ -15,7 +15,6 @@ public class Hut : BuildInteractableBase, IHut
         base.Build(type);
 
         BuildUtility.OnBuildWasBuiltInvoke(this);
-
     }
 
 }

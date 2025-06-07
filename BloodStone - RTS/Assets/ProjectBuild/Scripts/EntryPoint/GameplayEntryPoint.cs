@@ -1,5 +1,6 @@
 using Game.Gameplay.Audio;
 using Game.Gameplay.Build.Providers;
+using Game.Gameplay.Units;
 using Game.Gameplay.Units.Providers;
 using GlobalData;
 using Scripts.ObjectPool.Provider;
@@ -22,9 +23,10 @@ namespace Scripts.EntryPoint
         private BuildingInitializer _buildingInitializer;
         private UnitInitializer _unitInitializer;
 
+        private IUnitCapacityProvider _unitCapacityProvider;
 
         [Inject]
-        private void Construct(SelectableHandler selectableHandler, SelectedController selectedController, IBuildingProvider buildingProvider, IBuildingSystemProvider buildingSystemProvider, IUnitProvider unitProvider, PoolProviderTest poolProvider, IAudioService audioService)
+        private void Construct(SelectableHandler selectableHandler, SelectedController selectedController, IBuildingProvider buildingProvider, IBuildingSystemProvider buildingSystemProvider, IUnitProvider unitProvider, PoolProviderTest poolProvider, IAudioService audioService, IUnitCapacityProvider unitCapacityProvider)
         {
             _selectableHandler = selectableHandler;
             _selectedController = selectedController;
@@ -33,6 +35,7 @@ namespace Scripts.EntryPoint
             _unitProvider = unitProvider;
             _poolProviderTest = poolProvider;
             _audioService = audioService;
+            _unitCapacityProvider = unitCapacityProvider;
         }
 
 
@@ -56,6 +59,10 @@ namespace Scripts.EntryPoint
 
             _unitInitializer = new UnitInitializer(_unitProvider);
             _unitInitializer.Init();
+
+
+
+            _unitCapacityProvider.Init();
 
         }
     } 

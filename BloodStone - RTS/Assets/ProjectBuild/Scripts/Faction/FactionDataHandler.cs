@@ -1,12 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unit;
-using UnityEngine;
-using Build;
 using GlobalData;
-using System.Collections;
 using Game.Gameplay.Units.Providers;
+using Game.Gameplay.Entity;
 
 namespace Faction
 {
@@ -14,29 +11,40 @@ namespace Faction
     {
         private IUnitProvider _unitsProvider;
         private IBuildingProvider _buildingProvider;
+        private FactionType _factionType;
 
-        public FactionDataHandler(IBuildingProvider buildingProvider, IUnitProvider unitsProvider)
+        public FactionDataHandler(IBuildingProvider buildingProvider, IUnitProvider unitsProvider, FactionType factionType)
         {
-
             _buildingProvider = buildingProvider;
             _unitsProvider = unitsProvider;
+            _factionType = factionType;
         }
 
-
-        public IEnumerable<T> GetUnits<T>()
+        public IEnumerable<T> GetUnits<T>() where T : IEntity
         {
-            IEnumerable<T> units = _unitsProvider.GetUnits<T>();
+            IEnumerable<T> units = _unitsProvider.GetUnits<T>().Where(unit => unit.FactionType == _factionType);
+            return units;   
+        }
+
+        public IEnumerable<T> GetUnits<T>(Func<T, bool> predicat) where T : IEntity
+        {
+            IEnumerable<T> units = _unitsProvider.GetUnits<T>(predicat).Where(unit => unit.FactionType == _factionType);
             return units;
         }
-        
-        public IEnumerable<T> GetBuilds<T>()
-        {
-            IEnumerable<T> builds = _buildingProvider.GetBuilds<T>();
-            return builds;
 
+        public IEnumerable<T> GetBuilds<T>() where T : IEntity
+        {
+            IEnumerable<T> builds = _buildingProvider.GetBuilds<T>().Where(build => build.FactionType == _factionType);
+            return builds;
         }
 
-        public List<T> GetAll<T>()
+        public IEnumerable<T> GetBuilds<T>(Func<T, bool> predicat) where T : IEntity
+        {
+            IEnumerable<T> units = _buildingProvider.GetBuilds<T>(predicat).Where(build => build.FactionType == _factionType);
+            return units;
+        }
+
+        public List<T> GetAll<T>() where T : IEntity
         {
             IEnumerable<T> units = GetUnits<T>().OfType<T>();
             IEnumerable<T> builds = GetBuilds<T>().OfType<T>();

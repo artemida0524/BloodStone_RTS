@@ -1389,7 +1389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unit: {fileID: 6071637269635847689}
-  clip: {fileID: 8300000, guid: 34c638d8d99ccfd44a261f13505ab317, type: 3}
+  exampleData: {fileID: 11400000, guid: 177e3fda10704e2458e333a1e082522c, type: 2}
 --- !u!1 &6273862810115828400
 GameObject:
   m_ObjectHideFlags: 0
