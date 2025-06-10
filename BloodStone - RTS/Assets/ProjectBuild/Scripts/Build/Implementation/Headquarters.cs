@@ -13,37 +13,34 @@ using System;
 namespace Game.Gameplay.Build
 {
     // Main Building of the game
-    public class Headquarters : BuildInteractableBase, ICurrencyStorage, IHut
+    public sealed class Headquarters : BuildInteractableBase, ICurrencyStorage, IHut
     {
+        [SerializeField] private UIStatsContainerView uiStatsContainer;
+        [field: SerializeField] public int MaxUnitCount { get; private set; }
 
         public FactionDataHandler Data
         {
             get
             {
-                if(_factionDataHandler == null)
+                if (_factionDataHandler == null)
                 {
                     _factionDataHandler = new FactionDataHandler(_buildingProvider, _unitProvider, FactionType);
                 }
-                
+
                 return _factionDataHandler;
             }
         }
 
         public InteractionMode InteractionMode { get; private set; }
-
-        public event Action<InteractionMode> OnInteractionModeChanged;
+        public IReadOnlyList<ICurrency> Currencies => _currencies;
 
         private FactionDataHandler _factionDataHandler;
-
-        [SerializeField] private UIStatsContainerView uiStatsContainer;
-
-        private List<ICurrency> currencies = new List<ICurrency>();
-        public IReadOnlyList<ICurrency> Currencies => currencies;
-
-        [field: SerializeField] public int MaxUnitCount { get; protected set; }
+        private List<ICurrency> _currencies = new List<ICurrency>();
 
         private IUnitProvider _unitProvider;
         private IBuildingProvider _buildingProvider;
+
+        public event Action<InteractionMode> OnInteractionModeChanged;
 
 
         [Inject]
@@ -57,12 +54,9 @@ namespace Game.Gameplay.Build
         {
             base.Awake();
 
-            currencies.Add(new CurrencyBase(ResourceNames.GOLD, 50, 100));
-            currencies.Add(new CurrencyBase(ResourceNames.TREE, 50, 100));
+            _currencies.Add(new CurrencyBase(StatsNames.GOLD, 50, 100));
+            _currencies.Add(new CurrencyBase(StatsNames.TREE, 50, 100));
         }
-
-
-
 
         public override void Interact()
         {
@@ -95,17 +89,23 @@ namespace Game.Gameplay.Build
         {
             base.SetStats();
 
-            _entityStats.Add(GetCurrencyByName(ResourceNames.GOLD));
-            _entityStats.Add(GetCurrencyByName(ResourceNames.TREE));
+            _entityStats.Add(GetCurrencyByName(StatsNames.GOLD));
+            _entityStats.Add(GetCurrencyByName(StatsNames.TREE));
         }
 
         protected override void SetStatsView()
         {
             base.SetStatsView();
 
-            uiStatsContainer?.AddBar(_entityStats[0]);
-            uiStatsContainer?.AddBar(_entityStats[1]);
-            uiStatsContainer?.AddBar(_entityStats[2]);
+
+            foreach (var item in _entityStats)
+            {
+                if (item.Name == StatsNames.HEALTH)
+                {
+                    uiStatsContainer?.AddBar(item);
+                    return;
+                }
+            }
         }
 
 
@@ -132,7 +132,7 @@ namespace Game.Gameplay.Build
             GetCurrencyByName(name).Add(amount);
         }
 
-        public bool SpendCurrencyByName(string name, int amount) 
+        public bool SpendCurrencyByName(string name, int amount)
         {
             return GetCurrencyByName(name).Spend(amount);
         }
