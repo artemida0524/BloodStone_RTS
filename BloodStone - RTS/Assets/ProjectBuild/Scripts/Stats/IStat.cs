@@ -8,8 +8,5 @@ namespace Game.Gameplay.Stats
 		int MaxCount { get; }
         int Count { get; }
 		event EventHandler OnDataChange;
-
-
     }
-
 }

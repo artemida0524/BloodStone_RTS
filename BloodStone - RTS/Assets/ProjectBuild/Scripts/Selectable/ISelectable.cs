@@ -5,7 +5,7 @@ namespace Game.Gameplay.Selection
 {
     public interface ISelectable : IEntity
     {
-        bool IsSelection { get; }
+        bool IsSelected { get; }
         bool CanSelected { get; }
         IOption Options { get; }
         EntityInfoSO EntityInfo { get; }

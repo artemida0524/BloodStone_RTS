@@ -52,6 +52,11 @@ namespace GlobalData
             return _allUnits.OfType<T>();
         }
 
+        public IEnumerable<T> GetUnits<T>(Func<T, bool> predicate)
+        {
+            return _allUnits.OfType<T>().Where(predicate);
+        }
+
         public void AddUnit(UnitBase unit)
         {
 
@@ -74,5 +79,7 @@ namespace GlobalData
         {
             _allUnits.Remove(unit);
         }
+
+
     } 
 }

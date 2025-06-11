@@ -240,7 +240,7 @@ namespace State
             {
                 if (unit.StateInteractable.MoveState.State.IsFinished)
                 {
-                    storage.AddCurrencyByName(ResourceNames.TREE, unit.TreeCurrency.SpendAll());
+                    storage.AddCurrencyByName(StatsNames.TREE, unit.TreeCurrency.SpendAll());
                     IsFinished = true;
                 }
             }

@@ -65,7 +65,7 @@ namespace Game.Gameplay.Construction
                         if (_buildsData.GlobalBuildsGridData.CanBuildInGrid(_currentBuild, new Vector3Int((int)hitInfo.point.x, (int)hitInfo.point.y, (int)hitInfo.point.z)))
                         {
                             _buildsData.AddBuild(_currentBuild);
-                            _faction.Data.ChangeInteractionMode(InteractionMode.None);
+                            _faction.ChangeInteractionMode(InteractionMode.None);
                             _currentBuild.Unvisualize();
                             _currentBuild.Build(BuildType.NotBuilt);
                             _currentBuild = null; 
@@ -77,7 +77,7 @@ namespace Game.Gameplay.Construction
 
         private void OnDisable()
         {
-            _faction.Data.ChangeInteractionMode(InteractionMode.None);
+            _faction.ChangeInteractionMode(InteractionMode.None);
         }
 
         public void SetBuild(BuildBase instance)
@@ -85,7 +85,7 @@ namespace Game.Gameplay.Construction
             if (!_currentBuild)
             {
                 _currentBuild = instance;
-                _faction.Data.ChangeInteractionMode(InteractionMode.Build);
+                _faction.ChangeInteractionMode(InteractionMode.Build);
                 _currentBuild.Visualize();
             }
         }

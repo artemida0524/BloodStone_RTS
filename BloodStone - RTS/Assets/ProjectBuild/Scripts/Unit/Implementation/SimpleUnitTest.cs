@@ -11,7 +11,9 @@ namespace Unit
         {
             base.Awake();
             audioSourceHandler.Init();
-        }
 
+
+        }
     }
+
 }

@@ -90,7 +90,7 @@ namespace Select
                             {
                                 if (item is UnitBase unit)
                                 {
-                                    unit.SetState(new MoveState(unit, GetPosition(), 0));
+                                    unit.PerformAction(GetPosition());
                                 }
                             }
                             catch (System.Exception ex)

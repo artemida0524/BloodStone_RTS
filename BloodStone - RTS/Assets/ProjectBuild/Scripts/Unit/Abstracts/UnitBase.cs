@@ -12,6 +12,7 @@ using Game.Gameplay.Selection;
 using Game.Gameplay.Units.Utils;
 using Game.Gameplay.Options;
 using Game.Gameplay.Stats;
+using Select;
 
 namespace Game.Gameplay.Units
 {
@@ -20,14 +21,16 @@ namespace Game.Gameplay.Units
     [RequireComponent(typeof(CapsuleCollider))]
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(PoolObjectEntity))]
-    public abstract class UnitBase : EntityBase, IUnit, IMovable, ISelectable, IHealthable, IDamageable, IHoverable, IPooledObject, IEntityStats
+    public abstract class UnitBase : EntityBase, IUnit, IMovable, ISelectable, IRightClickAction, IHealthable, IDamageable, IHoverable, IPooledObject, IEntityStats
     {
         [field: SerializeField] public override Renderer BodyRenderer { get; protected set; }
         [field: SerializeField] public UIStatsContainerViewBase UIStatsContainer { get; protected set; }
         [field: SerializeField] public InteractableUnits StateInteractable { get; protected set; } = new InteractableUnits();
+        [field: SerializeField] public int HousingCost { get; protected set; } = 1;
 
         [SerializeField] protected GameObject selectObject;
         [SerializeField] protected PoolObjectEntity poolObjectEntity;
+
 
         public override Vector3 Position => transform.position;
         public override float Radius => 0;
@@ -41,7 +44,7 @@ namespace Game.Gameplay.Units
         public Animator Animator { get; private set; }
 
         public bool CanMove { get; protected set; } = true;
-        public bool IsSelection { get; protected set; } = false;
+        public bool IsSelected { get; protected set; } = false;
         public bool CanSelected { get; protected set; } = true;
 
         public IOption Options { get; protected set; }
@@ -161,7 +164,7 @@ namespace Game.Gameplay.Units
         {
             if (CanSelected)
             {
-                IsSelection = true;
+                IsSelected = true;
                 selectObject.SetActive(true);
                 return true;
             }
@@ -170,7 +173,7 @@ namespace Game.Gameplay.Units
 
         public virtual void Unselect()
         {
-            IsSelection = false;
+            IsSelected = false;
             selectObject.SetActive(false);
         }
 
@@ -220,6 +223,14 @@ namespace Game.Gameplay.Units
         {
             _alreadyInit = false;
             SetState(null);
+        }
+
+        public virtual void PerformAction(Vector3 position)
+        {
+            if (CanMove)
+            {
+                SetState(new MoveState(this, position, 0)); 
+            }
         }
     }
 }

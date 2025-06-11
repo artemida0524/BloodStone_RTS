@@ -6,7 +6,6 @@ using Game.Gameplay.Build.Providers;
 
 public class PutNewBuild : MonoBehaviour
 {
-    [SerializeField] private BuildInteractableBase build;
 
     private IBuildingSystemProvider _buildingSystemProvider;
     private PoolProviderTest _poolProvider;
@@ -22,7 +21,7 @@ public class PutNewBuild : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.N))
         {
-            BuildBase build = _poolProvider.Pull("GenerateNewSimpleUnit").GetOwner<BuildBase>();
+            BuildBase build = _poolProvider.Pull(PoolsNames.HUT).GetOwner<BuildBase>();
             build.gameObject.SetActive(true);
             _buildingSystemProvider.SetBuild(build);
         }

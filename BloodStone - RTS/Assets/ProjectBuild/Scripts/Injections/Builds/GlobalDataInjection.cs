@@ -1,8 +1,8 @@
 using Zenject;
 using GlobalData;
-using Build;
 using UnityEngine;
 using Scripts.ObjectPool.Provider;
+using Game.Gameplay.Units;
 
 public class GlobalDataInjection : MonoInstaller
 {
@@ -20,5 +20,12 @@ public class GlobalDataInjection : MonoInstaller
             .AsSingle()
             .NonLazy()
             ;
+
+
+
+        Container
+            .BindInterfacesAndSelfTo<UnitCapacityService>()
+            .AsSingle();
+
     }
 }
