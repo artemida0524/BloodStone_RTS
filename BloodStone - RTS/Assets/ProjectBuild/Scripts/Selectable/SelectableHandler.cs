@@ -1,10 +1,12 @@
-﻿using Currency;
-using Entity;
+﻿using Game.Gameplay.Build;
+using Game.Gameplay.Selection;
+using Game.Gameplay.Units;
+using Game.Gameplay.Units.Utils;
+using Game.Gameplay.Entity;
 using Faction;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unit;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
@@ -14,7 +16,7 @@ namespace Select
     public class SelectableHandler : MonoBehaviour
     {
         [SerializeField] private RectTransform selectRect;
-        private Build.Faction faction;
+        private Headquarters faction;
 
         private Vector3 startPosition;
         private Vector3 endPosition;
@@ -35,21 +37,38 @@ namespace Select
         public event Action<IReadOnlyList<ISelectable>> OnSelectedUnits;
 
         [Inject]
-        private void Construct(Build.Faction faction)
+        private void Construct(Headquarters faction)
         {
             this.faction = faction;
         }
 
-        private void Awake()
+        public void Init()
         {
             camera = Camera.main;
 
             UnitUtility.OnUnitDisableOrDestroy += OnUnitDisableOrDestroyHandler;
+            BuildUtility.OnBuildDisableOrDestroy += OnBuildDisableOrDestroyHandler;
+            faction.OnFactionTypeChanged += OnFactionTypeChangedHandler;
+        }
+
+        private void OnFactionTypeChangedHandler(FactionType type)
+        {
+
+        }
+
+        private void OnBuildDisableOrDestroyHandler(BuildBase build)
+        {
+            if (selectables.Contains(build as ISelectable))
+            {
+                selectables.Remove(build as ISelectable);
+
+                OnSelectedUnits?.Invoke(selectables);
+            }
         }
 
         private void OnUnitDisableOrDestroyHandler(UnitBase unit)
         {
-            if(selectables.Contains(unit))
+            if (selectables.Contains(unit))
             {
                 selectables.Remove(unit);
 
@@ -59,14 +78,14 @@ namespace Select
 
         private void Update()
         {
-            if (faction.Data.InteractionMode != InteractionMode.Build)
+            if (faction.InteractionMode != InteractionMode.Build)
             {
                 if (!EventSystem.current.IsPointerOverGameObject())
                 {
                     HandleClickSelection();
-                    HandleHoverEffect();
                 }
                 HandleDragSelection();
+                HandleHoverEffect();
             }
         }
 
@@ -77,12 +96,21 @@ namespace Select
                 Ray ray = camera.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out RaycastHit hitInfo))
                 {
-                    if (hitInfo.collider.TryGetComponent(out ISelectable unit))
+                    if (hitInfo.collider.TryGetComponent(out ISelectable selectable))
                     {
-                        EntityBase entity = unit as EntityBase;
-                        if (entity.FactionType == faction.FactionType)
+                        if (selectable.FactionType == faction.FactionType)
                         {
-                            ToggleUnitSelection(unit);
+
+                            if (selectable is BuildBase build)
+                            {
+                                ToggleBuildSelection(selectable);
+                            }
+                            else
+                            {
+                                ToggleUnitSelection(selectable);
+
+                            }
+
                         }
                     }
                     else
@@ -96,7 +124,7 @@ namespace Select
 
         private void HandleDragSelection()
         {
-            if (Input.GetMouseButtonDown(0) && (faction.Data.InteractionMode == InteractionMode.None || faction.Data.InteractionMode == InteractionMode.Setable))
+            if (Input.GetMouseButtonDown(0) && (faction.InteractionMode == InteractionMode.None || faction.InteractionMode == InteractionMode.Setable))
             {
                 if (!EventSystem.current.IsPointerOverGameObject())
                 {
@@ -114,7 +142,7 @@ namespace Select
                     isDragging = true;
                     selectRect.gameObject.SetActive(true);
                     selectRect.sizeDelta = Vector2.zero;
-                    faction.Data.ChangeInteractionMode(InteractionMode.Selectable);
+                    faction.ChangeInteractionMode(InteractionMode.Selectable);
                     Unselect();
                 }
             }
@@ -138,7 +166,7 @@ namespace Select
                     selectRect.gameObject.SetActive(false);
 
                     Rect rect = new Rect(pivotPosition, size);
-                    IEnumerable<ISelectable> myEntities = faction.Data.GetAll<ISelectable>().Where(unit => (unit as EntityBase).FactionType == faction.FactionType);
+                    IEnumerable<ISelectable> myEntities = faction.Data.GetAll<ISelectable>().Where(select => select is UnitBase unit && unit.FactionType == faction.FactionType);
 
                     foreach (var item in myEntities)
                     {
@@ -171,11 +199,16 @@ namespace Select
             {
                 if (hitInfo.collider.TryGetComponent(out IHoverable newHover))
                 {
-                    if (currentHover != newHover)
+                    FactionType type = (newHover as IEntity).FactionType;
+
+                    if (type == faction.FactionType || type == FactionType.Systems)
                     {
-                        currentHover?.Unhover();
-                        currentHover = newHover;
-                        currentHover.Hover();
+                        if (currentHover != newHover)
+                        {
+                            currentHover?.Unhover();
+                            currentHover = newHover;
+                            currentHover.Hover();
+                        }
                     }
                 }
                 else
@@ -184,6 +217,12 @@ namespace Select
                     currentHover = null;
                 }
             }
+        }
+
+        private void UnselectEntity(ISelectable select)
+        {
+            select.Unselect();
+            selectables.Remove(select);
         }
 
         private void UnselectUnits()
@@ -214,7 +253,19 @@ namespace Select
 
         private void ToggleUnitSelection(ISelectable select)
         {
-            if (select.IsSelection)
+            List<ISelectable> copy = new List<ISelectable>(selectables);
+            
+            foreach (var item in copy)
+            {
+                if(item is BuildBase)
+                {
+                    UnselectEntity(item);
+                }
+            }
+
+            selectables = copy;
+
+            if (select.IsSelected)
             {
                 select.Unselect();
                 selectables.Remove(select);
@@ -226,10 +277,25 @@ namespace Select
             OnSelectedUnits?.Invoke(selectables);
         }
 
+        private void ToggleBuildSelection(ISelectable select)
+        {
+            if (select.IsSelected)
+            {
+                select.Unselect();
+                selectables.Remove(select);
+            }
+            else if (select.Select())
+            {
+                Unselect();
+                selectables.Add(select);
+            }
+            OnSelectedUnits?.Invoke(selectables);
+        }
+
         private void UpdateInteractionMode()
         {
             var mode = selectables.Count > 0 ? InteractionMode.Setable : InteractionMode.None;
-            faction.Data.ChangeInteractionMode(mode);
+            faction.ChangeInteractionMode(mode);
         }
     }
 }

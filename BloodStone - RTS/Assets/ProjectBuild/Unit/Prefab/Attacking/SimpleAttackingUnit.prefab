@@ -646,6 +646,7 @@ GameObject:
   - component: {fileID: 1462214228354834202}
   - component: {fileID: 8435683056205260828}
   - component: {fileID: 487589541590830845}
+  - component: {fileID: 1559295960038444613}
   m_Layer: 0
   m_Name: SimpleAttackingUnit
   m_TagString: Untagged
@@ -780,17 +781,15 @@ MonoBehaviour:
   <FactionType>k__BackingField: 2
   <EntityInfo>k__BackingField: {fileID: 11400000, guid: 79f9e838c5d691c45968f9d3540c80d1, type: 2}
   <BodyRenderer>k__BackingField: {fileID: 5946744539415257584}
-  <UIBarContainer>k__BackingField: {fileID: 0}
+  <UIStatsContainer>k__BackingField: {fileID: 0}
   <StateInteractable>k__BackingField:
     <Radius>k__BackingField: 5
   selectObject: {fileID: 8600123103346867634}
-  <MaxCountHealth>k__BackingField: 100
-  <CountHealth>k__BackingField: 100
+  poolObjectEntity: {fileID: 1559295960038444613}
   <LeftTargetWeapon>k__BackingField: {fileID: 4471172190705330145}
   <RightTargetWeapon>k__BackingField: {fileID: 6082267600518675560}
-  <CurrentWeapon>k__BackingField: {fileID: 6467472800866572565, guid: dc4210a3491ba9d4a8ce513136df78e2, type: 3}
-  <Melle>k__BackingField: {fileID: 7180483273294464134, guid: e14c9976bd76c6543ae6798321a8620f, type: 3}
   <AnimationEventCallBalck>k__BackingField: {fileID: 487589541590830845}
+  beginWeapon: {fileID: 6467472800866572565, guid: dc4210a3491ba9d4a8ce513136df78e2, type: 3}
 --- !u!114 &487589541590830845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -803,6 +802,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fcd7c7a9df141943bab507d21034fff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1559295960038444613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2942237860360911256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf17c8281e796b4991a95da59f1e029, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _owner: {fileID: 2942237860360911256}
 --- !u!1 &3130875864714978122
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,8 +1,8 @@
-﻿using Build;
+﻿using Game.Gameplay.Build;
+using Game.Gameplay.Entity;
+using Game.Gameplay.Units;
 using Currency;
-using Entity;
 using GlobalData;
-using Unit;
 using UnityEngine;
 
 namespace State
@@ -12,14 +12,16 @@ namespace State
         private readonly ChopTreeWorkerUnit unit;
         private readonly ICurrencyStorage storage;
         private TreeBuildBase tree;
+        private IBuildingProvider _buildingProvider;
 
         private StateMachine machine = new StateMachine(null);
 
-        public ChopTreeState(ChopTreeWorkerUnit unit, TreeBuildBase tree, ICurrencyStorage storage)
+        public ChopTreeState(ChopTreeWorkerUnit unit, TreeBuildBase tree, ICurrencyStorage storage, IBuildingProvider buildingProvider)
         {
             this.unit = unit;
             this.tree = tree;
             this.storage = storage;
+            _buildingProvider = buildingProvider;
         }
 
         public override void Enter()
@@ -72,7 +74,7 @@ namespace State
         {
             tree.OnTreeOver -= OnTreeOverHandler;
 
-            TreeBuildBase newTree = GlobalBuildsDataHandler.GetBuilds<TreeBuildBase>(tree => !tree.Equals(this.tree) && !tree.IsDone).NearestEntity(tree);
+            TreeBuildBase newTree = _buildingProvider.GetBuilds<TreeBuildBase>(tree => !tree.Equals(this.tree) && !tree.IsDone).NearestEntity(tree);
 
             if (newTree == null)
             {
@@ -146,8 +148,8 @@ namespace State
 
             public override void Enter()
             {
-                unit.AnimationEventCallBack.OnCall += OnCallHandler;
-                unit.Animator.Play("Chop");
+                unit.AnimationEventCallBack.OnChopTree += OnCallHandler;
+                unit.Animator.Play(AnimationStateNames.CHOP_TREE);
                 Debug.Log("Enter");
             }
 
@@ -187,7 +189,7 @@ namespace State
             }
             public override void Exit()
             {
-                unit.AnimationEventCallBack.OnCall -= OnCallHandler;
+                unit.AnimationEventCallBack.OnChopTree -= OnCallHandler;
             }
         }
 
@@ -211,7 +213,7 @@ namespace State
             {
                 if (unit.StateInteractable.MoveState.State.IsFinished)
                 {
-                    storage.AddCurrencyByType(unit.TreeCurrency, unit.TreeCurrency.SpendAll());
+                    storage.AddCurrencyByName(unit.TreeCurrency.Name, unit.TreeCurrency.SpendAll());
                     IsFinished = true;
                 }
             }
@@ -238,7 +240,7 @@ namespace State
             {
                 if (unit.StateInteractable.MoveState.State.IsFinished)
                 {
-                    storage.AddCurrencyByType(unit.TreeCurrency, unit.TreeCurrency.SpendAll());
+                    storage.AddCurrencyByName(StatsNames.TREE, unit.TreeCurrency.SpendAll());
                     IsFinished = true;
                 }
             }

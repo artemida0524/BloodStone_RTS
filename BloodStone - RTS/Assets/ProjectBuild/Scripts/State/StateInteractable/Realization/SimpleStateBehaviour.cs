@@ -1,3 +1,4 @@
+using Game.Gameplay.Units;
 using Unit;
 using UnityEngine;
 
@@ -20,14 +21,13 @@ namespace State
 
         public override void SetState(StateBase state)
         {
-            Debug.Log("change");
 
             StateMachine.ChangeState(state);
         }
 
         public override void SetStateIfFinished()
         {
-            StateMachine.ChangeState(new IdleState(unit));
+            unit.SetState(new IdleState(unit));
         }
     }
 

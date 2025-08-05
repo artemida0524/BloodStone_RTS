@@ -178,6 +178,7 @@ GameObject:
   - component: {fileID: 199074188498730598}
   - component: {fileID: 1701982268651859141}
   - component: {fileID: 2650626758126855351}
+  - component: {fileID: 1523650595957330581}
   m_Layer: 0
   m_Name: Tree
   m_TagString: Untagged
@@ -255,11 +256,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <FactionType>k__BackingField: 0
   <EntityInfo>k__BackingField: {fileID: 11400000, guid: 0c413ad6180e3484db8cd4207e367bbe, type: 2}
-  <Height>k__BackingField: 2
-  <Width>k__BackingField: 2
+  <Height>k__BackingField: 1
+  <Width>k__BackingField: 1
   <BodyRenderer>k__BackingField: {fileID: 2271689959218944766}
+  poolObjectEntity: {fileID: 0}
+  visual: {fileID: 0}
   selectObject: {fileID: 5478979531362042970}
+  <MaxCountHealth>k__BackingField: 100
+  <CountHealth>k__BackingField: 0
   chopWorkerUnit: {fileID: 7941688124854246978, guid: d3f7a2ef0e2dd614caa535ce48cbcbdf, type: 3}
+--- !u!114 &1523650595957330581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6244068370972455007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf17c8281e796b4991a95da59f1e029, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _owner: {fileID: 6244068370972455007}
 --- !u!1 &7527434083491911283
 GameObject:
   m_ObjectHideFlags: 0

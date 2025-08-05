@@ -1,26 +1,26 @@
 ﻿using UnityEngine;
-using Option;
 using State;
-using Interaction;
-using System.Collections.Generic;
-using Select;
-using UnityEngine.XR;
+using Zenject;
+using GlobalData;
+using Game.Gameplay.Options;
 
-namespace Unit
+namespace Game.Gameplay.Units
 {
     [RequireComponent(typeof(AnimationEventCallBackWoker))]
     public abstract class WorkerUnitBase : UnitBase
     {
-        [field :SerializeField] public AnimationEventCallBackWoker AnimationEventCallBack { get; protected set; }
+        [field: SerializeField] public AnimationEventCallBackWoker AnimationEventCallBack { get; protected set; }
 
-        protected override void Update()
+        private IBuildingProvider _buildingProvider;
+
+
+        [Inject]
+        private void Construct(IBuildingProvider buildingProvider)
         {
-            base.Update();
-
-            //Debug.Log(StateInteractable.Behaviour.StateMachine.State + " " + name);
+            _buildingProvider = buildingProvider;
         }
 
-        
+
         public override bool MoveTo(Vector3 point, float radius)
         {
             if (CanMove)
@@ -33,7 +33,7 @@ namespace Unit
 
         public override IOption InitOption()
         {
-            return new OptionWorkerUnit(this);
+            return new OptionWorkerUnit(this, _buildingProvider);
         }
 
         protected override StateBehaviourBase InitializeState()

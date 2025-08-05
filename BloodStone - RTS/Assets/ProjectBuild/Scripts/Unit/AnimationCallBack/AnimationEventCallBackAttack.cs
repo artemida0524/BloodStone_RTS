@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Unit
+namespace Game.Gameplay.Units.Animation
 {
 
 
@@ -18,7 +18,7 @@ namespace Unit
             OnBeginAttack?.Invoke();
         }
 
-        private void OnEndAttackCallBack()
+        private void EndAttackCallBack()
         {
             OnEndAttack?.Invoke();
         }

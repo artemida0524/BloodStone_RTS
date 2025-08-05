@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Option
+namespace Game.Gameplay.Options
 {
     public interface IOption
     {

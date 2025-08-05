@@ -1,30 +1,30 @@
-﻿using Build;
-using Currency;
-using GlobalData;
-using State;
+﻿using GlobalData;
 using System.Collections.Generic;
 using System.Linq;
 using Unit;
 using UnityEngine;
-using Entity;
+using Game.Gameplay.Entity;
+using Game.Gameplay.Build;
+using Game.Gameplay.Units;
 
-namespace Option
+namespace Game.Gameplay.Options
 {
-
+    
     public class OptionWorkerUnit : OptionUnitBase
     {
         private TreasureBuild treasureBuild;
         private WorkerUnitBase workerUnit;
-        public OptionWorkerUnit(WorkerUnitBase unit) : base(unit)
+
+        public OptionWorkerUnit(WorkerUnitBase unit, IBuildingProvider buildingProvider) : base(unit)
         {
             this.workerUnit = unit;
-            Build.Faction faction = GlobalBuildsDataHandler.GetBuilds<Build.Faction>().First(a => a.FactionType == unit.FactionType);
-            treasureBuild = GlobalBuildsDataHandler.GetBuilds<TreasureBuild>().NearestEntity(unit);
+            Headquarters faction = buildingProvider.GetBuilds<Headquarters>().First(a => a.FactionType == unit.FactionType);
+            treasureBuild = buildingProvider.GetBuilds<TreasureBuild>().NearestEntity(unit);
 
-            options.Add(new DoActionOption() { Action =  AAAa, myEnum = ActionType.Once, Name = "Work1" });
+            options.Add(new DoActionOption() { Action =  TestFunction, myEnum = ActionType.Once, Name = "Work1" });
         }
 
-        private void AAAa()
+        private void TestFunction()
         {
             treasureBuild.Interact(new List<WorkerUnitBase>() { workerUnit });
         }

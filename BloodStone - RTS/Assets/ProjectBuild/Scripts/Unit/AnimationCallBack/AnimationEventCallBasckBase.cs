@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Unit
+namespace Game.Gameplay.Units.Animation
 {
     public class AnimationEventCallBasckBase : MonoBehaviour
     {

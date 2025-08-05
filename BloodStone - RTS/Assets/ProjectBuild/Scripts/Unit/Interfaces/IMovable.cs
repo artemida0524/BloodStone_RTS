@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Unit
+namespace Game.Gameplay
 {
     public interface IMovable
     {

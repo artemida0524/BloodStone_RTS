@@ -1,42 +1,53 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unit;
-using UnityEngine;
-using Build;
 using GlobalData;
+using Game.Gameplay.Units.Providers;
+using Game.Gameplay.Entity;
 
 namespace Faction
 {
-    [Serializable]
     public class FactionDataHandler
     {
-        public InteractionMode InteractionMode { get; private set; }
+        private IUnitProvider _unitsProvider;
+        private IBuildingProvider _buildingProvider;
+        private FactionType _factionType;
 
-        public event Action<InteractionMode> OnInteractionModeChanged;
-
-        public void ChangeInteractionMode(InteractionMode interactionMode)
+        public FactionDataHandler(IBuildingProvider buildingProvider, IUnitProvider unitsProvider, FactionType factionType)
         {
-            InteractionMode = interactionMode;
-            OnInteractionModeChanged?.Invoke(interactionMode);
+            _buildingProvider = buildingProvider;
+            _unitsProvider = unitsProvider;
+            _factionType = factionType;
         }
 
-        public List<T> GetUnits<T>()
+        public IEnumerable<T> GetUnits<T>() where T : IEntity
         {
-            List<T> units = GlobalUnitsDataHandler.GetUnits<T>();
+            IEnumerable<T> units = _unitsProvider.GetUnits<T>().Where(unit => unit.FactionType == _factionType);
+            return units;   
+        }
+
+        public IEnumerable<T> GetUnits<T>(Func<T, bool> predicat) where T : IEntity
+        {
+            IEnumerable<T> units = _unitsProvider.GetUnits<T>(predicat).Where(unit => unit.FactionType == _factionType);
             return units;
         }
-        
-        public List<T> GetBuilds<T>()
+
+        public IEnumerable<T> GetBuilds<T>() where T : IEntity
         {
-            List<T> builds = GlobalBuildsDataHandler.GetBuilds<T>();
+            IEnumerable<T> builds = _buildingProvider.GetBuilds<T>().Where(build => build.FactionType == _factionType);
             return builds;
         }
 
-        public List<T> GetAll<T>()
+        public IEnumerable<T> GetBuilds<T>(Func<T, bool> predicat) where T : IEntity
         {
-            var units = GetUnits<T>().OfType<T>();
-            var builds = GetBuilds<T>().OfType<T>();
+            IEnumerable<T> units = _buildingProvider.GetBuilds<T>(predicat).Where(build => build.FactionType == _factionType);
+            return units;
+        }
+
+        public List<T> GetAll<T>() where T : IEntity
+        {
+            IEnumerable<T> units = GetUnits<T>().OfType<T>();
+            IEnumerable<T> builds = GetBuilds<T>().OfType<T>();
 
             List<T> result = new List<T>();
 
@@ -45,7 +56,5 @@ namespace Faction
 
             return result;
         }
-
-
     }
 }

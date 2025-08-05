@@ -1,4 +1,6 @@
-﻿using Entity;
+﻿using Game.Gameplay;
+using Game.Gameplay.Units;
+using Game.Gameplay.Entity;
 using Unit;
 using UnityEngine;
 
@@ -26,10 +28,9 @@ namespace State
 
             if (colliders.Length > 0)
             {
-
                 foreach (var item in colliders)
                 {
-                    if (item.TryGetComponent(out EntityBase entity))
+                    if (item.TryGetComponent(out IDamageable entity))
                     {
                         if (entity.FactionType != this.unit.FactionType && entity.FactionType != Faction.FactionType.Systems)
                         {

@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c0a95476a433f049a670ff79aa23f6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Distance>k__BackingField: 2
-  <CooldownTime>k__BackingField: 1.2
+  <Distance>k__BackingField: 1.7
+  <CooldownTime>k__BackingField: 2
   <CanShooting>k__BackingField: 1
   <weaponLocation>k__BackingField: 1

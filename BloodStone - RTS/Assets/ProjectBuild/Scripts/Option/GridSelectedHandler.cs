@@ -1,12 +1,10 @@
+using Game.Gameplay.Selection;
 using Select;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
-using Unit;
-using Weapon;
-using UnityEngine.UI;
 
-namespace Option
+namespace Game.Gameplay.Options
 {
     public class GridSelectedHandler : MonoBehaviour
     {

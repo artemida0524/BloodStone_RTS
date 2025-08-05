@@ -2,8 +2,9 @@ using Faction;
 using System;
 using UnityEngine;
 
-namespace Entity
+namespace Game.Gameplay.Entity
 {
+    [DisallowMultipleComponent]
     public abstract class EntityBase : MonoBehaviour, IEntity
     {
         public abstract Renderer BodyRenderer { get; protected set; } 
@@ -12,19 +13,20 @@ namespace Entity
         [field: SerializeField] public FactionType FactionType { get; protected set; }
         [field: SerializeField] public EntityInfoSO EntityInfo { get; protected set; }
         
-        public event Action OnFactionChanged;
+        public virtual bool CanInteraction { get; set; } = true;    
 
-        public void ChangeFaction(FactionType faction)
+        public event Action<FactionType> OnFactionTypeChanged;
+
+        public void ChangeFactiontype(FactionType faction)
         {
             FactionType = faction;
-            OnFactionChanged?.Invoke();
+            OnFactionTypeChanged?.Invoke(FactionType);
         }
 
-        public virtual void InitializationEntity(FactionType type)
+        public virtual void SetFactionType(FactionType type)
         {
             this.FactionType = type;
         }
-
 
         public void Delete()
         {

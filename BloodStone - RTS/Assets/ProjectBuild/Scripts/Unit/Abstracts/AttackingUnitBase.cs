@@ -1,34 +1,52 @@
-using Entity;
+using Game.Gameplay.Entity;
+using Game.Gameplay.Units.Animation;
 using State;
+using System;
 using UnityEngine;
 using Weapon;
 
-namespace Unit
+namespace Game.Gameplay.Units
 {
     [RequireComponent(typeof(AnimationEventCallBackAttack))]
     public abstract class AttackingUnitBase : UnitBase
     {
-        [field: SerializeField] public Transform LeftTargetWeapon { get; protected set; }
-        [field: SerializeField] public Transform RightTargetWeapon { get; protected set; }
+        [field: SerializeField]
+        public Transform LeftTargetWeapon { get; protected set; }
 
-        [field: SerializeField] public WeaponBase CurrentWeapon { get; protected set; }
-        [field: SerializeField] public WeaponBase Melle { get; protected set; }
-        [field: SerializeField] public AnimationEventCallBackAttack AnimationEventCallBalck { get; protected set; }
+        [field: SerializeField]
+        public Transform RightTargetWeapon { get; protected set; }
 
-        protected bool alreadyInitialized = false;
+        [field: SerializeField]
+        public AnimationEventCallBackAttack AnimationEventCallBalck { get; protected set; }
+
+        [SerializeField]
+        protected WeaponBase beginWeapon;
+
+        protected WeaponBase _currentWeapon;
+        public virtual WeaponBase CurrentWeapon
+        {
+            get
+            {
+                if (_currentWeapon == null)
+                {
+                    SetWeapon(beginWeapon);
+                }
+                return _currentWeapon;
+            }
+
+            set
+            {
+                SetWeapon(value);
+            }
+        }
+
+        public event Action<WeaponBase> OnWeaponChanged;
 
         public override string IdleAnimation
         {
             get
             {
-                if (!alreadyInitialized)
-                {
-                    InitializationWeapon();
-                    alreadyInitialized = true;
-                }
-
                 return CurrentWeapon.IdleAnimation;
-
             }
             protected set { }
         }
@@ -36,12 +54,6 @@ namespace Unit
         {
             get
             {
-                if (!alreadyInitialized)
-                {
-                    InitializationWeapon();
-                    alreadyInitialized = true;
-                }
-
                 return CurrentWeapon.WalkingAnimation;
             }
             protected set { }
@@ -50,22 +62,25 @@ namespace Unit
         {
             get
             {
-                if (!alreadyInitialized)
-                {
-                    InitializationWeapon();
-                    alreadyInitialized = true;
-                }
-
                 return CurrentWeapon.RunningAnimation;
             }
             protected set { }
         }
 
+        protected override void Start()
+        {
+            base.Start();
+
+            if (_currentWeapon == null)
+            {
+                InitializationWeapon();
+            }
+        }
 
         protected override void Update()
         {
+            //Debug.Log(StateInteractable.Behaviour.StateMachine.State);
             base.Update();
-            //Debug.Log(StateInteractable.Behaviour.StateMachine.State + " " + name);
         }
 
         protected override StateBehaviourBase InitializeState()
@@ -75,6 +90,7 @@ namespace Unit
 
         public override bool MoveTo(Vector3 point, float radius)
         {
+
             if (CanMove)
             {
                 StateInteractable.MoveState.ChangeState(new RunningState(this, point, radius));
@@ -82,49 +98,60 @@ namespace Unit
             return CanMove;
         }
 
+        public bool MoveTo(MovableStateBase myMovable)
+        {
+            if (CanMove)
+            {
+                StateInteractable.MoveState.ChangeState(myMovable);
+            }
+            return CanMove;
+        }
+
         protected void SetWeapon(WeaponBase weapon)
         {
+
+            if (_currentWeapon != null)
+            {
+                ResetWeapon();
+            }
+
             switch (weapon.weaponLocation)
             {
                 case WeaponLocation.LeftHand:
-                    CurrentWeapon = Instantiate(weapon, LeftTargetWeapon);
+                    _currentWeapon = Instantiate(weapon, LeftTargetWeapon);
                     break;
                 case WeaponLocation.RightHand:
-                    CurrentWeapon = Instantiate(weapon, RightTargetWeapon);
+                    _currentWeapon = Instantiate(weapon, RightTargetWeapon);
                     break;
             }
-            CurrentWeapon.transform.localPosition = Vector3.zero;
+            _currentWeapon.Unit = this;
+            _currentWeapon.transform.localPosition = Vector3.zero;
+
+
+            OnWeaponChanged?.Invoke(_currentWeapon);
+
+        }
+        protected void ResetWeapon()
+        {
+            Destroy(_currentWeapon.gameObject);
+            _currentWeapon = null;
         }
 
         public bool CanShoot()
         {
-            return CurrentWeapon.CanShoot();
+            return _currentWeapon.CanShoot();
         }
 
         public void Shoot(EntityBase enemyEntity)
         {
-            CurrentWeapon.Shoot(enemyEntity);
+            _currentWeapon.Shoot(enemyEntity);
         }
-
 
         protected void InitializationWeapon()
         {
-
-            if (CurrentWeapon != null)
-            {
-                SetWeapon(CurrentWeapon);
-            }
-            else
-            {
-                SetWeapon(Melle);
-            }
-
-
-            CurrentWeapon.Unit = this;
-
+            SetWeapon(beginWeapon);
         }
-
-
-
     }
 }
+
+

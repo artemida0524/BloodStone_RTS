@@ -1,17 +1,12 @@
-﻿using Palmmedia.ReportGenerator.Core.Reporting.Builders;
-using State;
+﻿using System;
 using UnityEngine;
 
-namespace Unit
+namespace Game.Gameplay.Units
 {
+
     public class WearWorkerUnit : WorkerUnitBase
     {
-        protected override void Update()
-        {
-            base.Update();
-
-
-        }
+        [field: SerializeField] public int Amount { get; protected set; } = 30;
     }
 
 }

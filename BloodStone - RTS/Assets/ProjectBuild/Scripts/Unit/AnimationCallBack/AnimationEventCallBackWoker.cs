@@ -1,13 +1,14 @@
-﻿using System;
+﻿using Game.Gameplay.Units.Animation;
+using System;
 
-namespace Unit
+namespace Game.Gameplay.Units
 {
     public class AnimationEventCallBackWoker : AnimationEventCallBasckBase
     {
-        public event Action OnCall;
-        private void CallBack()
+        public event Action OnChopTree;
+        private void OnChopTreeCallBack()
         {
-            OnCall?.Invoke();
+            OnChopTree?.Invoke();
         }
     }
 

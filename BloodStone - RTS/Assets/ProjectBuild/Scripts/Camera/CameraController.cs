@@ -1,43 +1,55 @@
 using Cinemachine;
-using UnityEditor.MemoryProfiler;
+using DG.Tweening;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+namespace GameCamera
 {
-    [SerializeField] private float speed;
-    [SerializeField] private float speedScrool;
-    [SerializeField] private float speedZoom;
-
-
-    private CinemachineVirtualCamera cCamera;
-    private float destinationZoom;
-
-    private float x;
-    private float z;
-
-    private void Start()
+    public class CameraController : MonoBehaviour
     {
-        cCamera = FindAnyObjectByType<CinemachineVirtualCamera>();
-        destinationZoom = cCamera.m_Lens.FieldOfView;
-    }
+        [SerializeField] private CinemachineVirtualCamera cinemachineCamera;
 
-    private void Update()
-    {
-        x = Input.GetAxis("Horizontal");
-        z = Input.GetAxis("Vertical");
+        [Header("Move Settings")]
+        [SerializeField] private float moveSpeed;
+        [SerializeField] private float clickMoveSpeed = 0.3f;
+        [SerializeField] private Ease ease;
+        [SerializeField] private LayerMask mask;
 
+        private ICameraMover _cameraMover;
+        private ICameraClickMover _cameraClickMover;
 
-        transform.position += new Vector3(x, 0, z) * Time.deltaTime * speed * (cCamera.m_Lens.FieldOfView / 10);
+        [Header("Scrool Settings")]
+        [SerializeField] private float scroolSpeed;
+        [SerializeField] private float smoothSpeed;
+        [SerializeField] private int minFOW = 40;
+        [SerializeField] private int maxFOW = 70;
 
-        float aa = Input.GetAxis("Mouse ScrollWheel") * speedScrool;
+        private ICameraZoom _cameraZoom;
 
-        if (aa != 0)
+        private void Awake()
         {
-            destinationZoom -= aa;
-            destinationZoom = Mathf.Clamp(destinationZoom, 40, 70);
+            _cameraMover = new MouseMove(transform, () => cinemachineCamera.m_Lens.FieldOfView, () => moveSpeed / 10);
+
+            // Uncomment the following line to use keyboard movement instead of mouse movement
+            //_cameraMover = new KeyMove(transform, () => cinemachineCamera.m_Lens.FieldOfView, () => moveSpeed);
+
+            _cameraZoom = new CameraScroolZoom(cinemachineCamera, () => scroolSpeed, () => smoothSpeed, () => minFOW, () => maxFOW);
+            _cameraClickMover = new MiddleClickCameraMover(transform, () => ease, () => clickMoveSpeed, mask);
         }
-        cCamera.m_Lens.FieldOfView = Mathf.Lerp(cCamera.m_Lens.FieldOfView, destinationZoom, Time.deltaTime * speedZoom);
 
+        private void LateUpdate()
+        {
+            _cameraZoom.Zoom();
+
+            _cameraMover.Move();
+            _cameraClickMover.Move();
+
+            if (_cameraMover.IsMoving)
+            {
+                if(_cameraClickMover.IsMoving)
+                {
+                    _cameraClickMover.Reset();
+                }
+            }
+        }
     }
-
 }

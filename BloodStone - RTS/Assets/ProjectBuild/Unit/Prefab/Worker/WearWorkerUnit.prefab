@@ -454,6 +454,7 @@ GameObject:
   - component: {fileID: 3447050923862001290}
   - component: {fileID: 918586796091715258}
   - component: {fileID: 6170580228389640641}
+  - component: {fileID: 2499190623328102324}
   m_Layer: 0
   m_Name: WearWorkerUnit
   m_TagString: Untagged
@@ -592,6 +593,7 @@ MonoBehaviour:
   <StateInteractable>k__BackingField:
     <Radius>k__BackingField: 5
   selectObject: {fileID: 7057050029944511833}
+  poolObjectEntity: {fileID: 2499190623328102324}
   <MaxCountHealth>k__BackingField: 100
   <CountHealth>k__BackingField: 100
   <AnimationEventCallBack>k__BackingField: {fileID: 6170580228389640641}
@@ -607,6 +609,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d87d3bd4c86704ea9479db9db26450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2499190623328102324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595021215114392742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf17c8281e796b4991a95da59f1e029, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _owner: {fileID: 595021215114392742}
 --- !u!1 &682249112442316290
 GameObject:
   m_ObjectHideFlags: 0

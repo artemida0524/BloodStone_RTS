@@ -1,8 +1,10 @@
-namespace Unit
+using Game.Gameplay.Entity;
+
+namespace Game.Gameplay.Units
 {
 
-    public interface IUnit 
+    public interface IUnit : IEntity
     {
-
+        int HousingCost { get; }
     }
 }

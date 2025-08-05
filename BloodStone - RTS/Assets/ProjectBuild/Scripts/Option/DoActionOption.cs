@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Option
+namespace Game.Gameplay.Options
 {
     public struct DoActionOption
     {

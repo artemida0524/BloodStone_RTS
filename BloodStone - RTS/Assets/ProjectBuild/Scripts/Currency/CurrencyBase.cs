@@ -3,15 +3,29 @@ using UnityEngine;
 
 namespace Currency
 {
-    public abstract class CurrencyBase : ICurrency
+    public class CurrencyBase : ICurrency
     {
-        public virtual int Count { get; protected set; } = 1000;
+        public string Name { get; protected set; } = "Default";
 
+        public virtual int Count { get; protected set; } = 1000;
         public virtual int MaxCount { get; protected set; } = 10000;
 
-        public bool IsFull => MaxCount == Count;
+        public bool IsFull => Count >= MaxCount;
 
-        public event Action<int> OnValueChange;
+        public event EventHandler OnDataChange;
+
+
+        public CurrencyBase(string name)
+        {
+            Name = name;
+        }
+
+        public CurrencyBase(string name, int count, int maxCount) : this(name)
+        {
+            MaxCount = maxCount;
+            Count = count;
+            Count = Mathf.Clamp(Count, 0, MaxCount);
+        }
 
         public void Add(int amount)
         {
@@ -44,7 +58,7 @@ namespace Currency
             return count;
         }
 
-        protected virtual void ValueChange() => OnValueChange?.Invoke(Count);
+        protected virtual void ValueChange() => OnDataChange?.Invoke(this, EventArgs.Empty);
 
     }
 

@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 4466164892201578848}
   - component: {fileID: 3617129780154213659}
   - component: {fileID: 72261789483609351}
-  - component: {fileID: 5951035943324424221}
+  - component: {fileID: 6539371748616591457}
   m_Layer: 5
   m_Name: UIBarContainer
   m_TagString: Untagged
@@ -205,7 +205,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &5951035943324424221
+--- !u!114 &6539371748616591457
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -214,9 +214,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7718997554391266381}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c2d0835c07fb0749893f4905183c7d8, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f9366cb225c3804fa4189199875dc9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiBarDataAssetList: {fileID: 8075090483131450208, guid: b380ad38397e0fa4c9133f990c9cb468, type: 3}
   container: {fileID: 1105824464670090107}
   uiBarPrefab: {fileID: 3657069266176552948, guid: 07760087e05c2b24aac4a60665212234, type: 3}
-  uiBarDataSOList: {fileID: 8075090483131450208, guid: b380ad38397e0fa4c9133f990c9cb468, type: 3}

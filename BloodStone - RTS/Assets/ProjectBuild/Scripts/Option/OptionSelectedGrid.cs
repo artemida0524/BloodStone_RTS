@@ -1,9 +1,9 @@
-﻿using Option;
+﻿using static Game.Gameplay.Options.OptionUnitBase.Option;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Option
+namespace Game.Gameplay.Options
 {
     public class OptionSelectedGrid : MonoBehaviour
     {
@@ -61,7 +61,7 @@ namespace Option
             {
                 if (item.Value.Count > countOptioin)
                 {
-                    Debug.LogWarning($"Too much Action in one entity with the same name: {item.Key}");
+                    Debug.LogWarning($"Too much Action in one _entity with the same name: {item.Key}");
                     return;
                 }
                 if (item.Value.Count == countOptioin)

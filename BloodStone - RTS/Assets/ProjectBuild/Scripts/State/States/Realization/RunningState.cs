@@ -1,4 +1,4 @@
-﻿using Unit;
+﻿using Game.Gameplay.Units;
 using UnityEngine;
 
 namespace State
@@ -8,7 +8,6 @@ namespace State
         private readonly UnitBase unit;
         private readonly Vector3 point;
         private readonly float radius;
-
 
         private readonly float beginSpeed;
         public RunningState(UnitBase unit, Vector3 point, float radius)
@@ -39,8 +38,10 @@ namespace State
         public override void Exit()
         {
             base.Exit();
+            unit.Agent.ResetPath();
             unit.Agent.speed = beginSpeed;
         }
 
     }
+
 }

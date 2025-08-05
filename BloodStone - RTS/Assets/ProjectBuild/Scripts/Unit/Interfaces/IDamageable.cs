@@ -1,13 +1,11 @@
-﻿using System;
+﻿using Game.Gameplay.Entity;
+using System;
 
-namespace Unit
+namespace Game.Gameplay
 {
-    public interface IDamageable
+    public interface IDamageable : IEntity
     {
         event Action<int> OnTakeDamage;
         void TakeDamage(int amount);
     }
-
-
 }
-
